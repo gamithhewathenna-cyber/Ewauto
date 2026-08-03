@@ -83,6 +83,7 @@
 
     var prevBtn = document.getElementById('bikesPrev');
     var nextBtn = document.getElementById('bikesNext');
+    var selectBtns = Array.prototype.slice.call(document.querySelectorAll('.bike-select-btn'));
     var current = 0;
 
     function showBike(index) {
@@ -91,6 +92,7 @@
 
         panels[current].classList.remove('is-active');
         panels[next].classList.add('is-active');
+        selectBtns.forEach(function (btn, i) { btn.classList.toggle('is-active', i === next); });
 
         // Text/specs appear instantly with the panel; only the bike image
         // fades in.
@@ -108,6 +110,9 @@
 
     if (prevBtn) prevBtn.addEventListener('click', function () { showBike(current - 1); });
     if (nextBtn) nextBtn.addEventListener('click', function () { showBike(current + 1); });
+    selectBtns.forEach(function (btn, i) {
+        btn.addEventListener('click', function () { showBike(i); });
+    });
 
     // Each panel's colour swatches only affect that panel's own image stack.
     panels.forEach(function (panel) {

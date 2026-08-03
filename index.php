@@ -230,11 +230,20 @@ for ($n = 1; $n <= 5; $n++) {
                     </div>
                 </div>
             <?php endforeach; ?>
+            <?php if (count($bikes) > 1): ?>
+                <div class="bike-nav">
+                    <button type="button" id="bikesPrev" aria-label="Previous bike">&lsaquo;</button>
+                    <button type="button" id="bikesNext" aria-label="Next bike">&rsaquo;</button>
+                </div>
+            <?php endif; ?>
         </div>
         <?php if (count($bikes) > 1): ?>
-            <div class="bike-nav">
-                <button type="button" id="bikesPrev" aria-label="Previous bike">&lsaquo;</button>
-                <button type="button" id="bikesNext" aria-label="Next bike">&rsaquo;</button>
+            <div class="wrap">
+                <div class="bike-selector" id="bikeSelector">
+                    <?php foreach ($bikes as $bi => $bike): ?>
+                        <button type="button" class="bike-select-btn <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>"><?= e($bike['name']) ?></button>
+                    <?php endforeach; ?>
+                </div>
             </div>
         <?php endif; ?>
     <?php else: ?>
