@@ -19,14 +19,6 @@ function content_field_sections(): array
                 'intro_heading' => ['label' => 'Side heading', 'type' => 'textarea'],
             ],
         ],
-        'feature' => [
-            'title' => 'Our Bikes section intro (bikes themselves are managed under Bikes)',
-            'page'  => 'home',
-            'fields' => [
-                'feature_title' => ['label' => 'Section title', 'type' => 'text'],
-                'feature_sub'   => ['label' => 'Section subtitle', 'type' => 'textarea'],
-            ],
-        ],
         'world' => [
             'title' => 'World wide reach',
             'page'  => 'home',

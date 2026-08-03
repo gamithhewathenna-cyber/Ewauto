@@ -61,30 +61,39 @@
     restart();
 })();
 
-// Bike colour swatches + prev/next (bike.php)
+// Our Bikes carousel: left/right arrows switch bike model, swatches switch
+// that bike's colour (homepage).
 (function () {
-    var root = document.getElementById('bikeDetail');
-    if (!root) return;
+    var track = document.getElementById('bikesTrack');
+    if (!track) return;
 
-    var swatches = Array.prototype.slice.call(root.querySelectorAll('.swatch'));
-    var images = Array.prototype.slice.call(root.querySelectorAll('.bike-color-img'));
-    var prevBtn = document.getElementById('bikePrev');
-    var nextBtn = document.getElementById('bikeNext');
-    if (!swatches.length) return;
+    var panels = Array.prototype.slice.call(track.querySelectorAll('.bike-panel'));
+    if (!panels.length) return;
 
+    var prevBtn = document.getElementById('bikesPrev');
+    var nextBtn = document.getElementById('bikesNext');
     var current = 0;
 
-    function select(index) {
-        current = (index + swatches.length) % swatches.length;
-        swatches.forEach(function (b, j) { b.classList.toggle('is-active', j === current); });
-        images.forEach(function (img) {
-            img.classList.toggle('is-active', parseInt(img.dataset.index, 10) === current);
-        });
+    function showBike(index) {
+        current = (index + panels.length) % panels.length;
+        panels.forEach(function (p, i) { p.classList.toggle('is-active', i === current); });
     }
 
-    swatches.forEach(function (btn, i) {
-        btn.addEventListener('click', function () { select(i); });
+    if (prevBtn) prevBtn.addEventListener('click', function () { showBike(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { showBike(current + 1); });
+
+    // Each panel's colour swatches only affect that panel's own image stack.
+    panels.forEach(function (panel) {
+        var swatches = Array.prototype.slice.call(panel.querySelectorAll('.swatch'));
+        var images = Array.prototype.slice.call(panel.querySelectorAll('.bike-color-img'));
+
+        swatches.forEach(function (btn, i) {
+            btn.addEventListener('click', function () {
+                swatches.forEach(function (b, j) { b.classList.toggle('is-active', j === i); });
+                images.forEach(function (img) {
+                    img.classList.toggle('is-active', parseInt(img.dataset.index, 10) === i);
+                });
+            });
+        });
     });
-    if (prevBtn) prevBtn.addEventListener('click', function () { select(current - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { select(current + 1); });
 })();

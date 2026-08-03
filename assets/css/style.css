@@ -261,49 +261,16 @@ a { color: inherit; text-decoration: none; }
 .product-name { margin-top: 14px; font-weight: 700; font-size: 15px; }
 .product-desc { margin: 4px 0 0; color: #666; font-size: 13.5px; }
 
-/* ---------- Our Bikes (homepage showcase) ---------- */
-.bikes-showcase { background: var(--ink); color: #fff; padding: 80px 0; }
-.bikes-head { text-align: center; max-width: 640px; margin: 0 auto 46px; }
-.bikes-head h2 {
-    font-family: var(--display); font-weight: 800;
-    font-size: clamp(30px, 4vw, 44px); margin: 0 0 14px;
-}
-.bikes-head p { color: #b9b9b9; font-size: 15px; margin: 0; }
-.bikes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 26px;
-}
-.bike-card {
-    background: #202020; border-radius: 14px; padding: 22px;
-    text-align: center; text-decoration: none; color: #fff;
-    transition: transform .2s, background .2s;
-}
-.bike-card:hover { background: #262626; transform: translateY(-4px); }
-.bike-card-image { min-height: 170px; display: grid; place-items: center; margin-bottom: 14px; }
-.bike-card-image img { max-height: 170px; width: auto; margin: 0 auto; filter: drop-shadow(0 16px 20px rgba(0,0,0,.5)); }
-.bike-card-image .placeholder { min-height: 170px; width: 100%; }
-.bike-card-name { font-weight: 700; font-size: 15.5px; }
-.bike-card-tagline { color: #aaa; font-size: 12.5px; margin: 6px 0 0; }
-.bike-card-link { display: inline-flex; align-items: center; gap: 6px; color: var(--red); font-size: 13px; font-weight: 600; margin-top: 14px; }
-.bikes-empty { text-align: center; color: #999; }
-
-/* colour swatches (used on bike.php) */
-.swatches {
-    display: inline-flex; gap: 12px;
-    background: #2c2c2c; padding: 12px 16px; border-radius: 8px;
-}
-.swatch { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
-.swatch:hover { border-color: #fff; }
-.swatch.is-active { border-color: #fff; box-shadow: 0 0 0 2px var(--red); }
-
-/* ---------- Bike product page (bike.php) — same dark panel style as the
-   original Kunpeng feature section ---------- */
-.bike-detail {
+/* ---------- Our Bikes (homepage carousel) — same dark panel style as the
+   original Kunpeng feature section, one bike shown at a time ---------- */
+.bikes-showcase {
     background: var(--ink); color: #fff;
-    padding: 150px 0 90px; position: relative; overflow: hidden;
+    padding: 80px 0; position: relative; overflow: hidden;
 }
-.bike-detail .wrap { position: relative; z-index: 2; }
+.bikes-empty { text-align: center; color: #999; }
+.bike-panel { display: none; }
+.bike-panel.is-active { display: block; }
+.bike-panel .wrap { position: relative; z-index: 2; }
 .bike-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 .bike-detail-title {
     font-family: var(--display); font-weight: 800;
@@ -318,6 +285,13 @@ a { color: inherit; text-decoration: none; }
 .bike-progress .track { flex: 1; height: 1px; background: #555; }
 .bike-colors { margin-bottom: 10px; }
 .bike-colors .lbl { color: #b9b9b9; font-size: 14px; margin-bottom: 10px; }
+.swatches {
+    display: inline-flex; gap: 12px;
+    background: #2c2c2c; padding: 12px 16px; border-radius: 8px;
+}
+.swatch { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+.swatch:hover { border-color: #fff; }
+.swatch.is-active { border-color: #fff; box-shadow: 0 0 0 2px var(--red); }
 .bike-detail-specs {
     display: grid;
     grid-template-columns: repeat(3, auto);
@@ -334,7 +308,6 @@ a { color: inherit; text-decoration: none; }
     filter: drop-shadow(0 30px 40px rgba(0,0,0,.5));
 }
 .bike-color-img.is-active { position: relative; opacity: 1; z-index: 1; }
-.bike-detail-visual .placeholder { min-height: 300px; border-radius: 12px; }
 .bike-nav {
     position: absolute; right: 24px; bottom: 40px;
     display: flex; gap: 10px; z-index: 3;
@@ -345,9 +318,6 @@ a { color: inherit; text-decoration: none; }
     display: grid; place-items: center; transition: background .2s;
 }
 .bike-nav button:hover { background: var(--red); }
-.bike-notfound { padding: 160px 0 100px; text-align: center; }
-.bike-notfound h1 { font-family: var(--display); font-size: 36px; margin: 0 0 12px; }
-.bike-notfound p { color: #666; margin: 0 0 24px; }
 
 /* ---------- Worldwide ---------- */
 .world { padding: 84px 0; }
@@ -501,7 +471,6 @@ a { color: inherit; text-decoration: none; }
     }
     .nav-toggle { display: grid; place-items: center; }
     .hero { padding-top: 120px; }
-    .bike-detail { padding-top: 120px; }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
     .stats .stat:nth-child(2) { border-right: 0; }
     .spec-strip { grid-template-columns: repeat(2, 1fr); }

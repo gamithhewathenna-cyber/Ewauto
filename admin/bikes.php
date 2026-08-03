@@ -27,9 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($name === '') {
                 $error = 'Bike name is required.';
             } else {
-                $slugInput = sanitize_slug($_POST['slug'] ?? '');
-                $slug = $slugInput !== '' ? $slugInput : sanitize_slug($name);
-                $slug = unique_bike_slug($slug);
+                $slug = unique_bike_slug(sanitize_slug($name));
 
                 $maxOrder = (int) db()->query('SELECT COALESCE(MAX(sort_order), 0) FROM bikes')->fetchColumn();
                 db()->prepare('INSERT INTO bikes
@@ -61,34 +59,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($name === '') {
                 $error = 'Bike name is required.';
             } else {
-                $slugInput = sanitize_slug($_POST['slug'] ?? '');
-                if ($slugInput === '') {
-                    $slugInput = sanitize_slug($name);
-                }
-                $dupe = db()->prepare('SELECT id FROM bikes WHERE slug = ? AND id != ?');
-                $dupe->execute([$slugInput, $id]);
-                if ($dupe->fetch()) {
-                    $error = 'That URL slug is already used by another bike.';
-                } else {
-                    db()->prepare('UPDATE bikes SET slug=?, name=?, tagline=?, description=?,
-                        spec1_label=?, spec1_value=?, spec2_label=?, spec2_value=?,
-                        spec3_label=?, spec3_value=?, spec4_label=?, spec4_value=?,
-                        spec5_label=?, spec5_value=?, sort_order=?, active=? WHERE id=?')
-                        ->execute([
-                            $slugInput, $name,
-                            trim($_POST['tagline'] ?? ''),
-                            trim($_POST['description'] ?? ''),
-                            $specs['spec1_label'], $specs['spec1_value'],
-                            $specs['spec2_label'], $specs['spec2_value'],
-                            $specs['spec3_label'], $specs['spec3_value'],
-                            $specs['spec4_label'], $specs['spec4_value'],
-                            $specs['spec5_label'], $specs['spec5_value'],
-                            (int) ($_POST['sort_order'] ?? 0),
-                            isset($_POST['active']) ? 1 : 0,
-                            $id,
-                        ]);
-                    $notice = 'Bike updated.';
-                }
+                db()->prepare('UPDATE bikes SET name=?, tagline=?, description=?,
+                    spec1_label=?, spec1_value=?, spec2_label=?, spec2_value=?,
+                    spec3_label=?, spec3_value=?, spec4_label=?, spec4_value=?,
+                    spec5_label=?, spec5_value=?, sort_order=?, active=? WHERE id=?')
+                    ->execute([
+                        $name,
+                        trim($_POST['tagline'] ?? ''),
+                        trim($_POST['description'] ?? ''),
+                        $specs['spec1_label'], $specs['spec1_value'],
+                        $specs['spec2_label'], $specs['spec2_value'],
+                        $specs['spec3_label'], $specs['spec3_value'],
+                        $specs['spec4_label'], $specs['spec4_value'],
+                        $specs['spec5_label'], $specs['spec5_value'],
+                        (int) ($_POST['sort_order'] ?? 0),
+                        isset($_POST['active']) ? 1 : 0,
+                        $id,
+                    ]);
+                $notice = 'Bike updated.';
             }
         } elseif ($action === 'delete') {
             $id = (int) ($_POST['id'] ?? 0);
@@ -114,7 +102,7 @@ $token = csrf_token();
 
 admin_header('bikes', 'Bikes');
 ?>
-<p class="admin-lead">Manage your bike models. Each bike gets its own page at <code>bike.php?slug=...</code> and shows on the homepage "Our Bikes" section. After adding a bike, click "Manage colours" to upload images for each colour option — visitors can click a colour to change the bike photo.</p>
+<p class="admin-lead">Manage your bike models. They show on the homepage — visitors flip between bikes with the left/right arrows, and between colours by clicking a swatch. After adding a bike, click "Manage colours" to upload images for each colour option.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
@@ -122,7 +110,7 @@ admin_header('bikes', 'Bikes');
 <?php foreach ($bikes as $b): ?>
     <div class="card">
         <div class="image-card-head" style="margin-bottom:14px;">
-            <h3><?= e($b['name']) ?> <code>/bike.php?slug=<?= e($b['slug']) ?></code></h3>
+            <h3><?= e($b['name']) ?></h3>
             <code><?= $b['active'] ? 'active' : 'hidden' ?></code>
         </div>
         <p class="admin-lead" style="margin:0 0 14px;">
@@ -135,9 +123,6 @@ admin_header('bikes', 'Bikes');
 
             <label class="field">Name
                 <input type="text" name="name" value="<?= e($b['name']) ?>" required>
-            </label>
-            <label class="field">URL slug
-                <input type="text" name="slug" value="<?= e($b['slug']) ?>">
             </label>
             <label class="field">Tagline
                 <input type="text" name="tagline" value="<?= e($b['tagline']) ?>">
@@ -180,9 +165,6 @@ admin_header('bikes', 'Bikes');
 
         <label class="field">Name
             <input type="text" name="name" placeholder="e.g. EV Pro TWO" required>
-        </label>
-        <label class="field">URL slug <span style="font-weight:400;color:#999;">(optional, auto-generated from name)</span>
-            <input type="text" name="slug" placeholder="ev-pro-two">
         </label>
         <label class="field">Tagline
             <input type="text" name="tagline">

@@ -135,20 +135,12 @@ function all_slides(bool $onlyActive = false): array
 }
 
 /**
- * ---- Bikes (product pages) ----
+ * ---- Bikes (shown in the homepage bike carousel) ----
  */
 function all_bikes(bool $onlyActive = false): array
 {
     $sql = 'SELECT * FROM bikes' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
     return db()->query($sql)->fetchAll();
-}
-
-function get_bike_by_slug(string $slug): ?array
-{
-    $stmt = db()->prepare('SELECT * FROM bikes WHERE slug = ? LIMIT 1');
-    $stmt->execute([$slug]);
-    $row = $stmt->fetch();
-    return $row ?: null;
 }
 
 function bike_colors(int $bikeId): array

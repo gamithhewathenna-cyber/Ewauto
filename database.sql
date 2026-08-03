@@ -218,9 +218,9 @@ CREATE TABLE IF NOT EXISTS products (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ---------------------------------------------------------------------------
--- Bike models. Each bike gets its own product page (bike.php?slug=...) and
--- can have multiple colour variants (see bike_colors below) — selecting a
--- colour on the bike page swaps the shown image.
+-- Bike models, shown one at a time in the homepage bike carousel. Each bike
+-- can have multiple colour variants (see bike_colors below) — clicking a
+-- colour swatch swaps the shown image; left/right arrows switch bikes.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS bikes (
     id          INT AUTO_INCREMENT PRIMARY KEY,

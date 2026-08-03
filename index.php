@@ -14,18 +14,20 @@ try {
     $images = []; $content = []; $slides = []; $bikes = [];
 }
 
-// Attach each bike's cover colour (first colour that actually has an image).
+// Attach each bike's colours (only ones with an uploaded image) and specs,
+// so the homepage carousel can render every bike fully server-side.
 foreach ($bikes as &$bike) {
-    $bikeColorRows = bike_colors((int) $bike['id']);
-    $bike['cover'] = null;
-    foreach ($bikeColorRows as $colorRow) {
-        if (!empty($colorRow['filename'])) {
-            $bike['cover'] = $colorRow;
-            break;
+    $bike['colors'] = array_values(array_filter(bike_colors((int) $bike['id']), static fn($col) => !empty($col['filename'])));
+    $bike['specs'] = [];
+    for ($n = 1; $n <= 5; $n++) {
+        if (trim((string) $bike["spec{$n}_label"]) !== '' && trim((string) $bike["spec{$n}_value"]) !== '') {
+            $bike['specs'][] = ['label' => $bike["spec{$n}_label"], 'value' => $bike["spec{$n}_value"]];
         }
     }
 }
 unset($bike);
+// Only bikes with at least one colour image are worth showing.
+$bikes = array_values(array_filter($bikes, static fn($b) => !empty($b['colors'])));
 
 try {
     maybe_show_maintenance_page();
@@ -185,32 +187,59 @@ for ($n = 1; $n <= 5; $n++) {
 
 <!-- ===== Our Bikes ===== -->
 <section class="bikes-showcase" id="feature">
-    <div class="wrap">
-        <div class="bikes-head">
-            <h2><?= e($c('feature_title', 'OUR BIKES')) ?></h2>
-            <p><?= e($c('feature_sub', 'Explore our full range of electric bikes — pick your favourite colour on each bike\'s page.')) ?></p>
-        </div>
-        <?php if (!empty($bikes)): ?>
-            <div class="bikes-grid">
-                <?php foreach ($bikes as $bike): ?>
-                    <a class="bike-card" href="<?= e(BASE_URL) ?>/bike.php?slug=<?= e($bike['slug']) ?>">
-                        <div class="bike-card-image">
-                            <?php if ($bike['cover'] && $bike['cover']['filename']): ?>
-                                <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($bike['cover']['filename'])) ?>" alt="<?= e($bike['cover']['alt_text'] ?: $bike['name']) ?>">
-                            <?php else: ?>
-                                <div class="placeholder">No image yet</div>
-                            <?php endif; ?>
+    <?php if (!empty($bikes)): ?>
+        <div class="bikes-track" id="bikesTrack">
+            <?php foreach ($bikes as $bi => $bike): ?>
+                <div class="bike-panel <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>">
+                    <div class="wrap">
+                        <div class="bike-detail-grid">
+                            <div class="bike-detail-text">
+                                <h2 class="bike-detail-title"><?= e($bike['name']) ?></h2>
+                                <?php if ($bike['tagline']): ?><p class="bike-detail-tagline"><?= e($bike['tagline']) ?></p><?php endif; ?>
+                                <div class="bike-progress"><span class="knob"></span><span class="track"></span></div>
+
+                                <div class="bike-colors">
+                                    <div class="lbl">colors:</div>
+                                    <div class="swatches">
+                                        <?php foreach ($bike['colors'] as $ci => $col): ?>
+                                            <button type="button" class="swatch <?= $ci === 0 ? 'is-active' : '' ?>"
+                                                    style="background:<?= e($col['color_hex']) ?>"
+                                                    data-index="<?= $ci ?>"
+                                                    aria-label="<?= e($col['color_name']) ?>" title="<?= e($col['color_name']) ?>"></button>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+
+                                <?php if (!empty($bike['specs'])): ?>
+                                    <div class="bike-detail-specs">
+                                        <?php foreach ($bike['specs'] as $s): ?>
+                                            <div><div class="k"><?= e($s['label']) ?></div><div class="v"><?= e($s['value']) ?></div></div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($bike['description']): ?><p class="bike-detail-desc"><?= nl2br(e($bike['description'])) ?></p><?php endif; ?>
+                            </div>
+                            <div class="bike-detail-visual">
+                                <?php foreach ($bike['colors'] as $ci => $col): ?>
+                                    <img class="bike-color-img <?= $ci === 0 ? 'is-active' : '' ?>" data-index="<?= $ci ?>"
+                                         src="<?= e(UPLOAD_URL . '/' . rawurlencode($col['filename'])) ?>" alt="<?= e($col['alt_text'] ?: $bike['name']) ?>">
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                        <div class="bike-card-name"><?= e($bike['name']) ?></div>
-                        <?php if ($bike['tagline']): ?><p class="bike-card-tagline"><?= e($bike['tagline']) ?></p><?php endif; ?>
-                        <span class="bike-card-link">View details <span class="arrow">&rsaquo;</span></span>
-                    </a>
-                <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <?php if (count($bikes) > 1): ?>
+            <div class="bike-nav">
+                <button type="button" id="bikesPrev" aria-label="Previous bike">&lsaquo;</button>
+                <button type="button" id="bikesNext" aria-label="Next bike">&rsaquo;</button>
             </div>
-        <?php else: ?>
-            <p class="bikes-empty">No bikes added yet — add some from the admin panel.</p>
         <?php endif; ?>
-    </div>
+    <?php else: ?>
+        <div class="wrap"><p class="bikes-empty">No bikes added yet — add some from the admin panel.</p></div>
+    <?php endif; ?>
 </section>
 
 <!-- ===== Worldwide reach ===== -->
