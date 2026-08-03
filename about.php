@@ -83,9 +83,11 @@ $team = [
 <section class="contact-hero">
     <div class="contact-hero-blob"></div>
     <div class="wrap">
-        <p class="hero-eyebrow"><?= e($c('about_eyebrow', 'WHO WE ARE')) ?></p>
-        <h1 class="contact-title"><?= e($c('about_title', 'ABOUT US')) ?></h1>
-        <p class="contact-intro"><?= e($c('about_intro', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?></p>
+        <div class="contact-hero-text">
+            <p class="hero-eyebrow"><?= e($c('about_eyebrow', 'WHO WE ARE')) ?></p>
+            <h1 class="contact-title"><?= e($c('about_title', 'ABOUT US')) ?></h1>
+            <p class="contact-intro"><?= e($c('about_intro', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?></p>
+        </div>
     </div>
 </section>
 

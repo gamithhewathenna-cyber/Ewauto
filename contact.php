@@ -98,9 +98,11 @@ $token = csrf_token();
 <section class="contact-hero">
     <div class="contact-hero-blob"></div>
     <div class="wrap">
-        <p class="hero-eyebrow"><?= e($c('contact_eyebrow', 'GET IN TOUCH')) ?></p>
-        <h1 class="contact-title"><?= e($c('contact_title', 'CONTACT US')) ?></h1>
-        <p class="contact-intro"><?= e($c('contact_intro', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?></p>
+        <div class="contact-hero-text">
+            <p class="hero-eyebrow"><?= e($c('contact_eyebrow', 'GET IN TOUCH')) ?></p>
+            <h1 class="contact-title"><?= e($c('contact_title', 'CONTACT US')) ?></h1>
+            <p class="contact-intro"><?= e($c('contact_intro', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?></p>
+        </div>
     </div>
 </section>
 

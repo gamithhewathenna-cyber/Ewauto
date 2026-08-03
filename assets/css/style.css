@@ -539,7 +539,8 @@ a { color: inherit; text-decoration: none; }
     border-radius: 50%;
     z-index: 0;
 }
-.contact-hero .wrap { position: relative; z-index: 1; max-width: 640px; }
+.contact-hero .wrap { position: relative; z-index: 1; }
+.contact-hero-text { max-width: 640px; }
 .contact-title {
     font-family: var(--display);
     font-weight: 900;
