@@ -7,24 +7,6 @@
 function content_field_sections(): array
 {
     return [
-        'hero' => [
-            'title' => 'Hero banner',
-            'page'  => 'home',
-            'images' => [
-                'hero_scooter' => ['label' => 'Hero image (used only if no slider images are set)', 'size' => '1200 × 1200px, transparent PNG recommended'],
-            ],
-            'fields' => [
-                'hero_eyebrow'    => ['label' => 'Eyebrow text', 'type' => 'text'],
-                'hero_title'      => ['label' => 'Big title', 'type' => 'text'],
-                'hero_copy'       => ['label' => 'Paragraph', 'type' => 'textarea'],
-                'hero_cta_label'  => ['label' => 'Button label', 'type' => 'text'],
-                'spec1_label' => ['label' => 'Spec 1 label', 'type' => 'text'], 'spec1_value' => ['label' => 'Spec 1 value', 'type' => 'text'],
-                'spec2_label' => ['label' => 'Spec 2 label', 'type' => 'text'], 'spec2_value' => ['label' => 'Spec 2 value', 'type' => 'text'],
-                'spec3_label' => ['label' => 'Spec 3 label', 'type' => 'text'], 'spec3_value' => ['label' => 'Spec 3 value', 'type' => 'text'],
-                'spec4_label' => ['label' => 'Spec 4 label', 'type' => 'text'], 'spec4_value' => ['label' => 'Spec 4 value', 'type' => 'text'],
-                'spec5_label' => ['label' => 'Spec 5 label', 'type' => 'text'], 'spec5_value' => ['label' => 'Spec 5 value', 'type' => 'text'],
-            ],
-        ],
         'intro' => [
             'title' => 'Intro & lineup',
             'page'  => 'home',
