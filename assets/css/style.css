@@ -321,11 +321,12 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Worldwide ---------- */
 .world { padding: 84px 0; }
-.world-head { text-align: center; max-width: 620px; margin: 0 auto 50px; }
+.world-head { text-align: center; max-width: 720px; margin: 0 auto 50px; }
 .world-head h2 {
     font-family: var(--display);
-    font-weight: 800; font-size: clamp(30px, 4vw, 44px);
+    font-weight: 800; font-size: clamp(18px, 5vw, 44px);
     margin: 0 0 14px;
+    white-space: nowrap;
 }
 .world-head h2 .hl { color: var(--red); }
 .world-head p { color: #666; font-size: 15px; }
