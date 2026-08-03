@@ -9,6 +9,7 @@ function content_field_sections(): array
     return [
         'hero' => [
             'title' => 'Hero banner',
+            'page'  => 'home',
             'images' => [
                 'hero_scooter' => 'Hero image (used only if no slider images are set)',
             ],
@@ -26,6 +27,7 @@ function content_field_sections(): array
         ],
         'intro' => [
             'title' => 'Intro & lineup',
+            'page'  => 'home',
             'images' => [
                 'lineup_vehicles' => 'Lineup row image (used only if no products are set)',
             ],
@@ -37,6 +39,7 @@ function content_field_sections(): array
         ],
         'feature' => [
             'title' => 'Kunpeng feature',
+            'page'  => 'home',
             'images' => [
                 'kunpeng_scooter' => 'Feature image',
             ],
@@ -52,6 +55,7 @@ function content_field_sections(): array
         ],
         'world' => [
             'title' => 'World wide reach',
+            'page'  => 'home',
             'images' => [
                 'world_map'          => 'World map image',
                 'testimonial_avatar' => 'Testimonial avatar',
@@ -67,6 +71,7 @@ function content_field_sections(): array
         ],
         'cta' => [
             'title' => 'Call to action & stats',
+            'page'  => 'home',
             'images' => [
                 'cta_rider' => 'CTA background image',
             ],
@@ -81,7 +86,8 @@ function content_field_sections(): array
             ],
         ],
         'footer' => [
-            'title' => 'Footer & contact',
+            'title' => 'Footer & contact (shown on every page)',
+            'page'  => 'home',
             'fields' => [
                 'footer_about'  => ['label' => 'About paragraph', 'type' => 'textarea'],
                 'contact_email' => ['label' => 'Contact email', 'type' => 'text'],
@@ -91,6 +97,7 @@ function content_field_sections(): array
         ],
         'about_page' => [
             'title' => 'About page (about.php)',
+            'page'  => 'about',
             'images' => [
                 'about_story_image'   => 'Our Story photo',
                 'about_stats_bg'      => 'Stats band background (optional)',
@@ -142,6 +149,7 @@ function content_field_sections(): array
         ],
         'contact_page' => [
             'title' => 'Contact page (contact.php)',
+            'page'  => 'contact',
             'fields' => [
                 'contact_eyebrow'      => ['label' => 'Eyebrow text', 'type' => 'text'],
                 'contact_title'        => ['label' => 'Page title', 'type' => 'text'],

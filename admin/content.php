@@ -68,14 +68,31 @@ $contentValues = all_content();
 $images = all_images();
 $token = csrf_token();
 
+$pageTabs = [
+    'home'    => 'Home Content',
+    'about'   => 'About Content',
+    'contact' => 'Contact Us Content',
+];
+$activePage = $_GET['page'] ?? 'home';
+if (!isset($pageTabs[$activePage])) {
+    $activePage = 'home';
+}
+$visibleSections = array_filter($sections, static fn($s) => ($s['page'] ?? 'home') === $activePage);
+
 admin_header('content', 'Page Content Change');
 ?>
-<p class="admin-lead">Edit the text and section images shown on the homepage. Changes appear on the live site immediately.</p>
+<p class="admin-lead">Edit the text and section images shown on each page. Changes appear on the live site immediately.</p>
+
+<div class="tab-nav">
+    <?php foreach ($pageTabs as $key => $label): ?>
+        <a href="content.php?page=<?= e($key) ?>" class="<?= $key === $activePage ? 'is-active' : '' ?>"><?= e($label) ?></a>
+    <?php endforeach; ?>
+</div>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
 
-<?php foreach ($sections as $section): ?>
+<?php foreach ($visibleSections as $section): ?>
     <div class="card">
         <h3><?= e($section['title']) ?></h3>
 
@@ -94,7 +111,7 @@ admin_header('content', 'Page Content Change');
                                 <div class="preview-empty">No image yet</div>
                             <?php endif; ?>
                         </div>
-                        <form method="post" enctype="multipart/form-data" class="image-form">
+                        <form method="post" action="content.php?page=<?= e($activePage) ?>" enctype="multipart/form-data" class="image-form">
                             <input type="hidden" name="csrf" value="<?= e($token) ?>">
                             <input type="hidden" name="slot" value="<?= e($slot) ?>">
                             <input type="hidden" name="action" value="save_image">
@@ -117,7 +134,7 @@ admin_header('content', 'Page Content Change');
             </div>
         <?php endif; ?>
 
-        <form method="post" class="content-fields">
+        <form method="post" action="content.php?page=<?= e($activePage) ?>" class="content-fields">
             <input type="hidden" name="csrf" value="<?= e($token) ?>">
             <input type="hidden" name="action" value="save_text">
             <?php foreach ($section['fields'] as $key => $meta): ?>

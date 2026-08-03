@@ -23,14 +23,20 @@ admin_header('dashboard', 'Dashboard');
         <div class="num"><?= $productCount ?></div>
         <div class="lbl">Products</div>
     </a>
-    <a href="content.php" class="stat-card">
-        <div class="num">&#9998;</div>
-        <div class="lbl">Edit page content</div>
-    </a>
     <a href="settings.php" class="stat-card">
         <div class="num">&#9881;</div>
         <div class="lbl">Site settings</div>
     </a>
+</div>
+
+<div class="card">
+    <h3>Page content</h3>
+    <p class="admin-lead" style="margin-bottom:16px;">Jump straight to the editable text and images for each page.</p>
+    <div class="tab-nav">
+        <a href="content.php?page=home">Home Content</a>
+        <a href="content.php?page=about">About Content</a>
+        <a href="content.php?page=contact">Contact Us Content</a>
+    </div>
 </div>
 <?php
 admin_footer();

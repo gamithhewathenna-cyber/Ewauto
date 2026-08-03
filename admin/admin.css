@@ -114,6 +114,18 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
 }
 .image-grid-compact { margin-bottom: 18px; }
 .image-grid-compact .image-card { padding: 14px; gap: 10px; }
+
+/* ---- tabs (Page Content Change) ---- */
+.tab-nav {
+    display: flex; gap: 6px; border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+}
+.tab-nav a {
+    color: #666; text-decoration: none; font-weight: 600; font-size: 13.5px;
+    padding: 10px 16px; border-bottom: 2px solid transparent;
+}
+.tab-nav a:hover { color: var(--maroon); }
+.tab-nav a.is-active { color: var(--maroon); border-bottom-color: var(--maroon); }
 .image-card {
     background: #fff; border: 1px solid var(--line); border-radius: 12px;
     padding: 18px; display: flex; flex-direction: column; gap: 14px;
