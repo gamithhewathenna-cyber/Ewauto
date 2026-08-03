@@ -98,6 +98,7 @@ admin_header('slides', 'Slider Images');
                 <h3>Slide #<?= (int) $s['id'] ?></h3>
                 <code><?= $s['active'] ? 'active' : 'hidden' ?></code>
             </div>
+            <p class="size-hint">Recommended size: 1200 × 1200px, transparent PNG recommended</p>
             <div class="preview">
                 <?php if ($s['filename']): ?>
                     <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($s['filename'])) ?>" alt="<?= e($s['alt_text']) ?>">
@@ -142,6 +143,7 @@ admin_header('slides', 'Slider Images');
 
     <div class="image-card">
         <div class="image-card-head"><h3>Add new slide</h3></div>
+        <p class="size-hint">Recommended size: 1200 × 1200px, transparent PNG recommended</p>
         <form method="post" enctype="multipart/form-data" class="image-form">
             <input type="hidden" name="csrf" value="<?= e($token) ?>">
             <input type="hidden" name="action" value="add">

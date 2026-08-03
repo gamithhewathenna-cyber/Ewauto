@@ -11,7 +11,7 @@ function content_field_sections(): array
             'title' => 'Hero banner',
             'page'  => 'home',
             'images' => [
-                'hero_scooter' => 'Hero image (used only if no slider images are set)',
+                'hero_scooter' => ['label' => 'Hero image (used only if no slider images are set)', 'size' => '1200 × 1200px, transparent PNG recommended'],
             ],
             'fields' => [
                 'hero_eyebrow'    => ['label' => 'Eyebrow text', 'type' => 'text'],
@@ -29,7 +29,7 @@ function content_field_sections(): array
             'title' => 'Intro & lineup',
             'page'  => 'home',
             'images' => [
-                'lineup_vehicles' => 'Lineup row image (used only if no products are set)',
+                'lineup_vehicles' => ['label' => 'Lineup row image (used only if no products are set)', 'size' => '1600 × 500px'],
             ],
             'fields' => [
                 'intro_para1'   => ['label' => 'Paragraph 1', 'type' => 'textarea'],
@@ -41,7 +41,7 @@ function content_field_sections(): array
             'title' => 'Kunpeng feature',
             'page'  => 'home',
             'images' => [
-                'kunpeng_scooter' => 'Feature image',
+                'kunpeng_scooter' => ['label' => 'Feature image', 'size' => '1200 × 1200px, transparent PNG recommended'],
             ],
             'fields' => [
                 'feature_title' => ['label' => 'Title', 'type' => 'text'],
@@ -57,8 +57,8 @@ function content_field_sections(): array
             'title' => 'World wide reach',
             'page'  => 'home',
             'images' => [
-                'world_map'          => 'World map image',
-                'testimonial_avatar' => 'Testimonial avatar',
+                'world_map'          => ['label' => 'World map image', 'size' => '1000 × 700px'],
+                'testimonial_avatar' => ['label' => 'Testimonial avatar', 'size' => '200 × 200px, square'],
             ],
             'fields' => [
                 'world_heading_prefix'    => ['label' => 'Heading prefix', 'type' => 'text'],
@@ -73,7 +73,7 @@ function content_field_sections(): array
             'title' => 'Call to action & stats',
             'page'  => 'home',
             'images' => [
-                'cta_rider' => 'CTA background image',
+                'cta_rider' => ['label' => 'CTA background image', 'size' => '1600 × 900px'],
             ],
             'fields' => [
                 'cta_heading'      => ['label' => 'Heading', 'type' => 'text'],
@@ -99,16 +99,16 @@ function content_field_sections(): array
             'title' => 'About page (about.php)',
             'page'  => 'about',
             'images' => [
-                'about_story_image'   => 'Our Story photo',
-                'about_stats_bg'      => 'Stats band background (optional)',
-                'about_whatwedo_image' => 'What We Do photo',
-                'about_vision_image_1' => 'Vision/Mission photo 1',
-                'about_vision_image_2' => 'Vision/Mission photo 2',
-                'about_team_1'         => 'Team photo 1',
-                'about_team_2'         => 'Team photo 2',
-                'about_team_3'         => 'Team photo 3',
-                'about_team_4'         => 'Team photo 4',
-                'about_world_map'      => 'World reach map',
+                'about_story_image'    => ['label' => 'Our Story photo', 'size' => '1000 × 700px'],
+                'about_stats_bg'       => ['label' => 'Stats band background (optional)', 'size' => '1600 × 500px'],
+                'about_whatwedo_image' => ['label' => 'What We Do photo', 'size' => '600 × 800px, portrait'],
+                'about_vision_image_1' => ['label' => 'Vision/Mission photo 1', 'size' => '500 × 500px, transparent PNG recommended'],
+                'about_vision_image_2' => ['label' => 'Vision/Mission photo 2', 'size' => '500 × 500px, transparent PNG recommended'],
+                'about_team_1'         => ['label' => 'Team photo 1', 'size' => '600 × 800px, portrait (3:4)'],
+                'about_team_2'         => ['label' => 'Team photo 2', 'size' => '600 × 800px, portrait (3:4)'],
+                'about_team_3'         => ['label' => 'Team photo 3', 'size' => '600 × 800px, portrait (3:4)'],
+                'about_team_4'         => ['label' => 'Team photo 4', 'size' => '600 × 800px, portrait (3:4)'],
+                'about_world_map'      => ['label' => 'World reach map', 'size' => '1000 × 700px'],
             ],
             'fields' => [
                 'about_eyebrow' => ['label' => 'Eyebrow text', 'type' => 'text'],

@@ -3,9 +3,9 @@ require_once __DIR__ . '/layout.php';
 require_once __DIR__ . '/../includes/uploads.php';
 
 const BRAND_IMAGE_SLOTS = [
-    'logo_header' => 'Header logo',
-    'logo_footer' => 'Footer logo',
-    'favicon'     => 'Favicon',
+    'logo_header' => ['label' => 'Header logo', 'size' => '240 × 60px, transparent PNG/SVG recommended'],
+    'logo_footer' => ['label' => 'Footer logo', 'size' => '240 × 60px, transparent PNG/SVG recommended'],
+    'favicon'     => ['label' => 'Favicon', 'size' => '512 × 512px, square PNG/SVG'],
 ];
 
 $notice = '';
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (!$error) {
                         db()->prepare('UPDATE images SET filename = ?, alt_text = ? WHERE slot = ?')
                             ->execute([$newFilename, trim($_POST['alt_text'] ?? $row['alt_text']), $slot]);
-                        $notice = BRAND_IMAGE_SLOTS[$slot] . ' updated.';
+                        $notice = BRAND_IMAGE_SLOTS[$slot]['label'] . ' updated.';
                     }
                 }
             }
@@ -131,12 +131,13 @@ admin_header('settings', 'Settings');
     <h3>Branding</h3>
     <p class="admin-lead" style="margin-bottom:16px;">Upload your logo, footer logo, and browser favicon (PNG or SVG recommended, square for the favicon).</p>
     <div class="image-grid image-grid-compact">
-        <?php foreach (BRAND_IMAGE_SLOTS as $slot => $label): $img = $images[$slot] ?? null; ?>
+        <?php foreach (BRAND_IMAGE_SLOTS as $slot => $slotMeta): $img = $images[$slot] ?? null; ?>
             <div class="image-card">
                 <div class="image-card-head">
-                    <h4><?= e($label) ?></h4>
+                    <h4><?= e($slotMeta['label']) ?></h4>
                     <code><?= e($slot) ?></code>
                 </div>
+                <p class="size-hint">Recommended size: <?= e($slotMeta['size']) ?></p>
                 <div class="preview">
                     <?php if ($img && $img['filename']): ?>
                         <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($img['filename'])) ?>" alt="<?= e($img['alt_text'] ?? '') ?>">

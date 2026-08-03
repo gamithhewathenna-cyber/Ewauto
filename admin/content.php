@@ -98,12 +98,13 @@ admin_header('content', 'Page Content Change');
 
         <?php if (!empty($section['images'])): ?>
             <div class="image-grid image-grid-compact">
-                <?php foreach ($section['images'] as $slot => $slotLabel): $img = $images[$slot] ?? null; ?>
+                <?php foreach ($section['images'] as $slot => $slotMeta): $img = $images[$slot] ?? null; ?>
                     <div class="image-card">
                         <div class="image-card-head">
-                            <h4><?= e($slotLabel) ?></h4>
+                            <h4><?= e($slotMeta['label']) ?></h4>
                             <code><?= e($slot) ?></code>
                         </div>
+                        <?php if (!empty($slotMeta['size'])): ?><p class="size-hint">Recommended size: <?= e($slotMeta['size']) ?></p><?php endif; ?>
                         <div class="preview">
                             <?php if ($img && $img['filename']): ?>
                                 <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($img['filename'])) ?>" alt="<?= e($img['alt_text'] ?? '') ?>">

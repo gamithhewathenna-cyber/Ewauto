@@ -103,6 +103,7 @@ admin_header('products', 'Product Images');
                 <h3><?= e($p['name']) ?></h3>
                 <code><?= $p['active'] ? 'active' : 'hidden' ?></code>
             </div>
+            <p class="size-hint">Recommended size: 800 × 800px, square</p>
             <div class="preview">
                 <?php if ($p['filename']): ?>
                     <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($p['filename'])) ?>" alt="<?= e($p['alt_text']) ?>">
@@ -144,6 +145,7 @@ admin_header('products', 'Product Images');
 
     <div class="image-card">
         <div class="image-card-head"><h3>Add new product</h3></div>
+        <p class="size-hint">Recommended size: 800 × 800px, square</p>
         <form method="post" enctype="multipart/form-data" class="image-form">
             <input type="hidden" name="csrf" value="<?= e($token) ?>">
             <input type="hidden" name="action" value="add">
