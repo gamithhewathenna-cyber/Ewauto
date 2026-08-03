@@ -120,7 +120,6 @@ $whatWeDoItems = [
 <!-- ===== What We Do ===== -->
 <section class="whatwedo-section reveal">
     <div class="wrap">
-        <h2 class="whatwedo-heading"><?= e($c('whatwedo_heading', 'WHAT WE DO')) ?></h2>
         <div class="whatwedo-grid">
             <div class="whatwedo-image">
                 <?php if ($url = image_url($images, 'about_whatwedo_image')): ?>
@@ -129,18 +128,21 @@ $whatWeDoItems = [
                     <div class="placeholder">Photo</div>
                 <?php endif; ?>
             </div>
-            <div class="whatwedo-items">
-                <?php foreach ($whatWeDoItems as $item): ?>
-                    <div class="whatwedo-item">
-                        <span class="whatwedo-icon">
-                            <svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6-5.5-3-5.5 3 1-6L3 8.9 9 8z"/></svg>
-                        </span>
-                        <div class="whatwedo-item-text">
-                            <strong><?= e($item['title']) ?></strong>
-                            <p><?= e($item['text']) ?></p>
+            <div class="whatwedo-content">
+                <h2 class="whatwedo-heading"><?= e($c('whatwedo_heading', 'WHAT WE DO')) ?></h2>
+                <div class="whatwedo-items">
+                    <?php foreach ($whatWeDoItems as $item): ?>
+                        <div class="whatwedo-item">
+                            <span class="whatwedo-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6-5.5-3-5.5 3 1-6L3 8.9 9 8z"/></svg>
+                            </span>
+                            <div class="whatwedo-item-text">
+                                <strong><?= e($item['title']) ?></strong>
+                                <p><?= e($item['text']) ?></p>
+                            </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     </div>
