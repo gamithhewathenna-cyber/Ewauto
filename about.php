@@ -49,14 +49,6 @@ $team = [
 </head>
 <body>
 
-<div id="pageLoader" class="page-loader">
-    <div class="loader-mark">
-        <span class="ring"></span>
-        <span class="dot">&#9883;</span>
-    </div>
-</div>
-<noscript><style>.page-loader{display:none!important;}</style></noscript>
-
 <!-- ===== Header ===== -->
 <header class="site-header">
     <div class="wrap">
@@ -98,7 +90,7 @@ $team = [
 </section>
 
 <!-- ===== Our Story ===== -->
-<section class="story-section">
+<section class="story-section reveal">
     <div class="wrap">
         <div class="story-grid">
             <div class="story-image">
@@ -118,7 +110,7 @@ $team = [
 </section>
 
 <!-- ===== Stats band ===== -->
-<section class="about-stats-band">
+<section class="about-stats-band reveal">
     <?php if ($url = image_url($images, 'about_stats_bg')): ?>
         <img class="about-stats-bg" src="<?= e($url) ?>" alt="">
     <?php endif; ?>
@@ -131,7 +123,7 @@ $team = [
 </section>
 
 <!-- ===== What We Do ===== -->
-<section class="whatwedo-section">
+<section class="whatwedo-section reveal">
     <div class="wrap">
         <h2 class="whatwedo-heading"><?= e($c('whatwedo_heading', 'WHAT WE DO')) ?></h2>
         <div class="whatwedo-grid">
@@ -157,7 +149,7 @@ $team = [
 </section>
 
 <!-- ===== Vision & Mission ===== -->
-<section class="vision-mission-section">
+<section class="vision-mission-section reveal">
     <div class="wrap">
         <div class="vision-mission">
             <div class="vm-card vm-vision">
@@ -181,7 +173,7 @@ $team = [
 </section>
 
 <!-- ===== Team / values ===== -->
-<section class="team-section">
+<section class="team-section reveal">
     <div class="team-grid">
         <?php foreach ($team as $member): ?>
             <div class="team-card">
@@ -200,7 +192,7 @@ $team = [
 </section>
 
 <!-- ===== Bottom CTA + world map ===== -->
-<section class="about-cta-section">
+<section class="about-cta-section reveal">
     <div class="wrap">
         <div class="about-cta-grid">
             <div class="about-cta-copy">

@@ -64,14 +64,6 @@ $token = csrf_token();
 </head>
 <body>
 
-<div id="pageLoader" class="page-loader">
-    <div class="loader-mark">
-        <span class="ring"></span>
-        <span class="dot">&#9883;</span>
-    </div>
-</div>
-<noscript><style>.page-loader{display:none!important;}</style></noscript>
-
 <!-- ===== Header ===== -->
 <header class="site-header">
     <div class="wrap">
@@ -113,7 +105,7 @@ $token = csrf_token();
 </section>
 
 <!-- ===== Info cards ===== -->
-<section class="contact-cards-section">
+<section class="contact-cards-section reveal">
     <div class="wrap">
         <div class="contact-cards">
             <div class="contact-card">
@@ -142,7 +134,7 @@ $token = csrf_token();
 </section>
 
 <!-- ===== Get in touch form ===== -->
-<section class="contact-form-section">
+<section class="contact-form-section reveal">
     <div class="wrap">
         <h2 class="form-heading"><?= e($c('form_heading', 'GET IN TOUCH')) ?></h2>
 
@@ -175,7 +167,7 @@ $token = csrf_token();
 </section>
 
 <!-- ===== Map ===== -->
-<section class="contact-map">
+<section class="contact-map reveal">
     <iframe
         src="https://www.google.com/maps?q=<?= urlencode($c('contact_address', 'London Eye, London, UK')) ?>&output=embed"
         loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location map"></iframe>

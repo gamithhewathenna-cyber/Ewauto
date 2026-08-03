@@ -1,23 +1,24 @@
-// Page loader overlay — shown until the page (and its images) finish
-// loading, with a short minimum display time so it never just flashes.
+// Scroll-reveal: each section marked with .reveal fades/slides in the
+// first time it enters the viewport.
 (function () {
-    var loader = document.getElementById('pageLoader');
-    if (!loader) return;
+    var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    if (!items.length) return;
 
-    var minDelay = 400;
-    var startedAt = Date.now();
-
-    function hideLoader() {
-        var elapsed = Date.now() - startedAt;
-        var wait = Math.max(0, minDelay - elapsed);
-        setTimeout(function () { loader.classList.add('is-hidden'); }, wait);
+    if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
     }
 
-    if (document.readyState === 'complete') {
-        hideLoader();
-    } else {
-        window.addEventListener('load', hideLoader);
-    }
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    items.forEach(function (el) { observer.observe(el); });
 })();
 
 // Mobile navigation toggle

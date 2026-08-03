@@ -73,14 +73,6 @@ for ($n = 1; $n <= 5; $n++) {
 </head>
 <body>
 
-<div id="pageLoader" class="page-loader">
-    <div class="loader-mark">
-        <span class="ring"></span>
-        <span class="dot">&#9883;</span>
-    </div>
-</div>
-<noscript><style>.page-loader{display:none!important;}</style></noscript>
-
 <!-- ===== Header ===== -->
 <header class="site-header">
     <div class="wrap">
@@ -172,7 +164,7 @@ for ($n = 1; $n <= 5; $n++) {
 </section>
 
 <!-- ===== Intro + lineup ===== -->
-<section class="intro">
+<section class="intro reveal">
     <div class="wrap">
         <div class="intro-grid">
             <div class="intro-copy">
@@ -183,7 +175,7 @@ for ($n = 1; $n <= 5; $n++) {
         </div>
     </div>
 </section>
-<section class="lineup">
+<section class="lineup reveal">
     <div class="wrap">
         <?php if ($url = image_url($images, 'lineup_vehicles')): ?>
             <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'lineup_vehicles', 'Vehicle lineup')) ?>">
@@ -194,7 +186,7 @@ for ($n = 1; $n <= 5; $n++) {
 </section>
 
 <!-- ===== Our Bikes ===== -->
-<section class="bikes-showcase" id="feature">
+<section class="bikes-showcase reveal" id="feature">
     <?php if (!empty($bikes)): ?>
         <?php if (count($bikes) > 1): ?>
             <div class="wrap">
@@ -260,7 +252,7 @@ for ($n = 1; $n <= 5; $n++) {
 </section>
 
 <!-- ===== Worldwide reach ===== -->
-<section class="world">
+<section class="world reveal">
     <div class="wrap">
         <div class="world-head">
             <h2><?= e($c('world_heading_prefix', 'WE ARE')) ?> <span class="hl"><?= e($c('world_heading_highlight', 'WORLD WIDE REACH')) ?></span></h2>
@@ -299,7 +291,7 @@ for ($n = 1; $n <= 5; $n++) {
 </section>
 
 <!-- ===== CTA + stats ===== -->
-<section class="cta-band" id="contact">
+<section class="cta-band reveal" id="contact">
     <div class="wrap">
         <div class="cta-card">
             <?php if ($url = image_url($images, 'cta_rider')): ?>
