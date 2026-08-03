@@ -33,7 +33,8 @@ INSERT INTO images (slot, label, alt_text) VALUES
     ('kunpeng_scooter',  'Kunpeng Feature Scooter',    'Kunpeng electric scooter'),
     ('world_map',        'World Wide Reach Map',       'World map with distribution points'),
     ('testimonial_avatar','Testimonial Avatar',        'Customer photo'),
-    ('cta_rider',        'CTA Banner Rider',           'Rider on a motorcycle')
+    ('cta_rider',        'CTA Banner Rider',           'Rider on a motorcycle'),
+    ('favicon',           'Favicon',                    'ZXTec favicon')
 ON DUPLICATE KEY UPDATE label = VALUES(label);
 
 -- Seed a default admin (username: admin / password: admin123).

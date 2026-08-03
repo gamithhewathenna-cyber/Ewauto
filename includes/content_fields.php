@@ -82,10 +82,6 @@ function content_field_sections(): array
         ],
         'footer' => [
             'title' => 'Footer & contact',
-            'images' => [
-                'logo_header' => 'Header logo',
-                'logo_footer' => 'Footer logo',
-            ],
             'fields' => [
                 'footer_about'  => ['label' => 'About paragraph', 'type' => 'textarea'],
                 'contact_email' => ['label' => 'Contact email', 'type' => 'text'],
