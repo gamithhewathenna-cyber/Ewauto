@@ -10,6 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Session expired. Please try again.';
     } else {
         $action = $_POST['action'] ?? '';
+        $specValues = [
+            trim($_POST['spec1_value'] ?? ''),
+            trim($_POST['spec2_value'] ?? ''),
+            trim($_POST['spec3_value'] ?? ''),
+            trim($_POST['spec4_value'] ?? ''),
+            trim($_POST['spec5_value'] ?? ''),
+        ];
 
         if ($action === 'add') {
             if (empty($_FILES['image']['name'])) {
@@ -20,16 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $error = $result['error'];
                 } else {
                     $maxOrder = (int) db()->query('SELECT COALESCE(MAX(sort_order), 0) FROM slides')->fetchColumn();
-                    db()->prepare('INSERT INTO slides (filename, alt_text, heading, subheading, link_url, sort_order, active)
-                        VALUES (?, ?, ?, ?, ?, ?, 1)')
-                        ->execute([
+                    db()->prepare('INSERT INTO slides
+                        (filename, alt_text, heading, subheading, link_url, spec1_value, spec2_value, spec3_value, spec4_value, spec5_value, sort_order, active)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)')
+                        ->execute(array_merge([
                             $result['filename'],
                             trim($_POST['alt_text'] ?? ''),
                             trim($_POST['heading'] ?? ''),
                             trim($_POST['subheading'] ?? ''),
                             trim($_POST['link_url'] ?? ''),
-                            $maxOrder + 10,
-                        ]);
+                        ], $specValues, [$maxOrder + 10]));
                     $notice = 'Slide added.';
                 }
             }
@@ -53,17 +60,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
                 if (!$error) {
-                    db()->prepare('UPDATE slides SET filename=?, alt_text=?, heading=?, subheading=?, link_url=?, sort_order=?, active=? WHERE id=?')
-                        ->execute([
+                    db()->prepare('UPDATE slides SET filename=?, alt_text=?, heading=?, subheading=?, link_url=?,
+                        spec1_value=?, spec2_value=?, spec3_value=?, spec4_value=?, spec5_value=?, sort_order=?, active=? WHERE id=?')
+                        ->execute(array_merge([
                             $newFilename,
                             trim($_POST['alt_text'] ?? ''),
                             trim($_POST['heading'] ?? ''),
                             trim($_POST['subheading'] ?? ''),
                             trim($_POST['link_url'] ?? ''),
+                        ], $specValues, [
                             (int) ($_POST['sort_order'] ?? 0),
                             isset($_POST['active']) ? 1 : 0,
                             $id,
-                        ]);
+                        ]));
                     $notice = 'Slide updated.';
                 }
             }
@@ -84,9 +93,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $slides = all_slides();
 $token = csrf_token();
 
+$contentValues = all_content();
+$specLabels = [
+    content($contentValues, 'spec1_label', 'Battery'),
+    content($contentValues, 'spec2_label', 'Max Speed'),
+    content($contentValues, 'spec3_label', 'Range'),
+    content($contentValues, 'spec4_label', 'Weight allow'),
+    content($contentValues, 'spec5_label', 'Motor'),
+];
+
 admin_header('slides', 'Slider Images');
 ?>
-<p class="admin-lead">Manage the homepage hero slider. Slides show in order, lowest number first. If no slides are added, the homepage falls back to the single hero image set in Page Content.</p>
+<p class="admin-lead">Manage the homepage hero slider (up to 4+ slides work well). Each slide can have its own heading, subheading, and bike specs — when the image changes, the banner text and specs change with it. Spec labels come from Page Content Change &rarr; Home Content; only the values here are per-slide. If no slides have an image, the homepage falls back to the single hero image and specs set in Page Content.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
@@ -125,6 +143,11 @@ admin_header('slides', 'Slider Images');
                 <label class="field">Link URL (optional)
                     <input type="text" name="link_url" value="<?= e($s['link_url']) ?>">
                 </label>
+                <?php for ($n = 1; $n <= 5; $n++): $col = 'spec' . $n . '_value'; ?>
+                    <label class="field"><?= e($specLabels[$n - 1]) ?> value (optional)
+                        <input type="text" name="<?= $col ?>" value="<?= e($s[$col] ?? '') ?>">
+                    </label>
+                <?php endfor; ?>
                 <label class="field">Order
                     <input type="number" name="sort_order" value="<?= (int) $s['sort_order'] ?>">
                 </label>
@@ -162,6 +185,11 @@ admin_header('slides', 'Slider Images');
             <label class="field">Link URL (optional)
                 <input type="text" name="link_url">
             </label>
+            <?php for ($n = 1; $n <= 5; $n++): ?>
+                <label class="field"><?= e($specLabels[$n - 1]) ?> value (optional)
+                    <input type="text" name="spec<?= $n ?>_value">
+                </label>
+            <?php endfor; ?>
             <div class="image-actions">
                 <button type="submit" class="btn-primary">Add slide</button>
             </div>

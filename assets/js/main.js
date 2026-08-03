@@ -25,6 +25,7 @@
     var titleEl = root.querySelector('.hero-title');
     var copyEl = root.querySelector('.hero-copy');
     var ctaEl = root.querySelector('#heroCta');
+    var specEls = Array.prototype.slice.call(root.querySelectorAll('.spec-strip .v'));
     var defaultTitle = titleEl ? titleEl.getAttribute('data-default') : '';
     var defaultCopy = copyEl ? copyEl.getAttribute('data-default') : '';
     var defaultHref = ctaEl ? ctaEl.getAttribute('data-default-href') : '#feature';
@@ -41,6 +42,10 @@
         if (titleEl) titleEl.textContent = d.dataset.heading || defaultTitle;
         if (copyEl) copyEl.textContent = d.dataset.subheading || defaultCopy;
         if (ctaEl) ctaEl.setAttribute('href', d.dataset.link || defaultHref);
+        specEls.forEach(function (el, i) {
+            var value = d.dataset['spec' + (i + 1)];
+            el.textContent = value || el.getAttribute('data-default');
+        });
     }
 
     function restart() {

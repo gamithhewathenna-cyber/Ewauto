@@ -181,10 +181,26 @@ CREATE TABLE IF NOT EXISTS slides (
     heading     VARCHAR(255) DEFAULT '',
     subheading  VARCHAR(255) DEFAULT '',
     link_url    VARCHAR(255) DEFAULT '',
+    spec1_value VARCHAR(64) DEFAULT '',
+    spec2_value VARCHAR(64) DEFAULT '',
+    spec3_value VARCHAR(64) DEFAULT '',
+    spec4_value VARCHAR(64) DEFAULT '',
+    spec5_value VARCHAR(64) DEFAULT '',
     sort_order  INT NOT NULL DEFAULT 0,
     active      TINYINT(1) NOT NULL DEFAULT 1,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- If the `slides` table already existed before this update, add the new
+-- per-slide spec columns (safe to re-run; requires MySQL 8.0.29+ / MariaDB
+-- 10.0.2+ for "ADD COLUMN IF NOT EXISTS" — if that errors on your host, run
+-- the plain ALTER TABLE ADD COLUMN version once instead).
+ALTER TABLE slides
+    ADD COLUMN IF NOT EXISTS spec1_value VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS spec2_value VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS spec3_value VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS spec4_value VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS spec5_value VARCHAR(64) DEFAULT '';
 
 -- ---------------------------------------------------------------------------
 -- Product catalog. If this table is empty, the front end falls back to the

@@ -21,6 +21,27 @@ try {
 }
 
 $c = static fn(string $key, string $fallback = '') => content($content, $key, $fallback);
+
+// Only slides that actually have an image are shown; slides being drafted
+// without an image yet don't break the carousel.
+$slides = array_values(array_filter($slides, static fn($s) => !empty($s['filename'])));
+
+$specDefaults = [
+    $c('spec1_value', 'Lead-acid/Lithiut'),
+    $c('spec2_value', '50/80km/h'),
+    $c('spec3_value', '80/120km'),
+    $c('spec4_value', '150kg'),
+    $c('spec5_value', '1500/3000w'),
+];
+$firstSlide = $slides[0] ?? null;
+$initialTitle = ($firstSlide && $firstSlide['heading'] !== '') ? $firstSlide['heading'] : $c('hero_title', 'DREAM');
+$initialCopy  = ($firstSlide && $firstSlide['subheading'] !== '') ? $firstSlide['subheading'] : $c('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.');
+$initialHref  = ($firstSlide && $firstSlide['link_url'] !== '') ? $firstSlide['link_url'] : '#feature';
+$initialSpecs = [];
+for ($n = 1; $n <= 5; $n++) {
+    $col = 'spec' . $n . '_value';
+    $initialSpecs[$n] = ($firstSlide && $firstSlide[$col] !== '') ? $firstSlide[$col] : $specDefaults[$n - 1];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +99,12 @@ $c = static fn(string $key, string $fallback = '') => content($content, $key, $f
                         data-index="<?= $i ?>"
                         data-heading="<?= e($s['heading']) ?>"
                         data-subheading="<?= e($s['subheading']) ?>"
-                        data-link="<?= e($s['link_url']) ?>"><?= $i + 1 ?></button>
+                        data-link="<?= e($s['link_url']) ?>"
+                        data-spec1="<?= e($s['spec1_value']) ?>"
+                        data-spec2="<?= e($s['spec2_value']) ?>"
+                        data-spec3="<?= e($s['spec3_value']) ?>"
+                        data-spec4="<?= e($s['spec4_value']) ?>"
+                        data-spec5="<?= e($s['spec5_value']) ?>"><?= $i + 1 ?></button>
             <?php endforeach; ?>
         </div>
     <?php else: ?>
@@ -91,11 +117,11 @@ $c = static fn(string $key, string $fallback = '') => content($content, $key, $f
         <div class="hero-grid">
             <div class="hero-text">
                 <p class="hero-eyebrow"><?= e($c('hero_eyebrow', "LET'S RIDE THE")) ?></p>
-                <h1 class="hero-title" data-default="<?= e($c('hero_title', 'DREAM')) ?>"><?= e($c('hero_title', 'DREAM')) ?></h1>
+                <h1 class="hero-title" data-default="<?= e($c('hero_title', 'DREAM')) ?>"><?= e($initialTitle) ?></h1>
                 <div class="hero-rule"><span class="dot"></span><span class="bar"></span></div>
-                <p class="hero-copy" data-default="<?= e($c('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?>"><?= e($c('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?></p>
+                <p class="hero-copy" data-default="<?= e($c('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?>"><?= e($initialCopy) ?></p>
                 <div class="hero-cta">
-                    <a href="#feature" class="btn" id="heroCta" data-default-href="#feature"><?= e($c('hero_cta_label', 'Learn more')) ?> <span class="arrow">&rsaquo;</span></a>
+                    <a href="<?= e($initialHref) ?>" class="btn" id="heroCta" data-default-href="#feature"><?= e($c('hero_cta_label', 'Learn more')) ?> <span class="arrow">&rsaquo;</span></a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -113,11 +139,11 @@ $c = static fn(string $key, string $fallback = '') => content($content, $key, $f
         </div>
         <!-- spec strip -->
         <div class="spec-strip">
-            <div class="spec"><div class="k"><?= e($c('spec1_label', 'Battery')) ?></div><div class="v"><?= e($c('spec1_value', 'Lead-acid/Lithiut')) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec2_label', 'Max Speed')) ?></div><div class="v"><?= e($c('spec2_value', '50/80km/h')) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec3_label', 'Range')) ?></div><div class="v"><?= e($c('spec3_value', '80/120km')) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec4_label', 'Weight allow')) ?></div><div class="v"><?= e($c('spec4_value', '150kg')) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec5_label', 'Motor')) ?></div><div class="v"><?= e($c('spec5_value', '1500/3000w')) ?></div></div>
+            <div class="spec"><div class="k"><?= e($c('spec1_label', 'Battery')) ?></div><div class="v" data-default="<?= e($specDefaults[0]) ?>"><?= e($initialSpecs[1]) ?></div></div>
+            <div class="spec"><div class="k"><?= e($c('spec2_label', 'Max Speed')) ?></div><div class="v" data-default="<?= e($specDefaults[1]) ?>"><?= e($initialSpecs[2]) ?></div></div>
+            <div class="spec"><div class="k"><?= e($c('spec3_label', 'Range')) ?></div><div class="v" data-default="<?= e($specDefaults[2]) ?>"><?= e($initialSpecs[3]) ?></div></div>
+            <div class="spec"><div class="k"><?= e($c('spec4_label', 'Weight allow')) ?></div><div class="v" data-default="<?= e($specDefaults[3]) ?>"><?= e($initialSpecs[4]) ?></div></div>
+            <div class="spec"><div class="k"><?= e($c('spec5_label', 'Motor')) ?></div><div class="v" data-default="<?= e($specDefaults[4]) ?>"><?= e($initialSpecs[5]) ?></div></div>
         </div>
     </div>
 </section>
