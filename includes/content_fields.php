@@ -67,6 +67,7 @@ function content_field_sections(): array
             'groups' => [
                 [
                     'title' => 'Page header',
+                    'image' => ['slot' => 'about_hero_image', 'label' => 'Header patch photo (replaces the red shape)', 'size' => '900 × 1400px, portrait'],
                     'fields' => [
                         'about_eyebrow' => ['label' => 'Eyebrow text', 'type' => 'text'],
                         'about_title'   => ['label' => 'Page title', 'type' => 'text'],
@@ -150,6 +151,7 @@ function content_field_sections(): array
             'groups' => [
                 [
                     'title' => 'Page header',
+                    'image' => ['slot' => 'contact_hero_image', 'label' => 'Header patch photo (replaces the red shape)', 'size' => '900 × 1400px, portrait'],
                     'fields' => [
                         'contact_eyebrow' => ['label' => 'Eyebrow text', 'type' => 'text'],
                         'contact_title'   => ['label' => 'Page title', 'type' => 'text'],

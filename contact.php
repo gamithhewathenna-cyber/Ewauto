@@ -100,7 +100,11 @@ $token = csrf_token();
 
 <!-- ===== Contact hero ===== -->
 <section class="contact-hero">
-    <div class="contact-hero-blob" data-parallax="0.15"></div>
+    <?php if ($url = image_url($images, 'contact_hero_image')): ?>
+        <img class="contact-hero-blob" data-parallax="0.15" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'contact_hero_image', '')) ?>">
+    <?php else: ?>
+        <div class="contact-hero-blob" data-parallax="0.15"></div>
+    <?php endif; ?>
     <div class="wrap">
         <div class="contact-hero-text">
             <p class="hero-eyebrow"><?= e($c('contact_eyebrow', 'GET IN TOUCH')) ?></p>

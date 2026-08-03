@@ -167,7 +167,9 @@ INSERT INTO images (slot, label, alt_text) VALUES
     ('about_vision_image_1', 'About: Vision/Mission Image 1', 'Vision vehicle'),
     ('about_vision_image_2', 'About: Vision/Mission Image 2', 'Mission vehicle'),
     ('about_banner_image',   'About: Full-width Banner',      'Banner'),
-    ('about_world_map',      'About: World Reach Map',        'World map')
+    ('about_world_map',      'About: World Reach Map',        'World map'),
+    ('about_hero_image',     'About: Header Patch Photo',     'About header'),
+    ('contact_hero_image',   'Contact: Header Patch Photo',   'Contact header')
 ON DUPLICATE KEY UPDATE label = VALUES(label);
 
 -- ---------------------------------------------------------------------------

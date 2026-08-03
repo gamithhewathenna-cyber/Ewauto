@@ -552,6 +552,7 @@ a { color: inherit; text-decoration: none; }
     background: var(--maroon);
     border-radius: 50%;
     z-index: 0;
+    object-fit: cover;
 }
 .contact-hero .wrap { position: relative; z-index: 1; }
 .contact-hero-text { max-width: 640px; }
