@@ -143,7 +143,7 @@ for ($n = 1; $n <= 5; $n++) {
                     <a href="<?= e($initialHref) ?>" class="btn" id="heroCta" data-default-href="#feature"><?= e($c('hero_cta_label', 'Learn more')) ?> <span class="arrow">&rsaquo;</span></a>
                 </div>
             </div>
-            <div class="hero-visual">
+            <div class="hero-visual" data-tilt>
                 <?php if (!empty($slides)): ?>
                     <?php foreach ($slides as $i => $s): ?>
                         <img class="hero-slide-img <?= $i === 0 ? 'is-active' : '' ?>" data-index="<?= $i ?>"
@@ -233,7 +233,7 @@ for ($n = 1; $n <= 5; $n++) {
 
                                 <?php if ($bike['description']): ?><p class="bike-detail-desc"><?= nl2br(e($bike['description'])) ?></p><?php endif; ?>
                             </div>
-                            <div class="bike-detail-visual">
+                            <div class="bike-detail-visual" data-tilt>
                                 <?php foreach ($bike['colors'] as $ci => $col): ?>
                                     <img class="bike-color-img <?= $ci === 0 ? 'is-active' : '' ?>" data-index="<?= $ci ?>"
                                          src="<?= e(UPLOAD_URL . '/' . rawurlencode($col['filename'])) ?>" alt="<?= e($col['alt_text'] ?: $bike['name']) ?>">

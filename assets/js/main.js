@@ -1,3 +1,32 @@
+// Cursor-tilt: hero bike images subtly tilt and shift toward the mouse,
+// snapping back to neutral when the cursor leaves. Skipped on touch
+// devices (no hover) and for visitors who prefer reduced motion.
+(function () {
+    var targets = Array.prototype.slice.call(document.querySelectorAll('[data-tilt]'));
+    if (!targets.length) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+
+    var maxTilt = 6;   // degrees
+    var maxShift = 10; // px
+
+    targets.forEach(function (el) {
+        el.addEventListener('mousemove', function (e) {
+            var rect = el.getBoundingClientRect();
+            var x = (e.clientX - rect.left) / rect.width - 0.5;
+            var y = (e.clientY - rect.top) / rect.height - 0.5;
+            var rotateY = (x * maxTilt * 2).toFixed(2);
+            var rotateX = (y * -maxTilt * 2).toFixed(2);
+            var shiftX = (x * maxShift * 2).toFixed(1);
+            var shiftY = (y * maxShift * 2).toFixed(1);
+            el.style.transform = 'perspective(900px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translate(' + shiftX + 'px,' + shiftY + 'px)';
+        });
+        el.addEventListener('mouseleave', function () {
+            el.style.transform = '';
+        });
+    });
+})();
+
 // Parallax: decorative blobs and section background photos drift at a
 // fraction of scroll speed for a subtle sense of depth. Skipped entirely
 // if the visitor prefers reduced motion.
