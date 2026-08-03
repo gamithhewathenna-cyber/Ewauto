@@ -4,9 +4,9 @@
  * Update these values to match your MySQL server.
  */
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_NAME', getenv('DB_NAME') ?: 'zxtec');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'tcplckfa_ewautodb');
+define('DB_USER', getenv('DB_USER') ?: 'tcplckfa_ewautoadmin');
+define('DB_PASS', getenv('DB_PASS') ?: '8rLeh46+?pM;(c56');
 // Optional: path to a MySQL unix socket. Leave '' to connect over host/port.
 define('DB_SOCKET', getenv('DB_SOCKET') ?: '');
 define('DB_PORT', getenv('DB_PORT') ?: '3306');
