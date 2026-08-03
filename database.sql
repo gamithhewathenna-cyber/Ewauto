@@ -216,3 +216,40 @@ CREATE TABLE IF NOT EXISTS products (
     active      TINYINT(1) NOT NULL DEFAULT 1,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ---------------------------------------------------------------------------
+-- Bike models. Each bike gets its own product page (bike.php?slug=...) and
+-- can have multiple colour variants (see bike_colors below) — selecting a
+-- colour on the bike page swaps the shown image.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS bikes (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    slug        VARCHAR(80) NOT NULL UNIQUE,
+    name        VARCHAR(128) NOT NULL,
+    tagline     VARCHAR(255) DEFAULT '',
+    description TEXT,
+    spec1_label VARCHAR(64) DEFAULT 'Max Speed',   spec1_value VARCHAR(64) DEFAULT '',
+    spec2_label VARCHAR(64) DEFAULT 'Range',        spec2_value VARCHAR(64) DEFAULT '',
+    spec3_label VARCHAR(64) DEFAULT 'Weight allow', spec3_value VARCHAR(64) DEFAULT '',
+    spec4_label VARCHAR(64) DEFAULT 'Motor',        spec4_value VARCHAR(64) DEFAULT '',
+    spec5_label VARCHAR(64) DEFAULT 'Battery',      spec5_value VARCHAR(64) DEFAULT '',
+    sort_order  INT NOT NULL DEFAULT 0,
+    active      TINYINT(1) NOT NULL DEFAULT 1,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ---------------------------------------------------------------------------
+-- Colour variants for each bike. The first colour (lowest sort_order) is
+-- used as the bike's default/cover image on the homepage and product page.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS bike_colors (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    bike_id     INT NOT NULL,
+    color_name  VARCHAR(64) NOT NULL,
+    color_hex   VARCHAR(7) NOT NULL DEFAULT '#161616',
+    filename    VARCHAR(255) DEFAULT NULL,
+    alt_text    VARCHAR(255) DEFAULT '',
+    sort_order  INT NOT NULL DEFAULT 0,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_bike_colors_bike FOREIGN KEY (bike_id) REFERENCES bikes(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -2,6 +2,7 @@
 require_once __DIR__ . '/layout.php';
 
 $slideCount  = (int) db()->query('SELECT COUNT(*) FROM slides')->fetchColumn();
+$bikeCount   = (int) db()->query('SELECT COUNT(*) FROM bikes')->fetchColumn();
 $maintenance = is_maintenance_mode();
 
 admin_header('dashboard', 'Dashboard');
@@ -17,6 +18,10 @@ admin_header('dashboard', 'Dashboard');
     <a href="slides.php" class="stat-card">
         <div class="num"><?= $slideCount ?></div>
         <div class="lbl">Slider images</div>
+    </a>
+    <a href="bikes.php" class="stat-card">
+        <div class="num"><?= $bikeCount ?></div>
+        <div class="lbl">Bikes</div>
     </a>
     <a href="settings.php" class="stat-card">
         <div class="num">&#9881;</div>

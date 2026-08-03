@@ -20,19 +20,11 @@ function content_field_sections(): array
             ],
         ],
         'feature' => [
-            'title' => 'Kunpeng feature',
+            'title' => 'Our Bikes section intro (bikes themselves are managed under Bikes)',
             'page'  => 'home',
-            'images' => [
-                'kunpeng_scooter' => ['label' => 'Feature image', 'size' => '1200 × 1200px, transparent PNG recommended'],
-            ],
             'fields' => [
-                'feature_title' => ['label' => 'Title', 'type' => 'text'],
-                'feature_sub'   => ['label' => 'Subtitle', 'type' => 'textarea'],
-                'kfeature1_label' => ['label' => 'Spec 1 label', 'type' => 'text'], 'kfeature1_value' => ['label' => 'Spec 1 value', 'type' => 'text'],
-                'kfeature2_label' => ['label' => 'Spec 2 label', 'type' => 'text'], 'kfeature2_value' => ['label' => 'Spec 2 value', 'type' => 'text'],
-                'kfeature3_label' => ['label' => 'Spec 3 label', 'type' => 'text'], 'kfeature3_value' => ['label' => 'Spec 3 value', 'type' => 'text'],
-                'kfeature4_label' => ['label' => 'Spec 4 label', 'type' => 'text'], 'kfeature4_value' => ['label' => 'Spec 4 value', 'type' => 'text'],
-                'kfeature5_label' => ['label' => 'Spec 5 label', 'type' => 'text'], 'kfeature5_value' => ['label' => 'Spec 5 value', 'type' => 'text'],
+                'feature_title' => ['label' => 'Section title', 'type' => 'text'],
+                'feature_sub'   => ['label' => 'Section subtitle', 'type' => 'textarea'],
             ],
         ],
         'world' => [

@@ -133,3 +133,54 @@ function all_slides(bool $onlyActive = false): array
     $sql = 'SELECT * FROM slides' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
     return db()->query($sql)->fetchAll();
 }
+
+/**
+ * ---- Bikes (product pages) ----
+ */
+function all_bikes(bool $onlyActive = false): array
+{
+    $sql = 'SELECT * FROM bikes' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
+    return db()->query($sql)->fetchAll();
+}
+
+function get_bike_by_slug(string $slug): ?array
+{
+    $stmt = db()->prepare('SELECT * FROM bikes WHERE slug = ? LIMIT 1');
+    $stmt->execute([$slug]);
+    $row = $stmt->fetch();
+    return $row ?: null;
+}
+
+function bike_colors(int $bikeId): array
+{
+    $stmt = db()->prepare('SELECT * FROM bike_colors WHERE bike_id = ? ORDER BY sort_order ASC, id ASC');
+    $stmt->execute([$bikeId]);
+    return $stmt->fetchAll();
+}
+
+/**
+ * Turn a bike name into a unique URL slug, avoiding collisions with
+ * existing bikes (optionally excluding one id, for edits).
+ */
+function unique_bike_slug(string $name, ?int $excludeId = null): string
+{
+    $base = strtolower(trim($name));
+    $base = preg_replace('/[^a-z0-9]+/', '-', $base);
+    $base = trim($base, '-');
+    if ($base === '') {
+        $base = 'bike';
+    }
+
+    $slug = $base;
+    $i = 2;
+    while (true) {
+        $sql = 'SELECT id FROM bikes WHERE slug = ?' . ($excludeId ? ' AND id != ?' : '');
+        $stmt = db()->prepare($sql);
+        $stmt->execute($excludeId ? [$slug, $excludeId] : [$slug]);
+        if (!$stmt->fetch()) {
+            return $slug;
+        }
+        $slug = $base . '-' . $i;
+        $i++;
+    }
+}

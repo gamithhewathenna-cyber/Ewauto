@@ -60,3 +60,24 @@
 
     restart();
 })();
+
+// Bike colour swatches (bike.php)
+(function () {
+    var root = document.getElementById('bikeDetail');
+    if (!root) return;
+
+    var swatches = Array.prototype.slice.call(root.querySelectorAll('.swatch'));
+    var images = Array.prototype.slice.call(root.querySelectorAll('.bike-color-img'));
+    var nameEl = document.getElementById('bikeColorName');
+    if (!swatches.length) return;
+
+    swatches.forEach(function (btn, i) {
+        btn.addEventListener('click', function () {
+            swatches.forEach(function (b, j) { b.classList.toggle('is-active', j === i); });
+            images.forEach(function (img) {
+                img.classList.toggle('is-active', parseInt(img.dataset.index, 10) === i);
+            });
+            if (nameEl) nameEl.textContent = btn.dataset.name || '';
+        });
+    });
+})();

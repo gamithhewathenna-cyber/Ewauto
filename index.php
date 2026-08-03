@@ -9,9 +9,23 @@ try {
     $images  = all_images();
     $content = all_content();
     $slides  = all_slides(true);
+    $bikes   = all_bikes(true);
 } catch (Throwable $ex) {
-    $images = []; $content = []; $slides = [];
+    $images = []; $content = []; $slides = []; $bikes = [];
 }
+
+// Attach each bike's cover colour (first colour that actually has an image).
+foreach ($bikes as &$bike) {
+    $bikeColorRows = bike_colors((int) $bike['id']);
+    $bike['cover'] = null;
+    foreach ($bikeColorRows as $colorRow) {
+        if (!empty($colorRow['filename'])) {
+            $bike['cover'] = $colorRow;
+            break;
+        }
+    }
+}
+unset($bike);
 
 try {
     maybe_show_maintenance_page();
@@ -169,43 +183,33 @@ for ($n = 1; $n <= 5; $n++) {
     </div>
 </section>
 
-<!-- ===== Kunpeng feature ===== -->
-<section class="feature" id="feature">
+<!-- ===== Our Bikes ===== -->
+<section class="bikes-showcase" id="feature">
     <div class="wrap">
-        <div class="feature-grid">
-            <div class="feature-text">
-                <h2 class="feature-title"><?= e($c('feature_title', 'KUNPENG')) ?></h2>
-                <p class="feature-sub"><?= e($c('feature_sub', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem.')) ?></p>
-                <div class="feature-progress"><span class="knob"></span><span class="track"></span></div>
-                <div class="feature-colors">
-                    <div class="lbl">colors:</div>
-                    <div class="swatches">
-                        <span class="swatch" style="background:#8B3A3F"></span>
-                        <span class="swatch" style="background:#3f7d4f"></span>
-                        <span class="swatch" style="background:#e8c760"></span>
-                        <span class="swatch" style="background:#161616"></span>
-                    </div>
-                </div>
-                <div class="feature-specs">
-                    <div><div class="k"><?= e($c('kfeature1_label', 'Max Speed')) ?></div><div class="v"><?= e($c('kfeature1_value', '50/80km/h')) ?></div></div>
-                    <div><div class="k"><?= e($c('kfeature2_label', 'Range')) ?></div><div class="v"><?= e($c('kfeature2_value', '80/120km')) ?></div></div>
-                    <div><div class="k"><?= e($c('kfeature3_label', 'Weight allow')) ?></div><div class="v"><?= e($c('kfeature3_value', '150kg')) ?></div></div>
-                    <div><div class="k"><?= e($c('kfeature4_label', 'Motor')) ?></div><div class="v"><?= e($c('kfeature4_value', '1500/3000w')) ?></div></div>
-                    <div><div class="k"><?= e($c('kfeature5_label', 'Battery')) ?></div><div class="v"><?= e($c('kfeature5_value', 'Lead-acid/Lithiut')) ?></div></div>
-                </div>
-            </div>
-            <div class="feature-visual">
-                <?php if ($url = image_url($images, 'kunpeng_scooter')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'kunpeng_scooter', 'Kunpeng scooter')) ?>">
-                <?php else: ?>
-                    <div class="placeholder">Kunpeng scooter image</div>
-                <?php endif; ?>
-            </div>
+        <div class="bikes-head">
+            <h2><?= e($c('feature_title', 'OUR BIKES')) ?></h2>
+            <p><?= e($c('feature_sub', 'Explore our full range of electric bikes — pick your favourite colour on each bike\'s page.')) ?></p>
         </div>
-    </div>
-    <div class="feature-nav">
-        <button aria-label="Previous">&lsaquo;</button>
-        <button aria-label="Next">&rsaquo;</button>
+        <?php if (!empty($bikes)): ?>
+            <div class="bikes-grid">
+                <?php foreach ($bikes as $bike): ?>
+                    <a class="bike-card" href="<?= e(BASE_URL) ?>/bike.php?slug=<?= e($bike['slug']) ?>">
+                        <div class="bike-card-image">
+                            <?php if ($bike['cover'] && $bike['cover']['filename']): ?>
+                                <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($bike['cover']['filename'])) ?>" alt="<?= e($bike['cover']['alt_text'] ?: $bike['name']) ?>">
+                            <?php else: ?>
+                                <div class="placeholder">No image yet</div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="bike-card-name"><?= e($bike['name']) ?></div>
+                        <?php if ($bike['tagline']): ?><p class="bike-card-tagline"><?= e($bike['tagline']) ?></p><?php endif; ?>
+                        <span class="bike-card-link">View details <span class="arrow">&rsaquo;</span></span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="bikes-empty">No bikes added yet — add some from the admin panel.</p>
+        <?php endif; ?>
     </div>
 </section>
 

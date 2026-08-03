@@ -6,6 +6,7 @@ const ADMIN_NAV = [
     'dashboard' => ['label' => 'Dashboard',           'href' => 'dashboard.php'],
     'content'   => ['label' => 'Page Content Change',  'href' => 'content.php'],
     'slides'    => ['label' => 'Slider Images',        'href' => 'slides.php'],
+    'bikes'     => ['label' => 'Bikes',                'href' => 'bikes.php'],
     'settings'  => ['label' => 'Settings',             'href' => 'settings.php'],
 ];
 
