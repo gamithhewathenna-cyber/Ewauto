@@ -84,10 +84,29 @@
     var prevBtn = document.getElementById('bikesPrev');
     var nextBtn = document.getElementById('bikesNext');
     var current = 0;
+    var switching = false;
 
     function showBike(index) {
-        current = (index + panels.length) % panels.length;
-        panels.forEach(function (p, i) { p.classList.toggle('is-active', i === current); });
+        var next = (index + panels.length) % panels.length;
+        if (next === current || switching) return;
+        switching = true;
+
+        var oldPanel = panels[current];
+        var newPanel = panels[next];
+
+        // Fade the current bike out, then swap and fade the new one in —
+        // panels differ in height so a true cross-fade would jump; this
+        // sequential fade stays smooth regardless of content length.
+        oldPanel.classList.remove('is-visible');
+
+        setTimeout(function () {
+            oldPanel.classList.remove('is-active');
+            newPanel.classList.add('is-active');
+            void newPanel.offsetWidth; // force reflow so the fade-in transition runs
+            newPanel.classList.add('is-visible');
+            current = next;
+            switching = false;
+        }, 400);
     }
 
     if (prevBtn) prevBtn.addEventListener('click', function () { showBike(current - 1); });

@@ -190,7 +190,7 @@ for ($n = 1; $n <= 5; $n++) {
     <?php if (!empty($bikes)): ?>
         <div class="bikes-track" id="bikesTrack">
             <?php foreach ($bikes as $bi => $bike): ?>
-                <div class="bike-panel <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>">
+                <div class="bike-panel <?= $bi === 0 ? 'is-active is-visible' : '' ?>" data-index="<?= $bi ?>">
                     <div class="wrap">
                         <div class="bike-detail-grid">
                             <div class="bike-detail-text">
