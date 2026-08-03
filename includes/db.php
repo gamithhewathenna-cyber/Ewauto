@@ -65,3 +65,80 @@ function e(?string $s): string
 {
     return htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
 }
+
+/**
+ * ---- Settings (key/value) ----
+ */
+function all_settings(): array
+{
+    $rows = db()->query('SELECT * FROM settings')->fetchAll();
+    $out = [];
+    foreach ($rows as $r) {
+        $out[$r['setting_key']] = $r['setting_value'];
+    }
+    return $out;
+}
+
+function get_setting(string $key, string $fallback = ''): string
+{
+    static $cache = null;
+    if ($cache === null) {
+        $cache = all_settings();
+    }
+    return $cache[$key] ?? $fallback;
+}
+
+function set_setting(string $key, string $value): void
+{
+    db()->prepare('INSERT INTO settings (setting_key, setting_value) VALUES (?, ?)
+        ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)')
+        ->execute([$key, $value]);
+}
+
+function is_maintenance_mode(): bool
+{
+    return get_setting('maintenance_mode', '0') === '1';
+}
+
+/**
+ * ---- Page content (key/value) ----
+ */
+function all_content(): array
+{
+    $rows = db()->query('SELECT * FROM content')->fetchAll();
+    $out = [];
+    foreach ($rows as $r) {
+        $out[$r['content_key']] = $r['content_value'];
+    }
+    return $out;
+}
+
+function content(array $content, string $key, string $fallback = ''): string
+{
+    return ($content[$key] ?? '') !== '' ? $content[$key] : $fallback;
+}
+
+function set_content(string $key, string $value): void
+{
+    db()->prepare('INSERT INTO content (content_key, content_value) VALUES (?, ?)
+        ON DUPLICATE KEY UPDATE content_value = VALUES(content_value)')
+        ->execute([$key, $value]);
+}
+
+/**
+ * ---- Hero slider ----
+ */
+function all_slides(bool $onlyActive = false): array
+{
+    $sql = 'SELECT * FROM slides' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
+    return db()->query($sql)->fetchAll();
+}
+
+/**
+ * ---- Product catalog ----
+ */
+function all_products(bool $onlyActive = false): array
+{
+    $sql = 'SELECT * FROM products' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
+    return db()->query($sql)->fetchAll();
+}

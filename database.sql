@@ -41,3 +41,101 @@ ON DUPLICATE KEY UPDATE label = VALUES(label);
 INSERT INTO admins (username, password_hash) VALUES
     ('admin', '$2y$10$jdfcOjqEJWmmJhPZwxxLPOgpN29GqScNh6U7kG679YmTq8/L2GyQm')
 ON DUPLICATE KEY UPDATE username = VALUES(username);
+
+-- ---------------------------------------------------------------------------
+-- Site settings: simple key/value store (maintenance mode, contact info, etc)
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS settings (
+    setting_key   VARCHAR(64) PRIMARY KEY,
+    setting_value TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO settings (setting_key, setting_value) VALUES
+    ('maintenance_mode', '0'),
+    ('maintenance_message', 'We''re making some improvements. Please check back soon.'),
+    ('site_title', 'ZXTec')
+ON DUPLICATE KEY UPDATE setting_key = setting_key;
+
+-- ---------------------------------------------------------------------------
+-- Page content: every editable text block on the homepage, keyed by name.
+-- Defaults below match the text that shipped hardcoded in the template.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS content (
+    content_key   VARCHAR(64) PRIMARY KEY,
+    content_value TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO content (content_key, content_value) VALUES
+    ('hero_eyebrow', 'LET''S RIDE THE'),
+    ('hero_title', 'DREAM'),
+    ('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.'),
+    ('hero_cta_label', 'Learn more'),
+    ('spec1_label', 'Battery'), ('spec1_value', 'Lead-acid/Lithiut'),
+    ('spec2_label', 'Max Speed'), ('spec2_value', '50/80km/h'),
+    ('spec3_label', 'Range'), ('spec3_value', '80/120km'),
+    ('spec4_label', 'Weight allow'), ('spec4_value', '150kg'),
+    ('spec5_label', 'Motor'), ('spec5_value', '1500/3000w'),
+
+    ('intro_para1', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus. Amet nunc urna sed sociis viverra urna hendrerit fringilla. Varius nec id egestas arcu pretium elit egestas in amet. Elementum accumsan blandit purus duis lorem tincidunt at.'),
+    ('intro_para2', 'Vel quam placerat nunc sed. Arcu porta pretium consequat id vestibulum nullam. Sit sit faucibus sodales aliquet enim pharetra urna imperdiet. Scelerisque enim in sed commodo odio. Non nisl vestibulum convallis non sapien mattis. Viverra congue et viverra.'),
+    ('intro_heading', 'LOREM IPSUM DOLOR SIT AMET CONSECTETUR.'),
+
+    ('feature_title', 'KUNPENG'),
+    ('feature_sub', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem.'),
+    ('kfeature1_label', 'Max Speed'), ('kfeature1_value', '50/80km/h'),
+    ('kfeature2_label', 'Range'), ('kfeature2_value', '80/120km'),
+    ('kfeature3_label', 'Weight allow'), ('kfeature3_value', '150kg'),
+    ('kfeature4_label', 'Motor'), ('kfeature4_value', '1500/3000w'),
+    ('kfeature5_label', 'Battery'), ('kfeature5_value', 'Lead-acid/Lithiut'),
+
+    ('world_heading_prefix', 'WE ARE'),
+    ('world_heading_highlight', 'WORLD WIDE REACH'),
+    ('world_copy', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus. Amet nunc urna sed sociis viverra urna hendrerit fringilla.'),
+    ('testimonial_name', 'Lorem ipsum dolor'),
+    ('testimonial_role', 'Lorem ipsum'),
+    ('testimonial_quote', 'Lorem ipsum dolor sit amet consectetur. Nisl proin volutpat leo sed. Enim a rhoncus faucibus proin risus tincidunt. Proin mi nisl donec eu sociis nullam cursus rhoncus elit. Est eu ac iaculis iaculis consequat risus et. Ac molestie netus varius praesent.'),
+
+    ('cta_heading', 'LOREM IPSUM DOLOR SITUR.'),
+    ('cta_copy', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus. Amet nunc urna sed sociis viverra urna hendrerit fringilla.'),
+    ('cta_button_label', 'Contact us'),
+    ('stat1_num', '100+'), ('stat1_cap', 'Countries and regions exports'),
+    ('stat2_num', '500+'), ('stat2_cap', 'Global distributors'),
+    ('stat3_num', '5'), ('stat3_cap', 'Production bases: Wuxi, Tianjin, Dongguan, Thailand, Indonesia'),
+    ('stat4_num', '3'), ('stat4_cap', 'Three branch offices: Shenzhen, Poland, United States'),
+
+    ('footer_about', 'Lorem ipsum dolor sit amet consectetur. Pharetra at pretium fringilla nisl feugiat. Purus vel lectus faucibus non porttitor sit magna tincidunt tellus. Ut odio in vitae mollis tortor ultrices.'),
+    ('contact_email', 'companyname@gamil.com'),
+    ('contact_phone', '(+391) 1234 8492'),
+    ('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements')
+ON DUPLICATE KEY UPDATE content_key = content_key;
+
+-- ---------------------------------------------------------------------------
+-- Hero slider slides. If this table is empty, the front end falls back to
+-- the single 'hero_scooter' image slot for backward compatibility.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS slides (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    filename    VARCHAR(255) DEFAULT NULL,
+    alt_text    VARCHAR(255) DEFAULT '',
+    heading     VARCHAR(255) DEFAULT '',
+    subheading  VARCHAR(255) DEFAULT '',
+    link_url    VARCHAR(255) DEFAULT '',
+    sort_order  INT NOT NULL DEFAULT 0,
+    active      TINYINT(1) NOT NULL DEFAULT 1,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ---------------------------------------------------------------------------
+-- Product catalog. If this table is empty, the front end falls back to the
+-- single 'lineup_vehicles' image slot for backward compatibility.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS products (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(128) NOT NULL,
+    description TEXT,
+    filename    VARCHAR(255) DEFAULT NULL,
+    alt_text    VARCHAR(255) DEFAULT '',
+    sort_order  INT NOT NULL DEFAULT 0,
+    active      TINYINT(1) NOT NULL DEFAULT 1,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
