@@ -78,7 +78,7 @@ a { color: inherit; text-decoration: none; }
     padding-bottom: 26px;
 }
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand img { height: 54px; width: auto; }
+.brand img { height: 72px; width: auto; }
 .brand .brand-fallback {
     display: flex; align-items: center; gap: 8px;
     font-family: var(--display);
@@ -111,7 +111,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Hero ---------- */
 .hero {
     position: relative;
-    padding: 110px 0 60px;
+    padding: 140px 0 60px;
     overflow: hidden;
 }
 /* the burgundy blob on the top-right */
