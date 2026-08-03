@@ -128,7 +128,7 @@ a { color: inherit; text-decoration: none; }
 .hero .wrap { position: relative; z-index: 2; }
 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 1.9fr;
     align-items: center;
     gap: 30px;
 }
@@ -171,8 +171,8 @@ a { color: inherit; text-decoration: none; }
 .btn .arrow { font-weight: 400; }
 .hero-cta { margin-top: 26px; }
 
-.hero-visual { position: relative; }
-.hero-visual img { width: 100%; filter: drop-shadow(0 30px 40px rgba(0,0,0,.25)); }
+.hero-visual { position: relative; overflow: visible; }
+.hero-visual img { width: 100%; transform: scale(1.18); filter: drop-shadow(0 30px 40px rgba(0,0,0,.25)); }
 .hero-visual .placeholder { border-radius: 12px; min-height: 340px; }
 
 /* multi-slide hero: stack images, only the active one visible */
@@ -181,7 +181,7 @@ a { color: inherit; text-decoration: none; }
     object-fit: contain; opacity: 0; transition: opacity .5s ease;
     filter: drop-shadow(0 30px 40px rgba(0,0,0,.25));
 }
-.hero-slide-img.is-active { position: relative; opacity: 1; z-index: 1; }
+.hero-slide-img.is-active { position: relative; opacity: 1; z-index: 1; transform: scale(1.18); }
 .hero-slide-img:not(.is-active) { pointer-events: none; }
 
 /* slide pager on the left edge */
@@ -207,7 +207,7 @@ a { color: inherit; text-decoration: none; }
 .spec-strip {
     position: relative;
     z-index: 2;
-    margin-top: 30px;
+    margin-top: 80px;
     margin-left: auto;
     width: 68%;
     background: rgba(139,58,63,.62);
