@@ -1,3 +1,17 @@
+// Sticky header: adds a solid background once the page scrolls past the
+// hero, so nav text stays legible over whatever content is underneath.
+(function () {
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+
+    function updateHeader() {
+        header.classList.toggle('is-scrolled', window.scrollY > 20);
+    }
+
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+})();
+
 // Scroll-reveal: each section marked with .reveal fades/slides in the
 // first time it enters the viewport.
 (function () {
