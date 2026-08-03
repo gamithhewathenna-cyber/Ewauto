@@ -188,6 +188,15 @@ for ($n = 1; $n <= 5; $n++) {
 <!-- ===== Our Bikes ===== -->
 <section class="bikes-showcase" id="feature">
     <?php if (!empty($bikes)): ?>
+        <?php if (count($bikes) > 1): ?>
+            <div class="wrap">
+                <div class="bike-selector" id="bikeSelector">
+                    <?php foreach ($bikes as $bi => $bike): ?>
+                        <button type="button" class="bike-select-btn <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>"><?= e($bike['name']) ?></button>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endif; ?>
         <div class="bikes-track" id="bikesTrack">
             <?php foreach ($bikes as $bi => $bike): ?>
                 <div class="bike-panel <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>">
@@ -237,15 +246,6 @@ for ($n = 1; $n <= 5; $n++) {
                 </div>
             <?php endif; ?>
         </div>
-        <?php if (count($bikes) > 1): ?>
-            <div class="wrap">
-                <div class="bike-selector" id="bikeSelector">
-                    <?php foreach ($bikes as $bi => $bike): ?>
-                        <button type="button" class="bike-select-btn <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>"><?= e($bike['name']) ?></button>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
     <?php else: ?>
         <div class="wrap"><p class="bikes-empty">No bikes added yet — add some from the admin panel.</p></div>
     <?php endif; ?>
