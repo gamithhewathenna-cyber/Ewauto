@@ -19,12 +19,11 @@ try {
 $c = static fn(string $key, string $fallback = '') => content($content, $key, $fallback);
 
 $whatWeDoItems = [
-    $c('whatwedo_item1', 'Lorem ipsum dolor sit amet consectetur.'),
-    $c('whatwedo_item2', 'Lorem ipsum dolor sit amet consectetur.'),
-    $c('whatwedo_item3', 'Lorem ipsum dolor sit amet consectetur.'),
-    $c('whatwedo_item4', 'Lorem ipsum dolor sit amet consectetur.'),
-    $c('whatwedo_item5', 'Lorem ipsum dolor sit amet consectetur.'),
-    $c('whatwedo_item6', 'Lorem ipsum dolor sit amet consectetur.'),
+    ['title' => $c('whatwedo_item1_title', 'Motorcycles'), 'text' => $c('whatwedo_item1_text', 'Reliable and performance-driven motorcycles designed for everyday mobility.')],
+    ['title' => $c('whatwedo_item2_title', 'Electric Vehicles'), 'text' => $c('whatwedo_item2_text', 'Smart electric mobility solutions built for efficient, economical, and environmentally conscious travel.')],
+    ['title' => $c('whatwedo_item3_title', 'E-Bikes'), 'text' => $c('whatwedo_item3_text', 'Modern electric bikes combining practical design, comfort, and effortless everyday riding.')],
+    ['title' => $c('whatwedo_item4_title', 'Three-Wheelers'), 'text' => $c('whatwedo_item4_text', 'Versatile mobility solutions engineered for both passenger and commercial transportation.')],
+    ['title' => $c('whatwedo_item5_title', 'Global Mobility Solutions'), 'text' => $c('whatwedo_item5_text', 'A growing international network delivering ZXTec products and mobility solutions to markets around the world.')],
 ];
 
 $team = [
@@ -142,7 +141,10 @@ $team = [
                         <span class="whatwedo-icon">
                             <svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6-5.5-3-5.5 3 1-6L3 8.9 9 8z"/></svg>
                         </span>
-                        <p><?= e($item) ?></p>
+                        <div class="whatwedo-item-text">
+                            <strong><?= e($item['title']) ?></strong>
+                            <p><?= e($item['text']) ?></p>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
