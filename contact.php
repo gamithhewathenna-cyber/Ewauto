@@ -68,8 +68,12 @@ $token = csrf_token();
 <header class="site-header">
     <div class="wrap">
         <a class="brand" href="<?= e(BASE_URL) ?>/index.php">
-            <?php if ($url = image_url($images, 'logo_header')): ?>
-                <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_header', 'ZXTec')) ?>">
+            <?php $logoDefaultUrl = image_url($images, 'logo_header'); $logoScrolledUrl = image_url($images, 'logo_footer'); ?>
+            <?php if ($logoDefaultUrl && $logoScrolledUrl): ?>
+                <img class="brand-logo-default" src="<?= e($logoDefaultUrl) ?>" alt="<?= e(image_alt($images, 'logo_header', 'ZXTec')) ?>">
+                <img class="brand-logo-scrolled" src="<?= e($logoScrolledUrl) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'ZXTec')) ?>">
+            <?php elseif ($logoDefaultUrl): ?>
+                <img src="<?= e($logoDefaultUrl) ?>" alt="<?= e(image_alt($images, 'logo_header', 'ZXTec')) ?>">
             <?php else: ?>
                 <span class="brand-fallback"><span class="brand-mark">&#9883;</span>ZXTec</span>
             <?php endif; ?>
