@@ -659,9 +659,11 @@ a { color: inherit; text-decoration: none; }
     font-size: clamp(26px, 3vw, 34px); text-align: center; margin: 0 0 44px;
 }
 .whatwedo-grid {
-    display: grid; grid-template-columns: minmax(220px, 1fr) 2fr; gap: 40px; align-items: center;
+    display: grid; grid-template-columns: minmax(220px, 1fr) 2fr; gap: 40px; align-items: stretch;
 }
-.whatwedo-image img { width: 100%; }
+.whatwedo-image { border-radius: 16px; overflow: hidden; }
+.whatwedo-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+.whatwedo-image .placeholder { height: 100%; border-radius: 16px; }
 .whatwedo-items {
     display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
 }
