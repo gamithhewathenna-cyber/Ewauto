@@ -118,8 +118,56 @@ INSERT INTO content (content_key, content_value) VALUES
     ('contact_address', 'London Eye, London, UK'),
     ('form_heading', 'GET IN TOUCH'),
     ('form_button_label', 'Send Message'),
-    ('form_success_message', 'Thanks for reaching out! We''ll get back to you soon.')
+    ('form_success_message', 'Thanks for reaching out! We''ll get back to you soon.'),
+
+    ('about_eyebrow', 'WHO WE ARE'),
+    ('about_title', 'ABOUT US'),
+    ('about_intro', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.'),
+
+    ('story_heading', 'OUR STORY'),
+    ('story_para1', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus. Amet nunc urna sed sociis viverra urna hendrerit fringilla. Varius nec id egestas arcu pretium elit egestas in amet. Elementum accumsan blandit purus duis lorem tincidunt at.'),
+    ('story_para2', 'Vel quam placerat nunc sed. Arcu porta pretium consequat id vestibulum nullam. Sit sit faucibus sodales aliquet enim pharetra urna imperdiet. Scelerisque enim in sed commodo odio. Non nisl vestibulum convallis non sapien mattis. Viverra congue et viverra.'),
+
+    ('about_stat1_num', '100+'), ('about_stat1_cap', 'Countries and regions exports'),
+    ('about_stat2_num', '500+'), ('about_stat2_cap', 'Global distributors'),
+    ('about_stat3_num', '5'), ('about_stat3_cap', 'Production bases: Wuxi, Tianjin, Dongguan, Thailand, Indonesia'),
+    ('about_stat4_num', '3'), ('about_stat4_cap', 'Three branch offices: Shenzhen, Poland, United States'),
+
+    ('whatwedo_heading', 'WHAT WE DO'),
+    ('whatwedo_item1', 'Lorem ipsum dolor sit amet consectetur.'),
+    ('whatwedo_item2', 'Lorem ipsum dolor sit amet consectetur.'),
+    ('whatwedo_item3', 'Lorem ipsum dolor sit amet consectetur.'),
+    ('whatwedo_item4', 'Lorem ipsum dolor sit amet consectetur.'),
+    ('whatwedo_item5', 'Lorem ipsum dolor sit amet consectetur.'),
+    ('whatwedo_item6', 'Lorem ipsum dolor sit amet consectetur.'),
+
+    ('vision_heading', 'VISION'),
+    ('vision_text', 'Lorem ipsum dolor sit amet consectetur. Massa donec congue vitae nulla nisi tellus gravida. Eget dolor vulputate malesuada sed morbi sed. Ipsum massa quam elit at ultricies vestibulum. Sagittis etiam risus sagittis sed morbi aliquet integer nunc nibh.'),
+    ('mission_heading', 'MISSION'),
+    ('mission_text', 'Lorem ipsum dolor sit amet consectetur. Massa donec congue vitae nulla nisi tellus gravida. Eget dolor vulputate malesuada sed morbi sed. Ipsum massa quam elit at ultricies vestibulum. Sagittis etiam risus sagittis sed morbi aliquet integer nunc nibh.'),
+
+    ('team_member1_title', 'vitae nulla nisi tellus gravida.'), ('team_member1_text', 'Eget dolor vulputate malesuada sed morbi sed.'),
+    ('team_member2_title', 'vitae ellus gravida.'), ('team_member2_text', 'Eget dolor vulputate malesuada sed morbi sed.'),
+    ('team_member3_title', 'vitae nisi tellus gravidaet'), ('team_member3_text', 'Dolor vulputate malesuada sed morbi sed.'),
+    ('team_member4_title', 'nulla nisi gravida'), ('team_member4_text', 'Dolor vulputate malesuada sed morbi sed.'),
+
+    ('about_cta_heading', 'LOREM IPSUM DOLOR SITUR.'),
+    ('about_cta_text', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus. Amet nunc urna sed sociis viverra urna hendrerit fringilla.'),
+    ('about_cta_button_label', 'Contact us')
 ON DUPLICATE KEY UPDATE content_key = content_key;
+
+INSERT INTO images (slot, label, alt_text) VALUES
+    ('about_story_image',    'About: Story Image',            'Our story'),
+    ('about_stats_bg',       'About: Stats Band Background',  'Stats background'),
+    ('about_whatwedo_image', 'About: What We Do Image',       'What we do'),
+    ('about_vision_image_1', 'About: Vision/Mission Image 1', 'Vision vehicle'),
+    ('about_vision_image_2', 'About: Vision/Mission Image 2', 'Mission vehicle'),
+    ('about_team_1',         'About: Team Photo 1',           'Team member'),
+    ('about_team_2',         'About: Team Photo 2',           'Team member'),
+    ('about_team_3',         'About: Team Photo 3',           'Team member'),
+    ('about_team_4',         'About: Team Photo 4',           'Team member'),
+    ('about_world_map',      'About: World Reach Map',        'World map')
+ON DUPLICATE KEY UPDATE label = VALUES(label);
 
 -- ---------------------------------------------------------------------------
 -- Hero slider slides. If this table is empty, the front end falls back to

@@ -49,7 +49,7 @@ $c = static fn(string $key, string $fallback = '') => content($content, $key, $f
         <nav class="nav" id="nav">
             <ul class="nav-links">
                 <li><a class="active" href="#">Home</a></li>
-                <li><a href="#feature">About us</a></li>
+                <li><a href="<?= e(BASE_URL) ?>/about.php">About us</a></li>
                 <li><a href="<?= e(BASE_URL) ?>/contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-social">
@@ -276,7 +276,7 @@ $c = static fn(string $key, string $fallback = '') => content($content, $key, $f
                 <h4>Link</h4>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#feature">About Us</a></li>
+                    <li><a href="<?= e(BASE_URL) ?>/about.php">About Us</a></li>
                     <li><a href="<?= e(BASE_URL) ?>/contact.php">Contact us</a></li>
                 </ul>
             </div>

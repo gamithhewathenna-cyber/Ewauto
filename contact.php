@@ -76,7 +76,7 @@ $token = csrf_token();
         <nav class="nav" id="nav">
             <ul class="nav-links">
                 <li><a href="<?= e(BASE_URL) ?>/index.php">Home</a></li>
-                <li><a href="<?= e(BASE_URL) ?>/index.php#feature">About us</a></li>
+                <li><a href="<?= e(BASE_URL) ?>/about.php">About us</a></li>
                 <li><a class="active" href="<?= e(BASE_URL) ?>/contact.php">Contact Us</a></li>
             </ul>
             <div class="nav-social">
@@ -188,7 +188,7 @@ $token = csrf_token();
                 <h4>Link</h4>
                 <ul>
                     <li><a href="<?= e(BASE_URL) ?>/index.php">Home</a></li>
-                    <li><a href="<?= e(BASE_URL) ?>/index.php#feature">About Us</a></li>
+                    <li><a href="<?= e(BASE_URL) ?>/about.php">About Us</a></li>
                     <li><a href="<?= e(BASE_URL) ?>/contact.php">Contact us</a></li>
                 </ul>
             </div>

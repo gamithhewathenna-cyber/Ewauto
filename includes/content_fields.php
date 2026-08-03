@@ -93,6 +93,57 @@ function content_field_sections(): array
                 'footer_bottom' => ['label' => 'Copyright line', 'type' => 'text'],
             ],
         ],
+        'about_page' => [
+            'title' => 'About page (about.php)',
+            'images' => [
+                'about_story_image'   => 'Our Story photo',
+                'about_stats_bg'      => 'Stats band background (optional)',
+                'about_whatwedo_image' => 'What We Do photo',
+                'about_vision_image_1' => 'Vision/Mission photo 1',
+                'about_vision_image_2' => 'Vision/Mission photo 2',
+                'about_team_1'         => 'Team photo 1',
+                'about_team_2'         => 'Team photo 2',
+                'about_team_3'         => 'Team photo 3',
+                'about_team_4'         => 'Team photo 4',
+                'about_world_map'      => 'World reach map',
+            ],
+            'fields' => [
+                'about_eyebrow' => ['label' => 'Eyebrow text', 'type' => 'text'],
+                'about_title'   => ['label' => 'Page title', 'type' => 'text'],
+                'about_intro'   => ['label' => 'Intro paragraph', 'type' => 'textarea'],
+
+                'story_heading' => ['label' => 'Our Story heading', 'type' => 'text'],
+                'story_para1'   => ['label' => 'Our Story paragraph 1', 'type' => 'textarea'],
+                'story_para2'   => ['label' => 'Our Story paragraph 2', 'type' => 'textarea'],
+
+                'about_stat1_num' => ['label' => 'Stat 1 number', 'type' => 'text'], 'about_stat1_cap' => ['label' => 'Stat 1 caption', 'type' => 'text'],
+                'about_stat2_num' => ['label' => 'Stat 2 number', 'type' => 'text'], 'about_stat2_cap' => ['label' => 'Stat 2 caption', 'type' => 'text'],
+                'about_stat3_num' => ['label' => 'Stat 3 number', 'type' => 'text'], 'about_stat3_cap' => ['label' => 'Stat 3 caption', 'type' => 'text'],
+                'about_stat4_num' => ['label' => 'Stat 4 number', 'type' => 'text'], 'about_stat4_cap' => ['label' => 'Stat 4 caption', 'type' => 'text'],
+
+                'whatwedo_heading' => ['label' => 'What We Do heading', 'type' => 'text'],
+                'whatwedo_item1' => ['label' => 'What We Do item 1', 'type' => 'text'],
+                'whatwedo_item2' => ['label' => 'What We Do item 2', 'type' => 'text'],
+                'whatwedo_item3' => ['label' => 'What We Do item 3', 'type' => 'text'],
+                'whatwedo_item4' => ['label' => 'What We Do item 4', 'type' => 'text'],
+                'whatwedo_item5' => ['label' => 'What We Do item 5', 'type' => 'text'],
+                'whatwedo_item6' => ['label' => 'What We Do item 6', 'type' => 'text'],
+
+                'vision_heading' => ['label' => 'Vision heading', 'type' => 'text'],
+                'vision_text'    => ['label' => 'Vision text', 'type' => 'textarea'],
+                'mission_heading' => ['label' => 'Mission heading', 'type' => 'text'],
+                'mission_text'    => ['label' => 'Mission text', 'type' => 'textarea'],
+
+                'team_member1_title' => ['label' => 'Team 1 title', 'type' => 'text'], 'team_member1_text' => ['label' => 'Team 1 text', 'type' => 'text'],
+                'team_member2_title' => ['label' => 'Team 2 title', 'type' => 'text'], 'team_member2_text' => ['label' => 'Team 2 text', 'type' => 'text'],
+                'team_member3_title' => ['label' => 'Team 3 title', 'type' => 'text'], 'team_member3_text' => ['label' => 'Team 3 text', 'type' => 'text'],
+                'team_member4_title' => ['label' => 'Team 4 title', 'type' => 'text'], 'team_member4_text' => ['label' => 'Team 4 text', 'type' => 'text'],
+
+                'about_cta_heading'      => ['label' => 'Bottom CTA heading', 'type' => 'text'],
+                'about_cta_text'         => ['label' => 'Bottom CTA text', 'type' => 'textarea'],
+                'about_cta_button_label' => ['label' => 'Bottom CTA button label', 'type' => 'text'],
+            ],
+        ],
         'contact_page' => [
             'title' => 'Contact page (contact.php)',
             'fields' => [
