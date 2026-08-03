@@ -101,38 +101,24 @@ if ($bike) {
     <section class="bike-detail" id="bikeDetail">
         <div class="wrap">
             <div class="bike-detail-grid">
-                <div class="bike-detail-visual">
-                    <?php if (!empty($colors)): ?>
-                        <?php foreach ($colors as $i => $col): ?>
-                            <?php if ($col['filename']): ?>
-                                <img class="bike-color-img <?= $i === 0 ? 'is-active' : '' ?>" data-index="<?= $i ?>"
-                                     src="<?= e(UPLOAD_URL . '/' . rawurlencode($col['filename'])) ?>" alt="<?= e($col['alt_text'] ?: $bike['name']) ?>">
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="placeholder">No image yet</div>
-                    <?php endif; ?>
-                </div>
                 <div class="bike-detail-text">
-                    <p class="hero-eyebrow">ZXTEC BIKES</p>
                     <h1 class="bike-detail-title"><?= e($bike['name']) ?></h1>
                     <?php if ($bike['tagline']): ?><p class="bike-detail-tagline"><?= e($bike['tagline']) ?></p><?php endif; ?>
+                    <div class="bike-progress"><span class="knob"></span><span class="track"></span></div>
 
                     <?php if (!empty($colors)): ?>
                         <div class="bike-colors">
-                            <div class="lbl">Colour: <span id="bikeColorName"><?= e($colors[0]['color_name']) ?></span></div>
+                            <div class="lbl">colors:</div>
                             <div class="swatches">
                                 <?php foreach ($colors as $i => $col): ?>
                                     <button type="button" class="swatch <?= $i === 0 ? 'is-active' : '' ?>"
                                             style="background:<?= e($col['color_hex']) ?>"
-                                            data-index="<?= $i ?>" data-name="<?= e($col['color_name']) ?>"
+                                            data-index="<?= $i ?>"
                                             aria-label="<?= e($col['color_name']) ?>" title="<?= e($col['color_name']) ?>"></button>
                                 <?php endforeach; ?>
                             </div>
                         </div>
                     <?php endif; ?>
-
-                    <?php if ($bike['description']): ?><p class="bike-detail-desc"><?= nl2br(e($bike['description'])) ?></p><?php endif; ?>
 
                     <?php if (!empty($specs)): ?>
                         <div class="bike-detail-specs">
@@ -142,12 +128,30 @@ if ($bike) {
                         </div>
                     <?php endif; ?>
 
+                    <?php if ($bike['description']): ?><p class="bike-detail-desc"><?= nl2br(e($bike['description'])) ?></p><?php endif; ?>
+
                     <div class="hero-cta">
-                        <a href="<?= e(BASE_URL) ?>/contact.php" class="btn">Enquire now <span class="arrow">&rsaquo;</span></a>
+                        <a href="<?= e(BASE_URL) ?>/contact.php" class="btn btn-light">Enquire now <span class="arrow">&rsaquo;</span></a>
                     </div>
+                </div>
+                <div class="bike-detail-visual">
+                    <?php if (!empty($colors)): ?>
+                        <?php foreach ($colors as $i => $col): ?>
+                            <img class="bike-color-img <?= $i === 0 ? 'is-active' : '' ?>" data-index="<?= $i ?>"
+                                 src="<?= e(UPLOAD_URL . '/' . rawurlencode($col['filename'])) ?>" alt="<?= e($col['alt_text'] ?: $bike['name']) ?>">
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="placeholder">No image yet</div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
+        <?php if (count($colors) > 1): ?>
+            <div class="bike-nav">
+                <button type="button" id="bikePrev" aria-label="Previous colour">&lsaquo;</button>
+                <button type="button" id="bikeNext" aria-label="Next colour">&rsaquo;</button>
+            </div>
+        <?php endif; ?>
     </section>
 <?php endif; ?>
 

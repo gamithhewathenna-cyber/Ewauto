@@ -61,23 +61,30 @@
     restart();
 })();
 
-// Bike colour swatches (bike.php)
+// Bike colour swatches + prev/next (bike.php)
 (function () {
     var root = document.getElementById('bikeDetail');
     if (!root) return;
 
     var swatches = Array.prototype.slice.call(root.querySelectorAll('.swatch'));
     var images = Array.prototype.slice.call(root.querySelectorAll('.bike-color-img'));
-    var nameEl = document.getElementById('bikeColorName');
+    var prevBtn = document.getElementById('bikePrev');
+    var nextBtn = document.getElementById('bikeNext');
     if (!swatches.length) return;
 
-    swatches.forEach(function (btn, i) {
-        btn.addEventListener('click', function () {
-            swatches.forEach(function (b, j) { b.classList.toggle('is-active', j === i); });
-            images.forEach(function (img) {
-                img.classList.toggle('is-active', parseInt(img.dataset.index, 10) === i);
-            });
-            if (nameEl) nameEl.textContent = btn.dataset.name || '';
+    var current = 0;
+
+    function select(index) {
+        current = (index + swatches.length) % swatches.length;
+        swatches.forEach(function (b, j) { b.classList.toggle('is-active', j === current); });
+        images.forEach(function (img) {
+            img.classList.toggle('is-active', parseInt(img.dataset.index, 10) === current);
         });
+    }
+
+    swatches.forEach(function (btn, i) {
+        btn.addEventListener('click', function () { select(i); });
     });
+    if (prevBtn) prevBtn.addEventListener('click', function () { select(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { select(current + 1); });
 })();
