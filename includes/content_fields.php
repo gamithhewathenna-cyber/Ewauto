@@ -93,5 +93,21 @@ function content_field_sections(): array
                 'footer_bottom' => ['label' => 'Copyright line', 'type' => 'text'],
             ],
         ],
+        'contact_page' => [
+            'title' => 'Contact page (contact.php)',
+            'fields' => [
+                'contact_eyebrow'      => ['label' => 'Eyebrow text', 'type' => 'text'],
+                'contact_title'        => ['label' => 'Page title', 'type' => 'text'],
+                'contact_intro'        => ['label' => 'Intro paragraph', 'type' => 'textarea'],
+                'phone_card_text'      => ['label' => 'Phone card text', 'type' => 'textarea'],
+                'email_card_text'      => ['label' => 'Email card text', 'type' => 'textarea'],
+                'address_label'        => ['label' => 'Address heading', 'type' => 'text'],
+                'address_card_text'    => ['label' => 'Address card text', 'type' => 'textarea'],
+                'contact_address'      => ['label' => 'Full address (used for the map)', 'type' => 'text'],
+                'form_heading'         => ['label' => 'Form section heading', 'type' => 'text'],
+                'form_button_label'    => ['label' => 'Form button label', 'type' => 'text'],
+                'form_success_message' => ['label' => 'Form success message', 'type' => 'textarea'],
+            ],
+        ],
     ];
 }

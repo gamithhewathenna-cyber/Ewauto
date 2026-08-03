@@ -106,7 +106,19 @@ INSERT INTO content (content_key, content_value) VALUES
     ('footer_about', 'Lorem ipsum dolor sit amet consectetur. Pharetra at pretium fringilla nisl feugiat. Purus vel lectus faucibus non porttitor sit magna tincidunt tellus. Ut odio in vitae mollis tortor ultrices.'),
     ('contact_email', 'companyname@gamil.com'),
     ('contact_phone', '(+391) 1234 8492'),
-    ('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements')
+    ('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements'),
+
+    ('contact_eyebrow', 'GET IN TOUCH'),
+    ('contact_title', 'CONTACT US'),
+    ('contact_intro', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.'),
+    ('phone_card_text', 'Lorem ipsum dolor sit amet consectetur. Laoreet id lorem ut velit aliquam facilisi ut fermentum elit.'),
+    ('email_card_text', 'Lorem ipsum dolor sit amet consectetur. Odio ultricies dis parturient vulputate sit eleifend semper eu penatibus. Ut sed sagittis sagittis orci vestibulum morbi sagittis tellus dui. Amet sit vitae.'),
+    ('address_label', 'London Eye, UK'),
+    ('address_card_text', 'Lorem ipsum dolor sit amet consectetur. Laoreet id lorem ut velit aliquam facilisi ut fermentum elit.'),
+    ('contact_address', 'London Eye, London, UK'),
+    ('form_heading', 'GET IN TOUCH'),
+    ('form_button_label', 'Send Message'),
+    ('form_success_message', 'Thanks for reaching out! We''ll get back to you soon.')
 ON DUPLICATE KEY UPDATE content_key = content_key;
 
 -- ---------------------------------------------------------------------------
