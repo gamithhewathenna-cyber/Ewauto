@@ -1,8 +1,9 @@
 -- ZXTec Website Database Schema
--- Run this to create the database and tables.
-
-CREATE DATABASE IF NOT EXISTS zxtec CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE zxtec;
+-- Run this to create the tables inside your existing database.
+-- On shared hosting, create the database via your hosting control panel first
+-- (you likely already have one, e.g. tcplckfa_ewautodb), then select it in
+-- phpMyAdmin before running this script. Do NOT run CREATE DATABASE/USE here
+-- unless your DB user has privileges to create databases.
 
 -- Site images: every image on the site is referenced by a unique `slot` key.
 -- The frontend looks up images by slot, so the backend can add/replace them.
