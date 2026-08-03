@@ -567,7 +567,7 @@ a { color: inherit; text-decoration: none; }
 
 .contact-form-section { padding: 70px 0 60px; }
 .contact-form-grid {
-    display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center;
 }
 .form-heading {
     font-family: var(--display); font-weight: 800;
