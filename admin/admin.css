@@ -115,6 +115,30 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
 .image-grid-compact { margin-bottom: 18px; }
 .image-grid-compact .image-card { padding: 14px; gap: 10px; }
 .size-hint { margin: -6px 0 0; font-size: 11.5px; color: #999; }
+
+/* ---- grouped content cards: one image + its text in a single box ---- */
+.content-groups { display: flex; flex-direction: column; gap: 16px; }
+.content-group {
+    display: flex; gap: 20px;
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px; background: #fbfbfb;
+}
+.content-group-media { flex: 0 0 180px; display: flex; flex-direction: column; gap: 8px; }
+.content-group-media .preview {
+    background: repeating-linear-gradient(45deg,#f4f4f4,#f4f4f4 10px,#ececec 10px,#ececec 20px);
+    border-radius: 8px; min-height: 130px;
+    display: grid; place-items: center; overflow: hidden;
+}
+.content-group-media .preview img { max-height: 130px; width: 100%; object-fit: contain; }
+.content-group-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.content-group-body h4 { margin: 0; font-size: 14px; }
+.content-group-fields {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+}
+@media (max-width: 640px) {
+    .content-group { flex-direction: column; }
+    .content-group-media { flex: none; }
+}
 .swatch-dot {
     display: inline-block; width: 12px; height: 12px; border-radius: 50%;
     vertical-align: middle; margin-right: 4px; border: 1px solid rgba(0,0,0,.15);
