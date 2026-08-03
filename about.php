@@ -26,12 +26,6 @@ $whatWeDoItems = [
     ['title' => $c('whatwedo_item5_title', 'Global Mobility Solutions'), 'text' => $c('whatwedo_item5_text', 'A growing international network delivering ZXTec products and mobility solutions to markets around the world.')],
 ];
 
-$team = [
-    ['slot' => 'about_team_1', 'title' => $c('team_member1_title', 'vitae nulla nisi tellus gravida.'), 'text' => $c('team_member1_text', 'Eget dolor vulputate malesuada sed morbi sed.')],
-    ['slot' => 'about_team_2', 'title' => $c('team_member2_title', 'vitae ellus gravida.'), 'text' => $c('team_member2_text', 'Eget dolor vulputate malesuada sed morbi sed.')],
-    ['slot' => 'about_team_3', 'title' => $c('team_member3_title', 'vitae nisi tellus gravidaet'), 'text' => $c('team_member3_text', 'Dolor vulputate malesuada sed morbi sed.')],
-    ['slot' => 'about_team_4', 'title' => $c('team_member4_title', 'nulla nisi gravida'), 'text' => $c('team_member4_text', 'Dolor vulputate malesuada sed morbi sed.')],
-];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -176,22 +170,17 @@ $team = [
     </div>
 </section>
 
-<!-- ===== Team / values ===== -->
-<section class="team-section reveal">
-    <div class="team-grid">
-        <?php foreach ($team as $member): ?>
-            <div class="team-card">
-                <?php if ($url = image_url($images, $member['slot'])): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, $member['slot'], 'Team member')) ?>">
-                <?php else: ?>
-                    <div class="placeholder">Photo</div>
-                <?php endif; ?>
-                <div class="team-caption">
-                    <strong><?= e($member['title']) ?></strong>
-                    <span><?= e($member['text']) ?></span>
-                </div>
-            </div>
-        <?php endforeach; ?>
+<!-- ===== Full-width banner ===== -->
+<section class="about-banner reveal">
+    <?php if ($url = image_url($images, 'about_banner_image')): ?>
+        <img class="about-banner-bg" src="<?= e($url) ?>" alt="">
+    <?php endif; ?>
+    <div class="about-banner-overlay"></div>
+    <div class="wrap">
+        <div class="about-banner-text">
+            <h2><?= e($c('about_banner_heading', 'Driven By Innovation')) ?></h2>
+            <p><?= e($c('about_banner_text', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus.')) ?></p>
+        </div>
     </div>
 </section>
 

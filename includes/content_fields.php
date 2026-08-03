@@ -126,35 +126,11 @@ function content_field_sections(): array
                     ],
                 ],
                 [
-                    'title' => 'Team photo 1',
-                    'image' => ['slot' => 'about_team_1', 'label' => 'Photo', 'size' => '600 × 800px, portrait (3:4)'],
+                    'title' => 'Full-width banner',
+                    'image' => ['slot' => 'about_banner_image', 'label' => 'Banner photo', 'size' => '1920 × 800px'],
                     'fields' => [
-                        'team_member1_title' => ['label' => 'Title', 'type' => 'text'],
-                        'team_member1_text'  => ['label' => 'Text', 'type' => 'text'],
-                    ],
-                ],
-                [
-                    'title' => 'Team photo 2',
-                    'image' => ['slot' => 'about_team_2', 'label' => 'Photo', 'size' => '600 × 800px, portrait (3:4)'],
-                    'fields' => [
-                        'team_member2_title' => ['label' => 'Title', 'type' => 'text'],
-                        'team_member2_text'  => ['label' => 'Text', 'type' => 'text'],
-                    ],
-                ],
-                [
-                    'title' => 'Team photo 3',
-                    'image' => ['slot' => 'about_team_3', 'label' => 'Photo', 'size' => '600 × 800px, portrait (3:4)'],
-                    'fields' => [
-                        'team_member3_title' => ['label' => 'Title', 'type' => 'text'],
-                        'team_member3_text'  => ['label' => 'Text', 'type' => 'text'],
-                    ],
-                ],
-                [
-                    'title' => 'Team photo 4',
-                    'image' => ['slot' => 'about_team_4', 'label' => 'Photo', 'size' => '600 × 800px, portrait (3:4)'],
-                    'fields' => [
-                        'team_member4_title' => ['label' => 'Title', 'type' => 'text'],
-                        'team_member4_text'  => ['label' => 'Text', 'type' => 'text'],
+                        'about_banner_heading' => ['label' => 'Heading', 'type' => 'text'],
+                        'about_banner_text'    => ['label' => 'Subtext', 'type' => 'textarea'],
                     ],
                 ],
                 [

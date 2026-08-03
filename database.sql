@@ -151,10 +151,8 @@ INSERT INTO content (content_key, content_value) VALUES
     ('mission_heading', 'MISSION'),
     ('mission_text', 'Lorem ipsum dolor sit amet consectetur. Massa donec congue vitae nulla nisi tellus gravida. Eget dolor vulputate malesuada sed morbi sed. Ipsum massa quam elit at ultricies vestibulum. Sagittis etiam risus sagittis sed morbi aliquet integer nunc nibh.'),
 
-    ('team_member1_title', 'vitae nulla nisi tellus gravida.'), ('team_member1_text', 'Eget dolor vulputate malesuada sed morbi sed.'),
-    ('team_member2_title', 'vitae ellus gravida.'), ('team_member2_text', 'Eget dolor vulputate malesuada sed morbi sed.'),
-    ('team_member3_title', 'vitae nisi tellus gravidaet'), ('team_member3_text', 'Dolor vulputate malesuada sed morbi sed.'),
-    ('team_member4_title', 'nulla nisi gravida'), ('team_member4_text', 'Dolor vulputate malesuada sed morbi sed.'),
+    ('about_banner_heading', 'Driven By Innovation'),
+    ('about_banner_text', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus.'),
 
     ('about_cta_heading', 'LOREM IPSUM DOLOR SITUR.'),
     ('about_cta_text', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus. Amet nunc urna sed sociis viverra urna hendrerit fringilla.'),
@@ -167,10 +165,7 @@ INSERT INTO images (slot, label, alt_text) VALUES
     ('about_whatwedo_image', 'About: What We Do Image',       'What we do'),
     ('about_vision_image_1', 'About: Vision/Mission Image 1', 'Vision vehicle'),
     ('about_vision_image_2', 'About: Vision/Mission Image 2', 'Mission vehicle'),
-    ('about_team_1',         'About: Team Photo 1',           'Team member'),
-    ('about_team_2',         'About: Team Photo 2',           'Team member'),
-    ('about_team_3',         'About: Team Photo 3',           'Team member'),
-    ('about_team_4',         'About: Team Photo 4',           'Team member'),
+    ('about_banner_image',   'About: Full-width Banner',      'Banner'),
     ('about_world_map',      'About: World Reach Map',        'World map')
 ON DUPLICATE KEY UPDATE label = VALUES(label);
 
