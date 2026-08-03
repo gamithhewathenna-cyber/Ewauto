@@ -84,29 +84,26 @@
     var prevBtn = document.getElementById('bikesPrev');
     var nextBtn = document.getElementById('bikesNext');
     var current = 0;
-    var switching = false;
 
     function showBike(index) {
         var next = (index + panels.length) % panels.length;
-        if (next === current || switching) return;
-        switching = true;
+        if (next === current) return;
 
-        var oldPanel = panels[current];
-        var newPanel = panels[next];
+        panels[current].classList.remove('is-active');
+        panels[next].classList.add('is-active');
 
-        // Fade the current bike out, then swap and fade the new one in —
-        // panels differ in height so a true cross-fade would jump; this
-        // sequential fade stays smooth regardless of content length.
-        oldPanel.classList.remove('is-visible');
+        // Text/specs appear instantly with the panel; only the bike image
+        // fades in.
+        var img = panels[next].querySelector('.bike-color-img.is-active');
+        if (img) {
+            img.style.transition = 'none';
+            img.style.opacity = '0';
+            void img.offsetWidth; // force reflow so the reset above applies before re-enabling
+            img.style.transition = '';
+            img.style.opacity = '1';
+        }
 
-        setTimeout(function () {
-            oldPanel.classList.remove('is-active');
-            newPanel.classList.add('is-active');
-            void newPanel.offsetWidth; // force reflow so the fade-in transition runs
-            newPanel.classList.add('is-visible');
-            current = next;
-            switching = false;
-        }, 400);
+        current = next;
     }
 
     if (prevBtn) prevBtn.addEventListener('click', function () { showBike(current - 1); });
