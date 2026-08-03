@@ -78,7 +78,7 @@ a { color: inherit; text-decoration: none; }
     padding-bottom: 26px;
 }
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand img { height: 38px; width: auto; }
+.brand img { height: 54px; width: auto; }
 .brand .brand-fallback {
     display: flex; align-items: center; gap: 8px;
     font-family: var(--display);
