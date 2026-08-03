@@ -32,6 +32,8 @@
     var current = 0;
     var timer = null;
 
+    var textEls = [titleEl, copyEl].concat(specEls).filter(Boolean);
+
     function goTo(index) {
         current = (index + dots.length) % dots.length;
 
@@ -39,13 +41,22 @@
         slideImgs.forEach(function (img, i) { img.classList.toggle('is-active', i === current); });
 
         var d = dots[current];
-        if (titleEl) titleEl.textContent = d.dataset.heading || defaultTitle;
-        if (copyEl) copyEl.textContent = d.dataset.subheading || defaultCopy;
+
+        // Fade the text out, swap it once it's invisible, then fade back in —
+        // avoids the jarring instant text swap while the image cross-fades.
+        textEls.forEach(function (el) { el.style.opacity = '0'; });
+
+        setTimeout(function () {
+            if (titleEl) titleEl.textContent = d.dataset.heading || defaultTitle;
+            if (copyEl) copyEl.textContent = d.dataset.subheading || defaultCopy;
+            specEls.forEach(function (el, i) {
+                var value = d.dataset['spec' + (i + 1)];
+                el.textContent = value || el.getAttribute('data-default');
+            });
+            textEls.forEach(function (el) { el.style.opacity = '1'; });
+        }, 260);
+
         if (ctaEl) ctaEl.setAttribute('href', d.dataset.link || defaultHref);
-        specEls.forEach(function (el, i) {
-            var value = d.dataset['spec' + (i + 1)];
-            el.textContent = value || el.getAttribute('data-default');
-        });
     }
 
     function restart() {
