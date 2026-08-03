@@ -1,3 +1,25 @@
+// Page loader overlay — shown until the page (and its images) finish
+// loading, with a short minimum display time so it never just flashes.
+(function () {
+    var loader = document.getElementById('pageLoader');
+    if (!loader) return;
+
+    var minDelay = 400;
+    var startedAt = Date.now();
+
+    function hideLoader() {
+        var elapsed = Date.now() - startedAt;
+        var wait = Math.max(0, minDelay - elapsed);
+        setTimeout(function () { loader.classList.add('is-hidden'); }, wait);
+    }
+
+    if (document.readyState === 'complete') {
+        hideLoader();
+    } else {
+        window.addEventListener('load', hideLoader);
+    }
+})();
+
 // Mobile navigation toggle
 (function () {
     var nav = document.getElementById('nav');

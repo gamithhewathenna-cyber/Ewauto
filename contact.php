@@ -64,6 +64,14 @@ $token = csrf_token();
 </head>
 <body>
 
+<div id="pageLoader" class="page-loader">
+    <div class="loader-mark">
+        <span class="ring"></span>
+        <span class="dot">&#9883;</span>
+    </div>
+</div>
+<noscript><style>.page-loader{display:none!important;}</style></noscript>
+
 <!-- ===== Header ===== -->
 <header class="site-header">
     <div class="wrap">
