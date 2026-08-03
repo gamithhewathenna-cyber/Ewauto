@@ -133,12 +133,3 @@ function all_slides(bool $onlyActive = false): array
     $sql = 'SELECT * FROM slides' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
     return db()->query($sql)->fetchAll();
 }
-
-/**
- * ---- Product catalog ----
- */
-function all_products(bool $onlyActive = false): array
-{
-    $sql = 'SELECT * FROM products' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
-    return db()->query($sql)->fetchAll();
-}

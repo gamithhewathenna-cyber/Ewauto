@@ -11,7 +11,7 @@ function content_field_sections(): array
             'title' => 'Intro & lineup',
             'page'  => 'home',
             'images' => [
-                'lineup_vehicles' => ['label' => 'Lineup row image (used only if no products are set)', 'size' => '1600 × 500px'],
+                'lineup_vehicles' => ['label' => 'Lineup row image', 'size' => '1600 × 500px'],
             ],
             'fields' => [
                 'intro_para1'   => ['label' => 'Paragraph 1', 'type' => 'textarea'],

@@ -6,12 +6,11 @@ require_once __DIR__ . '/includes/maintenance.php';
 // Graceful DB handling — the page still renders with placeholders if the DB
 // is unreachable, so the layout can be reviewed before setup is complete.
 try {
-    $images   = all_images();
-    $content  = all_content();
-    $slides   = all_slides(true);
-    $products = all_products(true);
+    $images  = all_images();
+    $content = all_content();
+    $slides  = all_slides(true);
 } catch (Throwable $ex) {
-    $images = []; $content = []; $slides = []; $products = [];
+    $images = []; $content = []; $slides = [];
 }
 
 try {
@@ -162,23 +161,7 @@ for ($n = 1; $n <= 5; $n++) {
 </section>
 <section class="lineup">
     <div class="wrap">
-        <?php if (!empty($products)): ?>
-            <div class="product-grid">
-                <?php foreach ($products as $p): ?>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <?php if ($p['filename']): ?>
-                                <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($p['filename'])) ?>" alt="<?= e($p['alt_text'] ?: $p['name']) ?>">
-                            <?php else: ?>
-                                <div class="placeholder">No image</div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="product-name"><?= e($p['name']) ?></div>
-                        <?php if ($p['description']): ?><p class="product-desc"><?= e($p['description']) ?></p><?php endif; ?>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php elseif ($url = image_url($images, 'lineup_vehicles')): ?>
+        <?php if ($url = image_url($images, 'lineup_vehicles')): ?>
             <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'lineup_vehicles', 'Vehicle lineup')) ?>">
         <?php else: ?>
             <div class="placeholder">Product lineup row</div>
