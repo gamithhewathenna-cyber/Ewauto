@@ -244,7 +244,7 @@ a { color: inherit; text-decoration: none; }
     letter-spacing: -.01em;
     margin: 0;
 }
-.lineup { padding: 20px 0 40px; }
+.lineup { padding: 20px 0 20px; }
 .lineup img { width: 100%; }
 .lineup .placeholder { min-height: 200px; }
 
@@ -267,7 +267,7 @@ a { color: inherit; text-decoration: none; }
    original Kunpeng feature section, one bike shown at a time ---------- */
 .bikes-showcase {
     background: var(--ink); color: #fff;
-    padding: 40px 0; position: relative; overflow: hidden;
+    padding: 15px 0 40px; position: relative; overflow: hidden;
 }
 .bikes-empty { text-align: center; color: #999; }
 .bike-panel { display: none; }
