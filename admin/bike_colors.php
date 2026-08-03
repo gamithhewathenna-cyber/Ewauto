@@ -112,7 +112,7 @@ admin_header('bikes', 'Bikes');
                 <h3><span class="swatch-dot" style="background:<?= e($c['color_hex']) ?>"></span> <?= e($c['color_name']) ?></h3>
                 <code>#<?= (int) $c['id'] ?></code>
             </div>
-            <p class="size-hint">Recommended size: 1200 × 1200px, transparent PNG recommended</p>
+            <p class="size-hint">Recommended size: 1200 × 900px, transparent PNG recommended</p>
             <div class="preview">
                 <?php if ($c['filename']): ?>
                     <img src="<?= e(UPLOAD_URL . '/' . rawurlencode($c['filename'])) ?>" alt="<?= e($c['alt_text']) ?>">
@@ -151,7 +151,7 @@ admin_header('bikes', 'Bikes');
 
     <div class="image-card">
         <div class="image-card-head"><h3>Add new colour</h3></div>
-        <p class="size-hint">Recommended size: 1200 × 1200px, transparent PNG recommended</p>
+        <p class="size-hint">Recommended size: 1200 × 900px, transparent PNG recommended</p>
         <form method="post" enctype="multipart/form-data" class="image-form">
             <input type="hidden" name="csrf" value="<?= e($token) ?>">
             <input type="hidden" name="bike_id" value="<?= (int) $bikeId ?>">
