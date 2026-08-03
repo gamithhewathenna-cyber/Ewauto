@@ -157,31 +157,27 @@ function content_field_sections(): array
                     ],
                 ],
                 [
-                    'title' => 'Phone card',
-                    'fields' => [
-                        'phone_card_text' => ['label' => 'Card text', 'type' => 'textarea'],
-                    ],
-                ],
-                [
-                    'title' => 'Email card',
-                    'fields' => [
-                        'email_card_text' => ['label' => 'Card text', 'type' => 'textarea'],
-                    ],
-                ],
-                [
-                    'title' => 'Address card & map',
+                    'title' => 'Address & map caption',
                     'fields' => [
                         'address_label'     => ['label' => 'Address heading', 'type' => 'text'],
-                        'address_card_text' => ['label' => 'Card text', 'type' => 'textarea'],
+                        'address_card_text' => ['label' => 'Caption text', 'type' => 'textarea'],
                         'contact_address'   => ['label' => 'Full address (used for the map)', 'type' => 'text'],
                     ],
                 ],
                 [
-                    'title' => 'Enquiry form',
+                    'title' => 'Message form',
                     'fields' => [
-                        'form_heading'         => ['label' => 'Section heading', 'type' => 'text'],
+                        'form_heading'         => ['label' => 'Form heading', 'type' => 'text'],
+                        'form_subtext'         => ['label' => 'Form subtext', 'type' => 'textarea'],
                         'form_button_label'    => ['label' => 'Button label', 'type' => 'text'],
                         'form_success_message' => ['label' => 'Success message', 'type' => 'textarea'],
+                    ],
+                ],
+                [
+                    'title' => 'Sidebar contact card',
+                    'fields' => [
+                        'contact_side_heading' => ['label' => 'Heading', 'type' => 'text'],
+                        'whatsapp_phone'       => ['label' => 'SMS / WhatsApp number', 'type' => 'text'],
                     ],
                 ],
             ],

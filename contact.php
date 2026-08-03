@@ -110,73 +110,99 @@ $token = csrf_token();
     </div>
 </section>
 
-<!-- ===== Info cards ===== -->
-<section class="contact-cards-section reveal">
-    <div class="wrap">
-        <div class="contact-cards">
-            <div class="contact-card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg>
-                </div>
-                <h3><?= e($c('contact_phone', '(+391) 1234 8492')) ?></h3>
-                <p><?= e($c('phone_card_text', 'Lorem ipsum dolor sit amet consectetur. Laoreet id lorem ut velit aliquam facilisi ut fermentum elit.')) ?></p>
-            </div>
-            <div class="contact-card is-highlight">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm8 7L4 6.5V8l8 4.5L20 8V6.5L12 11z"/></svg>
-                </div>
-                <h3><?= e($c('contact_email', 'companyname@gamil.com')) ?></h3>
-                <p><?= e($c('email_card_text', 'Lorem ipsum dolor sit amet consectetur. Odio ultricies dis parturient vulputate sit eleifend semper eu penatibus. Ut sed sagittis sagittis orci vestibulum morbi sagittis tellus dui. Amet sit vitae.')) ?></p>
-            </div>
-            <div class="contact-card">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
-                </div>
-                <h3><?= e($c('address_label', 'London Eye, UK')) ?></h3>
-                <p><?= e($c('address_card_text', 'Lorem ipsum dolor sit amet consectetur. Laoreet id lorem ut velit aliquam facilisi ut fermentum elit.')) ?></p>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- ===== Get in touch form ===== -->
 <section class="contact-form-section reveal">
     <div class="wrap">
-        <h2 class="form-heading"><?= e($c('form_heading', 'GET IN TOUCH')) ?></h2>
+        <div class="contact-form-grid">
+            <div class="contact-form-left">
+                <h2 class="form-heading"><?= e($c('form_heading', 'Send us a message')) ?></h2>
+                <p class="form-subtext"><?= e($c('form_subtext', 'Do you have a question? A complaint? Or need any help? Feel free to contact us.')) ?></p>
 
-        <?php if ($formNotice): ?><div class="alert ok form-alert"><?= e($formNotice) ?></div><?php endif; ?>
-        <?php if ($formError): ?><div class="alert error form-alert"><?= e($formError) ?></div><?php endif; ?>
+                <?php if ($formNotice): ?><div class="alert ok form-alert"><?= e($formNotice) ?></div><?php endif; ?>
+                <?php if ($formError): ?><div class="alert error form-alert"><?= e($formError) ?></div><?php endif; ?>
 
-        <form method="post" class="contact-form">
-            <input type="hidden" name="csrf" value="<?= e($token) ?>">
-            <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <form method="post" class="contact-form">
+                    <input type="hidden" name="csrf" value="<?= e($token) ?>">
+                    <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-            <div class="form-row">
-                <input type="text" name="first_name" placeholder="First Name" required>
-                <input type="text" name="last_name" placeholder="Last Name">
+                    <div class="form-row">
+                        <label class="form-field">First Name
+                            <input type="text" name="first_name" placeholder="Enter your first name" required>
+                        </label>
+                        <label class="form-field">Last Name
+                            <input type="text" name="last_name" placeholder="Enter your last name">
+                        </label>
+                    </div>
+                    <div class="form-row">
+                        <label class="form-field">Email
+                            <input type="email" name="email" placeholder="Enter your email" required>
+                        </label>
+                        <label class="form-field">Contact Number
+                            <input type="text" name="phone" placeholder="Enter your contact number">
+                        </label>
+                    </div>
+                    <label class="form-field form-field-full">Message
+                        <textarea name="message" rows="6" placeholder="Enter your message" required></textarea>
+                    </label>
+
+                    <div class="contact-form-actions">
+                        <button type="submit" class="btn-send"><?= e($c('form_button_label', 'Send a Message')) ?> <span class="arrow">&rsaquo;</span></button>
+                    </div>
+                </form>
             </div>
-            <div class="form-row">
-                <input type="text" name="phone" placeholder="Phone Number">
-                <input type="email" name="email" placeholder="Email Address" required>
+
+            <div class="contact-side-card">
+                <h3><?= e($c('contact_side_heading', "Hi! We are always here to help you.")) ?></h3>
+                <div class="contact-side-items">
+                    <div class="contact-side-item">
+                        <span class="icon"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.2 2.2z"/></svg></span>
+                        <div>
+                            <div class="label">Hotline:</div>
+                            <div class="value"><?= e($c('contact_phone', '(+391) 1234 8492')) ?></div>
+                        </div>
+                    </div>
+                    <div class="contact-side-item">
+                        <span class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 012 2v10a2 2 0 01-2 2H9l-5 4V6a2 2 0 012-2z"/></svg></span>
+                        <div>
+                            <div class="label">SMS / WhatsApp:</div>
+                            <div class="value"><?= e($c('whatsapp_phone', $c('contact_phone', '(+391) 1234 8492'))) ?></div>
+                        </div>
+                    </div>
+                    <div class="contact-side-item">
+                        <span class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm8 7L4 6.5V8l8 4.5L20 8V6.5L12 11z"/></svg></span>
+                        <div>
+                            <div class="label">Email:</div>
+                            <div class="value"><?= e($c('contact_email', 'companyname@gamil.com')) ?></div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="contact-side-divider">
+                <div class="contact-side-connect">
+                    <div class="lbl">Connect with us</div>
+                    <div class="contact-side-social">
+                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-8h2.7l.4-3H13V9c0-.9.3-1.5 1.6-1.5H16V4.9c-.3 0-1.2-.1-2.3-.1-2.3 0-3.7 1.3-3.7 3.8V11H7v3h3v8h3z"/></svg></a>
+                        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.6 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 105.4 12 6.6 6.6 0 0012 5.4zm0 10.9A4.3 4.3 0 1116.3 12 4.3 4.3 0 0112 16.3zm6.8-11.1a1.5 1.5 0 11-1.5-1.5 1.5 1.5 0 011.5 1.5z"/></svg></a>
+                        <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 00-7 3.7A11.6 11.6 0 013.2 4.5a4.1 4.1 0 001.3 5.5c-.7 0-1.3-.2-1.9-.5a4.1 4.1 0 003.3 4c-.6.2-1.2.2-1.8.1a4.1 4.1 0 003.8 2.9A8.3 8.3 0 012 18.3a11.6 11.6 0 006.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2z"/></svg></a>
+                    </div>
+                </div>
             </div>
-            <textarea name="message" rows="6" placeholder="Type here......" required></textarea>
-
-            <button type="submit" class="btn-send"><?= e($c('form_button_label', 'Send Message')) ?> <span class="arrow">&rsaquo;</span></button>
-        </form>
-
-        <div class="contact-social">
-            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-8h2.7l.4-3H13V9c0-.9.3-1.5 1.6-1.5H16V4.9c-.3 0-1.2-.1-2.3-.1-2.3 0-3.7 1.3-3.7 3.8V11H7v3h3v8h3z"/></svg></a>
-            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.6 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 105.4 12 6.6 6.6 0 0012 5.4zm0 10.9A4.3 4.3 0 1116.3 12 4.3 4.3 0 0112 16.3zm6.8-11.1a1.5 1.5 0 11-1.5-1.5 1.5 1.5 0 011.5 1.5z"/></svg></a>
-            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22 5.9c-.7.3-1.5.5-2.3.6.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 00-7 3.7A11.6 11.6 0 013.2 4.5a4.1 4.1 0 001.3 5.5c-.7 0-1.3-.2-1.9-.5a4.1 4.1 0 003.3 4c-.6.2-1.2.2-1.8.1a4.1 4.1 0 003.8 2.9A8.3 8.3 0 012 18.3a11.6 11.6 0 006.3 1.8c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2z"/></svg></a>
         </div>
     </div>
 </section>
 
 <!-- ===== Map ===== -->
-<section class="contact-map reveal">
-    <iframe
-        src="https://www.google.com/maps?q=<?= urlencode($c('contact_address', 'London Eye, London, UK')) ?>&output=embed"
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location map"></iframe>
+<section class="contact-map-section reveal">
+    <div class="wrap">
+        <div class="contact-map-caption">
+            <h3><?= e($c('address_label', 'London Eye, UK')) ?></h3>
+            <p><?= e($c('address_card_text', 'Lorem ipsum dolor sit amet consectetur. Laoreet id lorem ut velit aliquam facilisi ut fermentum elit.')) ?></p>
+        </div>
+    </div>
+    <div class="contact-map">
+        <iframe
+            src="https://www.google.com/maps?q=<?= urlencode($c('contact_address', 'London Eye, London, UK')) ?>&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location map"></iframe>
+    </div>
 </section>
 
 <!-- ===== Footer ===== -->
