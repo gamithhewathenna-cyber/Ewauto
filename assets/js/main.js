@@ -1,3 +1,36 @@
+// Parallax: decorative blobs and section background photos drift at a
+// fraction of scroll speed for a subtle sense of depth. Skipped entirely
+// if the visitor prefers reduced motion.
+(function () {
+    var els = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+    if (!els.length) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ticking = false;
+
+    function update() {
+        var vh = window.innerHeight;
+        els.forEach(function (el) {
+            var speed = parseFloat(el.getAttribute('data-parallax')) || 0.15;
+            var rect = el.getBoundingClientRect();
+            var centerOffset = (rect.top + rect.height / 2) - vh / 2;
+            el.style.transform = 'translateY(' + (centerOffset * -speed).toFixed(1) + 'px)';
+        });
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+})();
+
 // Sticky header: adds a solid background once the page scrolls past the
 // hero, so nav text stays legible over whatever content is underneath.
 (function () {

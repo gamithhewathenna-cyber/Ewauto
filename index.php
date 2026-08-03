@@ -109,7 +109,7 @@ for ($n = 1; $n <= 5; $n++) {
 
 <!-- ===== Hero ===== -->
 <section class="hero" id="heroSlider" data-autoplay="6000">
-    <div class="hero-blob"></div>
+    <div class="hero-blob" data-parallax="0.15"></div>
 
     <?php if (!empty($slides)): ?>
         <div class="hero-pager">
@@ -299,7 +299,7 @@ for ($n = 1; $n <= 5; $n++) {
     <div class="wrap">
         <div class="cta-card">
             <?php if ($url = image_url($images, 'cta_rider')): ?>
-                <img class="cta-bg" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'cta_rider', 'Rider')) ?>">
+                <img class="cta-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'cta_rider', 'Rider')) ?>">
             <?php endif; ?>
             <div class="cta-inner">
                 <h2><?= e($c('cta_heading', 'LOREM IPSUM DOLOR SITUR.')) ?></h2>

@@ -78,7 +78,7 @@ $whatWeDoItems = [
 
 <!-- ===== About hero ===== -->
 <section class="contact-hero">
-    <div class="contact-hero-blob"></div>
+    <div class="contact-hero-blob" data-parallax="0.15"></div>
     <div class="wrap">
         <div class="contact-hero-text">
             <p class="hero-eyebrow"><?= e($c('about_eyebrow', 'WHO WE ARE')) ?></p>
@@ -111,7 +111,7 @@ $whatWeDoItems = [
 <!-- ===== Stats band ===== -->
 <section class="about-stats-band reveal">
     <?php if ($url = image_url($images, 'about_stats_bg')): ?>
-        <img class="about-stats-bg" src="<?= e($url) ?>" alt="">
+        <img class="about-stats-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="">
     <?php endif; ?>
     <div class="wrap about-stats-row">
         <div class="about-stat"><div class="num"><?= e($c('about_stat1_num', '100+')) ?></div><div class="cap"><?= e($c('about_stat1_cap', 'Countries and regions exports')) ?></div></div>
@@ -179,7 +179,7 @@ $whatWeDoItems = [
 <!-- ===== Full-width banner ===== -->
 <section class="about-banner reveal">
     <?php if ($url = image_url($images, 'about_banner_image')): ?>
-        <img class="about-banner-bg" src="<?= e($url) ?>" alt="">
+        <img class="about-banner-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="">
     <?php endif; ?>
     <div class="about-banner-overlay"></div>
     <div class="wrap">

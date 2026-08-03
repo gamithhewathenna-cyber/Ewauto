@@ -100,7 +100,7 @@ $token = csrf_token();
 
 <!-- ===== Contact hero ===== -->
 <section class="contact-hero">
-    <div class="contact-hero-blob"></div>
+    <div class="contact-hero-blob" data-parallax="0.15"></div>
     <div class="wrap">
         <div class="contact-hero-text">
             <p class="hero-eyebrow"><?= e($c('contact_eyebrow', 'GET IN TOUCH')) ?></p>
