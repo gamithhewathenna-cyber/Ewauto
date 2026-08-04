@@ -254,7 +254,7 @@ a { color: inherit; text-decoration: none; }
 .spec-strip .spec .v { font-size: 14px; font-weight: 700; transition: opacity .3s ease; }
 
 /* ---------- Intro / lineup ---------- */
-.intro { padding: 40px 0 40px; }
+.intro { padding: 40px 0 20px; }
 .intro-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
