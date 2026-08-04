@@ -214,16 +214,31 @@
     });
 
     // Each panel's colour swatches only affect that panel's own image stack.
+    // The old colour fades out completely before the new one fades in —
+    // sequential, not simultaneous, so the two photos never blend/ghost
+    // together mid-switch.
     panels.forEach(function (panel) {
         var swatches = Array.prototype.slice.call(panel.querySelectorAll('.swatch'));
         var images = Array.prototype.slice.call(panel.querySelectorAll('.bike-color-img'));
+        var activeIndex = images.findIndex(function (img) { return img.classList.contains('is-active'); });
+        if (activeIndex === -1) activeIndex = 0;
+        var switching = false;
 
         swatches.forEach(function (btn, i) {
             btn.addEventListener('click', function () {
+                if (i === activeIndex || switching) return;
+                switching = true;
+
                 swatches.forEach(function (b, j) { b.classList.toggle('is-active', j === i); });
-                images.forEach(function (img) {
-                    img.classList.toggle('is-active', parseInt(img.dataset.index, 10) === i);
-                });
+
+                var oldImg = images[activeIndex];
+                if (oldImg) oldImg.classList.remove('is-active');
+
+                setTimeout(function () {
+                    images.forEach(function (img, j) { img.classList.toggle('is-active', j === i); });
+                    activeIndex = i;
+                    switching = false;
+                }, 350);
             });
         });
     });
