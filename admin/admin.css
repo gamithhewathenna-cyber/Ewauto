@@ -105,6 +105,19 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
     font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--maroon);
 }
 .spec-group-title:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+
+/* ---- collapsible bike cards ---- */
+.bike-card { scroll-margin-top: 20px; }
+.bike-card-toggle {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    width: 100%; background: transparent; border: 0; cursor: pointer;
+    padding: 0; text-align: left; font: inherit; color: inherit;
+}
+.bike-card-toggle-title { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; }
+.bike-card-toggle .chevron { color: #999; transition: transform .2s ease; flex: 0 0 auto; }
+.bike-card.is-open .chevron { transform: rotate(180deg); }
+.bike-card-body { margin-top: 18px; }
+#addBikeCard .bike-card-toggle-title { color: var(--maroon); }
 .field textarea {
     padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; font-size: 13.5px;
     font-family: inherit; resize: vertical;
