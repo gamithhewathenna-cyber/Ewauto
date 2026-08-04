@@ -132,11 +132,11 @@ admin_header('bikes', 'Bikes');
     </div>
 </div>
 
-<?php foreach ($bikes as $b): ?>
+<?php foreach ($bikes as $b): $cardTitle = trim((string) ($b['button_label'] ?? '')) !== '' ? $b['button_label'] : $b['name']; ?>
     <div class="card bike-card">
         <button type="button" class="bike-card-toggle" data-bike-toggle>
             <span class="bike-card-toggle-title">
-                <?= e($b['name']) ?>
+                <?= e($cardTitle) ?>
                 <code><?= $b['active'] ? 'active' : 'hidden' ?></code>
             </span>
             <span class="chevron">&#9662;</span>
