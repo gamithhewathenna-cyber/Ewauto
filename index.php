@@ -131,6 +131,26 @@ foreach ($heroSpecFields as $col => $meta) {
 <section class="hero" id="heroSlider" data-autoplay="6000">
     <div class="hero-blob" data-parallax="0.15"></div>
 
+    <?php if (!empty($slides)): ?>
+        <div class="hero-pager">
+            <?php foreach ($slides as $i => $s): ?>
+                <button aria-label="Slide <?= $i + 1 ?>" class="<?= $i === 0 ? 'is-active' : '' ?>"
+                        data-index="<?= $i ?>"
+                        data-heading="<?= e($s['heading']) ?>"
+                        data-subheading="<?= e($s['subheading']) ?>"
+                        data-link="<?= e($s['link_url']) ?>"
+                        data-max-range="<?= e($s['max_range']) ?>"
+                        data-charging-time="<?= e($s['charging_time']) ?>"
+                        data-battery-capacity="<?= e($s['battery_capacity']) ?>"
+                        data-battery-type="<?= e($s['battery_type']) ?>"><?= $i + 1 ?></button>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <div class="hero-pager">
+            <button aria-label="Slide 1" class="is-active">1</button>
+        </div>
+    <?php endif; ?>
+
     <div class="wrap">
         <div class="hero-grid">
             <div class="hero-text">
@@ -144,19 +164,6 @@ foreach ($heroSpecFields as $col => $meta) {
             </div>
             <div class="hero-visual" data-tilt>
                 <?php if (!empty($slides)): ?>
-                    <div class="hero-pager">
-                        <?php foreach ($slides as $i => $s): ?>
-                            <button aria-label="Slide <?= $i + 1 ?>" class="<?= $i === 0 ? 'is-active' : '' ?>"
-                                    data-index="<?= $i ?>"
-                                    data-heading="<?= e($s['heading']) ?>"
-                                    data-subheading="<?= e($s['subheading']) ?>"
-                                    data-link="<?= e($s['link_url']) ?>"
-                                    data-max-range="<?= e($s['max_range']) ?>"
-                                    data-charging-time="<?= e($s['charging_time']) ?>"
-                                    data-battery-capacity="<?= e($s['battery_capacity']) ?>"
-                                    data-battery-type="<?= e($s['battery_type']) ?>"><?= $i + 1 ?></button>
-                        <?php endforeach; ?>
-                    </div>
                     <?php foreach ($slides as $i => $s): ?>
                         <img class="hero-slide-img <?= $i === 0 ? 'is-active' : '' ?>" data-index="<?= $i ?>"
                              src="<?= e(UPLOAD_URL . '/' . rawurlencode($s['filename'])) ?>" alt="<?= e($s['alt_text']) ?>">

@@ -112,6 +112,32 @@
     }
 })();
 
+// Hero pager vertical alignment: the pager's top offset is hand-tuned
+// (42%) for the desktop side-by-side layout. Once the hero stacks on
+// narrow screens the image no longer sits at that offset, so track its
+// actual position there instead of guessing a second fixed percentage.
+(function () {
+    var hero = document.querySelector('.hero');
+    var visual = document.querySelector('.hero-visual');
+    var pager = document.querySelector('.hero-pager');
+    if (!hero || !visual || !pager) return;
+
+    function update() {
+        if (window.innerWidth > 980) {
+            pager.style.top = '';
+            pager.style.transform = '';
+            return;
+        }
+        var heroTop = hero.getBoundingClientRect().top;
+        var visualRect = visual.getBoundingClientRect();
+        pager.style.top = (visualRect.top - heroTop + visualRect.height / 2) + 'px';
+        pager.style.transform = 'translateY(-50%)';
+    }
+
+    update();
+    window.addEventListener('resize', update);
+})();
+
 // Hero slider
 (function () {
     var root = document.getElementById('heroSlider');
