@@ -211,13 +211,10 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-slide-img.is-active { opacity: 1; transform: scale(1.18); z-index: 1; pointer-events: auto; }
 
-/* slide pager on the left edge of the hero image — positioned relative to
-   .hero-visual so it stays correctly placed whether the layout is
-   side-by-side (desktop) or stacked (mobile). */
+/* slide pager on the left edge of the hero image */
 .hero-pager {
     position: absolute;
-    left: 0; top: 50%;
-    transform: translateY(-50%);
+    left: 0; top: 42%;
     z-index: 3;
     display: flex; flex-direction: column;
 }
@@ -336,11 +333,11 @@ a { color: inherit; text-decoration: none; }
 }
 .bike-detail-specs {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, auto);
     gap: 10px 28px;
 }
 .bike-detail-specs .k { font-size: 12px; color: #cfcfcf; }
-.bike-detail-specs .v { font-size: 14px; font-weight: 700; word-break: break-word; }
+.bike-detail-specs .v { font-size: 14px; font-weight: 700; }
 .bike-quick-specs { margin-top: 26px; }
 .btn-view-more {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
@@ -573,9 +570,16 @@ a { color: inherit; text-decoration: none; }
     .intro-head { text-align: left; }
     .spec-strip { width: 100%; }
     .hero-blob { width: 90%; right: -30%; top: -10%; }
+    /* .hero-visual is full-width and image-height only once stacked, so
+       centering the pager relative to it (instead of the old 42%-of-section
+       offset) keeps it aligned with the image on mobile. */
+    .hero-pager { top: 50%; transform: translateY(-50%); }
     .bike-spec-sheet { grid-template-columns: 1fr; }
     .bike-nav { right: 16px; bottom: 16px; }
     .bike-modal-panel { padding: 34px 24px 24px; max-height: 90vh; }
+    /* narrower stacked layout can overflow with long spec labels */
+    .bike-detail-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .bike-detail-specs .v { word-break: break-word; }
 }
 
 @media (max-width: 760px) {
