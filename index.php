@@ -17,8 +17,16 @@ try {
 // Attach each bike's colours (only ones with an uploaded image) and specs,
 // so the homepage carousel can render every bike fully server-side.
 $bikeSpecGroups = bike_spec_groups();
+$quickSpecCols = [
+    'max_range'        => 'Max Range (km)',
+    'charging_time'    => 'Charging Time',
+    'battery_capacity' => 'Battery Capacity',
+    'battery_type'     => 'Battery Type',
+];
 foreach ($bikes as &$bike) {
     $bike['colors'] = array_values(array_filter(bike_colors((int) $bike['id']), static fn($col) => !empty($col['filename'])));
+    $bike['cover_image'] = $bike['colors'][0]['filename'] ?? '';
+
     $bike['spec_groups'] = [];
     foreach ($bikeSpecGroups as $groupTitle => $fields) {
         $rows = [];
@@ -29,6 +37,13 @@ foreach ($bikes as &$bike) {
         }
         if (!empty($rows)) {
             $bike['spec_groups'][$groupTitle] = $rows;
+        }
+    }
+
+    $bike['quick_specs'] = [];
+    foreach ($quickSpecCols as $col => $label) {
+        if (trim((string) ($bike[$col] ?? '')) !== '') {
+            $bike['quick_specs'][] = ['label' => $label, 'value' => $bike[$col]];
         }
     }
 }
@@ -203,7 +218,12 @@ for ($n = 1; $n <= 5; $n++) {
             <div class="wrap">
                 <div class="bike-selector" id="bikeSelector">
                     <?php foreach ($bikes as $bi => $bike): ?>
-                        <button type="button" class="bike-select-btn <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>"><?= e($bike['name']) ?></button>
+                        <button type="button" class="bike-select-btn <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>"
+                                data-preview-name="<?= e($bike['name']) ?>"
+                                data-preview-tagline="<?= e($bike['tagline']) ?>"
+                                data-preview-image="<?= $bike['cover_image'] ? e(UPLOAD_URL . '/' . rawurlencode($bike['cover_image'])) : '' ?>"
+                                data-preview-specs='<?= e(json_encode($bike['quick_specs'])) ?>'
+                        ><?= e($bike['name']) ?></button>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -230,22 +250,34 @@ for ($n = 1; $n <= 5; $n++) {
                                     </div>
                                 </div>
 
-                                <?php if (!empty($bike['spec_groups'])): ?>
-                                    <div class="bike-spec-sheet">
-                                        <?php foreach ($bike['spec_groups'] as $groupTitle => $rows): ?>
-                                            <div class="bike-spec-group">
-                                                <h4><?= e($groupTitle) ?></h4>
-                                                <div class="bike-detail-specs">
-                                                    <?php foreach ($rows as $s): ?>
-                                                        <div><div class="k"><?= e($s['label']) ?></div><div class="v"><?= e($s['value']) ?></div></div>
-                                                    <?php endforeach; ?>
-                                                </div>
-                                            </div>
+                                <?php if (!empty($bike['quick_specs'])): ?>
+                                    <div class="bike-detail-specs bike-quick-specs">
+                                        <?php foreach ($bike['quick_specs'] as $s): ?>
+                                            <div><div class="k"><?= e($s['label']) ?></div><div class="v"><?= e($s['value']) ?></div></div>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php endif; ?>
 
                                 <?php if ($bike['description']): ?><p class="bike-detail-desc"><?= nl2br(e($bike['description'])) ?></p><?php endif; ?>
+
+                                <?php if (!empty($bike['spec_groups'])): ?>
+                                    <button type="button" class="btn-view-more" data-view-more>View full specs <span class="arrow">&rsaquo;</span></button>
+                                    <template data-spec-template>
+                                        <h3><?= e($bike['name']) ?> — Full Specifications</h3>
+                                        <div class="bike-spec-sheet">
+                                            <?php foreach ($bike['spec_groups'] as $groupTitle => $rows): ?>
+                                                <div class="bike-spec-group">
+                                                    <h4><?= e($groupTitle) ?></h4>
+                                                    <div class="bike-detail-specs">
+                                                        <?php foreach ($rows as $s): ?>
+                                                            <div><div class="k"><?= e($s['label']) ?></div><div class="v"><?= e($s['value']) ?></div></div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </template>
+                                <?php endif; ?>
                             </div>
                             <div class="bike-detail-visual" data-tilt>
                                 <?php foreach ($bike['colors'] as $ci => $col): ?>
@@ -370,6 +402,30 @@ for ($n = 1; $n <= 5; $n++) {
         <?= e($c('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements')) ?>
     </div>
 </footer>
+
+<?php if (!empty($bikes)): ?>
+    <!-- Full-spec popup, filled in from the active bike's hidden template.
+         Kept outside .bikes-showcase so its position:fixed isn't broken by
+         the section's scroll-reveal transform, and isn't clipped by its
+         overflow:hidden. -->
+    <div class="bike-modal" id="bikeModal" aria-hidden="true">
+        <div class="bike-modal-overlay" data-modal-close></div>
+        <div class="bike-modal-panel" role="dialog" aria-modal="true">
+            <button type="button" class="bike-modal-close" data-modal-close aria-label="Close">&times;</button>
+            <div class="bike-modal-body" id="bikeModalBody"></div>
+        </div>
+    </div>
+
+    <!-- Hover preview popup for the bike selector buttons -->
+    <div class="bike-hover-preview" id="bikeHoverPreview">
+        <div class="bike-hover-preview-image"><img id="bikeHoverImage" src="" alt=""></div>
+        <div class="bike-hover-preview-body">
+            <strong id="bikeHoverName"></strong>
+            <span id="bikeHoverTagline"></span>
+            <div class="bike-hover-specs" id="bikeHoverSpecs"></div>
+        </div>
+    </div>
+<?php endif; ?>
 
 <script src="<?= e(BASE_URL) ?>/assets/js/main.js"></script>
 </body>

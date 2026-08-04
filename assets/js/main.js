@@ -228,3 +228,95 @@
         });
     });
 })();
+
+// Bike full-spec popup: "View full specs" clones that bike's hidden
+// template (all spec groups) into a modal overlay.
+(function () {
+    var modal = document.getElementById('bikeModal');
+    if (!modal) return;
+
+    var body = document.getElementById('bikeModalBody');
+
+    function openModal(template) {
+        body.innerHTML = '';
+        body.appendChild(template.content.cloneNode(true));
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-view-more]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var panel = btn.closest('.bike-panel');
+            var tmpl = panel ? panel.querySelector('[data-spec-template]') : null;
+            if (tmpl) openModal(tmpl);
+        });
+    });
+
+    modal.querySelectorAll('[data-modal-close]').forEach(function (el) {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+})();
+
+// Hover preview: hovering a bike-selector button shows a quick popup
+// (photo + key specs) for that bike without switching to it.
+(function () {
+    var popup = document.getElementById('bikeHoverPreview');
+    if (!popup) return;
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+
+    var imgEl = document.getElementById('bikeHoverImage');
+    var nameEl = document.getElementById('bikeHoverName');
+    var taglineEl = document.getElementById('bikeHoverTagline');
+    var specsEl = document.getElementById('bikeHoverSpecs');
+
+    document.querySelectorAll('.bike-select-btn').forEach(function (btn) {
+        btn.addEventListener('mouseenter', function () {
+            var image = btn.getAttribute('data-preview-image') || '';
+            var specs = [];
+            try { specs = JSON.parse(btn.getAttribute('data-preview-specs') || '[]'); } catch (err) { specs = []; }
+
+            if (image) {
+                imgEl.src = image;
+                imgEl.style.display = '';
+            } else {
+                imgEl.style.display = 'none';
+            }
+            nameEl.textContent = btn.getAttribute('data-preview-name') || '';
+            taglineEl.textContent = btn.getAttribute('data-preview-tagline') || '';
+
+            specsEl.innerHTML = '';
+            specs.forEach(function (s) {
+                var row = document.createElement('div');
+                var k = document.createElement('span');
+                k.className = 'k';
+                k.textContent = s.label;
+                var v = document.createElement('span');
+                v.className = 'v';
+                v.textContent = s.value;
+                row.appendChild(k);
+                row.appendChild(v);
+                specsEl.appendChild(row);
+            });
+
+            var rect = btn.getBoundingClientRect();
+            popup.style.left = (rect.left + rect.width / 2 + window.scrollX) + 'px';
+            popup.style.top = (rect.bottom + window.scrollY + 10) + 'px';
+            popup.classList.add('is-visible');
+        });
+
+        btn.addEventListener('mouseleave', function () {
+            popup.classList.remove('is-visible');
+        });
+    });
+})();
