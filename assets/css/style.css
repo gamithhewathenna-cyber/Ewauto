@@ -211,10 +211,13 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-slide-img.is-active { opacity: 1; transform: scale(1.18); z-index: 1; pointer-events: auto; }
 
-/* slide pager on the left edge */
+/* slide pager on the left edge of the hero image — positioned relative to
+   .hero-visual so it stays correctly placed whether the layout is
+   side-by-side (desktop) or stacked (mobile). */
 .hero-pager {
     position: absolute;
-    left: 0; top: 42%;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
     z-index: 3;
     display: flex; flex-direction: column;
 }
@@ -333,11 +336,11 @@ a { color: inherit; text-decoration: none; }
 }
 .bike-detail-specs {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px 28px;
 }
 .bike-detail-specs .k { font-size: 12px; color: #cfcfcf; }
-.bike-detail-specs .v { font-size: 14px; font-weight: 700; }
+.bike-detail-specs .v { font-size: 14px; font-weight: 700; word-break: break-word; }
 .bike-quick-specs { margin-top: 26px; }
 .btn-view-more {
     display: inline-flex; align-items: center; gap: 8px; margin-top: 20px;
@@ -571,6 +574,9 @@ a { color: inherit; text-decoration: none; }
     .spec-strip { width: 100%; grid-template-columns: repeat(3, 1fr); }
     .spec-strip .spec:nth-child(3) { border-right: 0; }
     .hero-blob { width: 90%; right: -30%; top: -10%; }
+    .bike-spec-sheet { grid-template-columns: 1fr; }
+    .bike-nav { right: 16px; bottom: 16px; }
+    .bike-modal-panel { padding: 34px 24px 24px; max-height: 90vh; }
 }
 
 @media (max-width: 760px) {
@@ -579,24 +585,36 @@ a { color: inherit; text-decoration: none; }
         display: flex; flex-direction: column; gap: 8px;
         position: absolute; top: 74px; right: 24px;
         background: var(--maroon); padding: 18px 24px; border-radius: 8px;
+        max-width: calc(100vw - 48px);
     }
     .nav.open .nav-social {
         display: flex; position: absolute; top: 220px; right: 24px;
         background: var(--maroon); padding: 12px 24px; border-radius: 8px;
     }
     .nav-toggle { display: grid; place-items: center; }
-    .hero { padding-top: 120px; }
+    .brand img { height: 46px; }
+    .site-header.is-scrolled .brand img { height: 38px; }
+    .hero { padding-top: 110px; }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
+    .stats .stat { padding: 22px 14px; }
+    .stats .num { font-size: 32px; }
     .stats .stat:nth-child(2) { border-right: 0; }
     .spec-strip { grid-template-columns: repeat(2, 1fr); }
-    .spec-strip .spec { border-right: 1px solid rgba(255,255,255,.18); }
+    .spec-strip .spec { border-right: 1px solid rgba(255,255,255,.18); padding: 14px; }
+    .spec-strip .spec:nth-child(2n) { border-right: 0; }
     .cta-card .cta-inner { padding: 46px 18px 40px; }
 }
 
 @media (max-width: 480px) {
     .footer-grid { grid-template-columns: 1fr; }
-    .bike-spec-sheet { grid-template-columns: 1fr; }
     .hero-title { font-size: 52px; }
+    .bike-select-btn { padding: 8px 16px; font-size: 11px; }
+    .bike-selector { gap: 8px; }
+    .bike-modal-panel { padding: 26px 18px 20px; }
+    .bike-modal-body h3 { font-size: 17px; }
+    .bike-detail-specs { grid-template-columns: 1fr; gap: 8px; }
+    .contact-side-card { padding: 26px 20px; }
+    .contact-hero-blob { width: 85%; right: -25%; top: -30%; }
 }
 
 /* ---------- Contact page ---------- */
@@ -815,4 +833,62 @@ a { color: inherit; text-decoration: none; }
     }
     .about-stats-row { grid-template-columns: repeat(2, 1fr); }
     .whatwedo-items { grid-template-columns: 1fr; }
+    .vm-images { margin-top: -30px; }
+}
+
+@media (max-width: 640px) {
+    /* Stacked vision/mission cards leave less room for the overlapping
+       vehicle photos below them — drop the overlap so it never covers text. */
+    .vm-images { margin-top: 20px; }
+    .vm-image-2 { margin-left: -16px; }
+    .about-banner { min-height: 300px; padding: 40px 0; }
+}
+
+/* ---------- Small phones: tighten spacing/type site-wide ---------- */
+@media (max-width: 420px) {
+    .wrap { padding: 0 16px; }
+
+    .hero-eyebrow { letter-spacing: .3em; font-size: 13px; }
+    .hero-copy { max-width: 100%; }
+    .btn { padding: 12px 20px; font-size: 13px; }
+
+    .intro { padding: 60px 0 30px; }
+    .intro-copy p { font-size: 14.5px; }
+
+    .bikes-showcase { padding: 15px 0 30px; }
+    .bike-detail-title { font-size: 32px; }
+    .bike-detail-tagline { max-width: 100%; }
+    .bike-progress { max-width: 100%; }
+    .bike-detail-desc { max-width: 100%; }
+    .bike-nav button { width: 40px; height: 30px; }
+    .bike-modal { padding: 14px; }
+    .bike-modal-panel { border-radius: 14px; }
+    .bike-hover-preview { width: calc(100vw - 40px); max-width: 260px; }
+
+    .world { padding: 60px 0; }
+    .world-head { margin-bottom: 34px; }
+    .testimonial { padding: 20px; }
+    .testimonial-nav { margin-left: 0; }
+
+    .cta-card h2 { font-size: 24px; }
+    .cta-card .cta-inner { padding: 36px 16px 32px; }
+    .stats { grid-template-columns: 1fr; margin: -30px 16px 0; }
+    .stats .stat { border-right: 0; border-bottom: 1px solid var(--line); }
+    .stats .stat:last-child { border-bottom: 0; }
+
+    .footer-brand p { max-width: 100%; }
+
+    .story-section { padding: 60px 0; }
+    .about-stats-row { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .about-stat .num { font-size: 24px; }
+    .whatwedo-section { padding: 60px 0; }
+    .whatwedo-item { padding: 14px; }
+    .vm-card { padding: 24px; }
+    .vm-images img { max-width: 48%; }
+    .about-cta-section { padding: 60px 0; }
+
+    .contact-form-section { padding: 50px 0 40px; }
+    .contact-side-card { padding: 22px 18px; }
+    .contact-side-item { padding: 12px; }
+    .contact-map iframe { height: 300px; }
 }

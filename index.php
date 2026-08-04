@@ -133,27 +133,6 @@ for ($n = 1; $n <= 5; $n++) {
 <section class="hero" id="heroSlider" data-autoplay="6000">
     <div class="hero-blob" data-parallax="0.15"></div>
 
-    <?php if (!empty($slides)): ?>
-        <div class="hero-pager">
-            <?php foreach ($slides as $i => $s): ?>
-                <button aria-label="Slide <?= $i + 1 ?>" class="<?= $i === 0 ? 'is-active' : '' ?>"
-                        data-index="<?= $i ?>"
-                        data-heading="<?= e($s['heading']) ?>"
-                        data-subheading="<?= e($s['subheading']) ?>"
-                        data-link="<?= e($s['link_url']) ?>"
-                        data-spec1="<?= e($s['spec1_value']) ?>"
-                        data-spec2="<?= e($s['spec2_value']) ?>"
-                        data-spec3="<?= e($s['spec3_value']) ?>"
-                        data-spec4="<?= e($s['spec4_value']) ?>"
-                        data-spec5="<?= e($s['spec5_value']) ?>"><?= $i + 1 ?></button>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <div class="hero-pager">
-            <button aria-label="Slide 1" class="is-active">1</button>
-        </div>
-    <?php endif; ?>
-
     <div class="wrap">
         <div class="hero-grid">
             <div class="hero-text">
@@ -167,6 +146,20 @@ for ($n = 1; $n <= 5; $n++) {
             </div>
             <div class="hero-visual" data-tilt>
                 <?php if (!empty($slides)): ?>
+                    <div class="hero-pager">
+                        <?php foreach ($slides as $i => $s): ?>
+                            <button aria-label="Slide <?= $i + 1 ?>" class="<?= $i === 0 ? 'is-active' : '' ?>"
+                                    data-index="<?= $i ?>"
+                                    data-heading="<?= e($s['heading']) ?>"
+                                    data-subheading="<?= e($s['subheading']) ?>"
+                                    data-link="<?= e($s['link_url']) ?>"
+                                    data-spec1="<?= e($s['spec1_value']) ?>"
+                                    data-spec2="<?= e($s['spec2_value']) ?>"
+                                    data-spec3="<?= e($s['spec3_value']) ?>"
+                                    data-spec4="<?= e($s['spec4_value']) ?>"
+                                    data-spec5="<?= e($s['spec5_value']) ?>"><?= $i + 1 ?></button>
+                        <?php endforeach; ?>
+                    </div>
                     <?php foreach ($slides as $i => $s): ?>
                         <img class="hero-slide-img <?= $i === 0 ? 'is-active' : '' ?>" data-index="<?= $i ?>"
                              src="<?= e(UPLOAD_URL . '/' . rawurlencode($s['filename'])) ?>" alt="<?= e($s['alt_text']) ?>">
