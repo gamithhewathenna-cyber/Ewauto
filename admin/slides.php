@@ -5,18 +5,22 @@ require_once __DIR__ . '/../includes/uploads.php';
 $notice = '';
 $error  = '';
 
+const SLIDE_SPEC_FIELDS = [
+    'max_range'        => 'Max Range (km)',
+    'charging_time'    => 'Charging Time',
+    'battery_capacity' => 'Battery Capacity',
+    'battery_type'     => 'Battery Type',
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!check_csrf()) {
         $error = 'Session expired. Please try again.';
     } else {
         $action = $_POST['action'] ?? '';
-        $specValues = [
-            trim($_POST['spec1_value'] ?? ''),
-            trim($_POST['spec2_value'] ?? ''),
-            trim($_POST['spec3_value'] ?? ''),
-            trim($_POST['spec4_value'] ?? ''),
-            trim($_POST['spec5_value'] ?? ''),
-        ];
+        $specValues = [];
+        foreach (SLIDE_SPEC_FIELDS as $col => $label) {
+            $specValues[] = trim($_POST[$col] ?? '');
+        }
 
         if ($action === 'add') {
             if (empty($_FILES['image']['name'])) {
@@ -28,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     $maxOrder = (int) db()->query('SELECT COALESCE(MAX(sort_order), 0) FROM slides')->fetchColumn();
                     db()->prepare('INSERT INTO slides
-                        (filename, alt_text, heading, subheading, link_url, spec1_value, spec2_value, spec3_value, spec4_value, spec5_value, sort_order, active)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)')
+                        (filename, alt_text, heading, subheading, link_url, max_range, charging_time, battery_capacity, battery_type, sort_order, active)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)')
                         ->execute(array_merge([
                             $result['filename'],
                             trim($_POST['alt_text'] ?? ''),
@@ -61,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 if (!$error) {
                     db()->prepare('UPDATE slides SET filename=?, alt_text=?, heading=?, subheading=?, link_url=?,
-                        spec1_value=?, spec2_value=?, spec3_value=?, spec4_value=?, spec5_value=?, sort_order=?, active=? WHERE id=?')
+                        max_range=?, charging_time=?, battery_capacity=?, battery_type=?, sort_order=?, active=? WHERE id=?')
                         ->execute(array_merge([
                             $newFilename,
                             trim($_POST['alt_text'] ?? ''),
@@ -93,18 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $slides = all_slides();
 $token = csrf_token();
 
-$contentValues = all_content();
-$specLabels = [
-    content($contentValues, 'spec1_label', 'Battery'),
-    content($contentValues, 'spec2_label', 'Max Speed'),
-    content($contentValues, 'spec3_label', 'Range'),
-    content($contentValues, 'spec4_label', 'Weight allow'),
-    content($contentValues, 'spec5_label', 'Motor'),
-];
-
 admin_header('slides', 'Slider Images');
 ?>
-<p class="admin-lead">Manage the homepage hero slider (up to 4+ slides work well). Each slide can have its own heading, subheading, and bike specs — when the image changes, the banner text and specs change with it. Spec labels come from Page Content Change &rarr; Home Content; only the values here are per-slide. If no slides have an image, the homepage falls back to the single hero image and specs set in Page Content.</p>
+<p class="admin-lead">Manage the homepage hero slider (up to 4+ slides work well). Each slide can have its own heading, subheading, and bike specs — when the image changes, the banner text and specs change with it. If no slides have an image, the homepage falls back to the single hero image.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
@@ -143,11 +138,11 @@ admin_header('slides', 'Slider Images');
                 <label class="field">Link URL (optional)
                     <input type="text" name="link_url" value="<?= e($s['link_url']) ?>">
                 </label>
-                <?php for ($n = 1; $n <= 5; $n++): $col = 'spec' . $n . '_value'; ?>
-                    <label class="field"><?= e($specLabels[$n - 1]) ?> value (optional)
-                        <input type="text" name="<?= $col ?>" value="<?= e($s[$col] ?? '') ?>">
+                <?php foreach (SLIDE_SPEC_FIELDS as $col => $label): ?>
+                    <label class="field"><?= e($label) ?> (optional)
+                        <input type="text" name="<?= e($col) ?>" value="<?= e($s[$col] ?? '') ?>">
                     </label>
-                <?php endfor; ?>
+                <?php endforeach; ?>
                 <label class="field">Order
                     <input type="number" name="sort_order" value="<?= (int) $s['sort_order'] ?>">
                 </label>
@@ -185,11 +180,11 @@ admin_header('slides', 'Slider Images');
             <label class="field">Link URL (optional)
                 <input type="text" name="link_url">
             </label>
-            <?php for ($n = 1; $n <= 5; $n++): ?>
-                <label class="field"><?= e($specLabels[$n - 1]) ?> value (optional)
-                    <input type="text" name="spec<?= $n ?>_value">
+            <?php foreach (SLIDE_SPEC_FIELDS as $col => $label): ?>
+                <label class="field"><?= e($label) ?> (optional)
+                    <input type="text" name="<?= e($col) ?>">
                 </label>
-            <?php endfor; ?>
+            <?php endforeach; ?>
             <div class="image-actions">
                 <button type="submit" class="btn-primary">Add slide</button>
             </div>

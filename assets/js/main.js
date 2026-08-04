@@ -125,6 +125,7 @@
     var copyEl = root.querySelector('.hero-copy');
     var ctaEl = root.querySelector('#heroCta');
     var specEls = Array.prototype.slice.call(root.querySelectorAll('.spec-strip .v'));
+    var specKeys = ['maxRange', 'chargingTime', 'batteryCapacity', 'batteryType'];
     var defaultTitle = titleEl ? titleEl.getAttribute('data-default') : '';
     var defaultCopy = copyEl ? copyEl.getAttribute('data-default') : '';
     var defaultHref = ctaEl ? ctaEl.getAttribute('data-default-href') : '#feature';
@@ -149,7 +150,7 @@
             if (titleEl) titleEl.textContent = d.dataset.heading || defaultTitle;
             if (copyEl) copyEl.textContent = d.dataset.subheading || defaultCopy;
             specEls.forEach(function (el, i) {
-                var value = d.dataset['spec' + (i + 1)];
+                var value = d.dataset[specKeys[i]];
                 el.textContent = value || el.getAttribute('data-default');
             });
             textEls.forEach(function (el) { el.style.opacity = '1'; });

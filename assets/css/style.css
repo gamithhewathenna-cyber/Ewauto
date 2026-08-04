@@ -244,7 +244,7 @@ a { color: inherit; text-decoration: none; }
     backdrop-filter: blur(2px);
     color: #fff;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     border-radius: 12px;
     overflow: hidden;
 }
@@ -571,8 +571,7 @@ a { color: inherit; text-decoration: none; }
     }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .intro-head { text-align: left; }
-    .spec-strip { width: 100%; grid-template-columns: repeat(3, 1fr); }
-    .spec-strip .spec:nth-child(3) { border-right: 0; }
+    .spec-strip { width: 100%; }
     .hero-blob { width: 90%; right: -30%; top: -10%; }
     .bike-spec-sheet { grid-template-columns: 1fr; }
     .bike-nav { right: 16px; bottom: 16px; }

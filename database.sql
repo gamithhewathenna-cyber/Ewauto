@@ -71,11 +71,6 @@ INSERT INTO content (content_key, content_value) VALUES
     ('hero_title', 'DREAM'),
     ('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.'),
     ('hero_cta_label', 'Learn more'),
-    ('spec1_label', 'Battery'), ('spec1_value', 'Lead-acid/Lithiut'),
-    ('spec2_label', 'Max Speed'), ('spec2_value', '50/80km/h'),
-    ('spec3_label', 'Range'), ('spec3_value', '80/120km'),
-    ('spec4_label', 'Weight allow'), ('spec4_value', '150kg'),
-    ('spec5_label', 'Motor'), ('spec5_value', '1500/3000w'),
 
     ('intro_para1', 'Lorem ipsum dolor sit amet consectetur. Vel eget a sem amet leo sollicitudin tellus. Amet nunc urna sed sociis viverra urna hendrerit fringilla. Varius nec id egestas arcu pretium elit egestas in amet. Elementum accumsan blandit purus duis lorem tincidunt at.'),
     ('intro_para2', 'Vel quam placerat nunc sed. Arcu porta pretium consequat id vestibulum nullam. Sit sit faucibus sodales aliquet enim pharetra urna imperdiet. Scelerisque enim in sed commodo odio. Non nisl vestibulum convallis non sapien mattis. Viverra congue et viverra.'),
@@ -183,26 +178,30 @@ CREATE TABLE IF NOT EXISTS slides (
     heading     VARCHAR(255) DEFAULT '',
     subheading  VARCHAR(255) DEFAULT '',
     link_url    VARCHAR(255) DEFAULT '',
-    spec1_value VARCHAR(64) DEFAULT '',
-    spec2_value VARCHAR(64) DEFAULT '',
-    spec3_value VARCHAR(64) DEFAULT '',
-    spec4_value VARCHAR(64) DEFAULT '',
-    spec5_value VARCHAR(64) DEFAULT '',
+    max_range         VARCHAR(64) DEFAULT '',
+    charging_time     VARCHAR(64) DEFAULT '',
+    battery_capacity  VARCHAR(64) DEFAULT '',
+    battery_type      VARCHAR(64) DEFAULT '',
     sort_order  INT NOT NULL DEFAULT 0,
     active      TINYINT(1) NOT NULL DEFAULT 1,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- If the `slides` table already existed before this update, add the new
--- per-slide spec columns (safe to re-run; requires MySQL 8.0.29+ / MariaDB
--- 10.0.2+ for "ADD COLUMN IF NOT EXISTS" — if that errors on your host, run
--- the plain ALTER TABLE ADD COLUMN version once instead).
+-- If the `slides` table already existed before this update, migrate from the
+-- old generic spec1-5 columns to the fixed fields below (matches the Bikes
+-- quick specs) — safe to re-run; requires MySQL 8.0.29+ / MariaDB 10.0.2+
+-- for "IF [NOT] EXISTS" on ADD/DROP COLUMN — if that errors on your host,
+-- run the plain versions of these statements once instead.
 ALTER TABLE slides
-    ADD COLUMN IF NOT EXISTS spec1_value VARCHAR(64) DEFAULT '',
-    ADD COLUMN IF NOT EXISTS spec2_value VARCHAR(64) DEFAULT '',
-    ADD COLUMN IF NOT EXISTS spec3_value VARCHAR(64) DEFAULT '',
-    ADD COLUMN IF NOT EXISTS spec4_value VARCHAR(64) DEFAULT '',
-    ADD COLUMN IF NOT EXISTS spec5_value VARCHAR(64) DEFAULT '';
+    ADD COLUMN IF NOT EXISTS max_range VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS charging_time VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS battery_capacity VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS battery_type VARCHAR(64) DEFAULT '',
+    DROP COLUMN IF EXISTS spec1_value,
+    DROP COLUMN IF EXISTS spec2_value,
+    DROP COLUMN IF EXISTS spec3_value,
+    DROP COLUMN IF EXISTS spec4_value,
+    DROP COLUMN IF EXISTS spec5_value;
 
 -- ---------------------------------------------------------------------------
 -- Product catalog. If this table is empty, the front end falls back to the

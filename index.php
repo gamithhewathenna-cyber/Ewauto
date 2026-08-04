@@ -63,21 +63,19 @@ $c = static fn(string $key, string $fallback = '') => content($content, $key, $f
 // without an image yet don't break the carousel.
 $slides = array_values(array_filter($slides, static fn($s) => !empty($s['filename'])));
 
-$specDefaults = [
-    $c('spec1_value', 'Lead-acid/Lithiut'),
-    $c('spec2_value', '50/80km/h'),
-    $c('spec3_value', '80/120km'),
-    $c('spec4_value', '150kg'),
-    $c('spec5_value', '1500/3000w'),
+$heroSpecFields = [
+    'max_range'        => ['label' => 'Max Range (km)', 'default' => '120'],
+    'charging_time'    => ['label' => 'Charging Time',   'default' => '4-6 hrs'],
+    'battery_capacity' => ['label' => 'Battery Capacity','default' => '60V 20Ah'],
+    'battery_type'     => ['label' => 'Battery Type',    'default' => 'Lithium-ion'],
 ];
 $firstSlide = $slides[0] ?? null;
 $initialTitle = ($firstSlide && $firstSlide['heading'] !== '') ? $firstSlide['heading'] : $c('hero_title', 'DREAM');
 $initialCopy  = ($firstSlide && $firstSlide['subheading'] !== '') ? $firstSlide['subheading'] : $c('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.');
 $initialHref  = ($firstSlide && $firstSlide['link_url'] !== '') ? $firstSlide['link_url'] : '#feature';
 $initialSpecs = [];
-for ($n = 1; $n <= 5; $n++) {
-    $col = 'spec' . $n . '_value';
-    $initialSpecs[$n] = ($firstSlide && $firstSlide[$col] !== '') ? $firstSlide[$col] : $specDefaults[$n - 1];
+foreach ($heroSpecFields as $col => $meta) {
+    $initialSpecs[$col] = ($firstSlide && $firstSlide[$col] !== '') ? $firstSlide[$col] : $meta['default'];
 }
 ?>
 <!DOCTYPE html>
@@ -153,11 +151,10 @@ for ($n = 1; $n <= 5; $n++) {
                                     data-heading="<?= e($s['heading']) ?>"
                                     data-subheading="<?= e($s['subheading']) ?>"
                                     data-link="<?= e($s['link_url']) ?>"
-                                    data-spec1="<?= e($s['spec1_value']) ?>"
-                                    data-spec2="<?= e($s['spec2_value']) ?>"
-                                    data-spec3="<?= e($s['spec3_value']) ?>"
-                                    data-spec4="<?= e($s['spec4_value']) ?>"
-                                    data-spec5="<?= e($s['spec5_value']) ?>"><?= $i + 1 ?></button>
+                                    data-max-range="<?= e($s['max_range']) ?>"
+                                    data-charging-time="<?= e($s['charging_time']) ?>"
+                                    data-battery-capacity="<?= e($s['battery_capacity']) ?>"
+                                    data-battery-type="<?= e($s['battery_type']) ?>"><?= $i + 1 ?></button>
                         <?php endforeach; ?>
                     </div>
                     <?php foreach ($slides as $i => $s): ?>
@@ -173,11 +170,9 @@ for ($n = 1; $n <= 5; $n++) {
         </div>
         <!-- spec strip -->
         <div class="spec-strip">
-            <div class="spec"><div class="k"><?= e($c('spec1_label', 'Battery')) ?></div><div class="v" data-default="<?= e($specDefaults[0]) ?>"><?= e($initialSpecs[1]) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec2_label', 'Max Speed')) ?></div><div class="v" data-default="<?= e($specDefaults[1]) ?>"><?= e($initialSpecs[2]) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec3_label', 'Range')) ?></div><div class="v" data-default="<?= e($specDefaults[2]) ?>"><?= e($initialSpecs[3]) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec4_label', 'Weight allow')) ?></div><div class="v" data-default="<?= e($specDefaults[3]) ?>"><?= e($initialSpecs[4]) ?></div></div>
-            <div class="spec"><div class="k"><?= e($c('spec5_label', 'Motor')) ?></div><div class="v" data-default="<?= e($specDefaults[4]) ?>"><?= e($initialSpecs[5]) ?></div></div>
+            <?php foreach ($heroSpecFields as $col => $meta): ?>
+                <div class="spec"><div class="k"><?= e($meta['label']) ?></div><div class="v" data-default="<?= e($meta['default']) ?>"><?= e($initialSpecs[$col]) ?></div></div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
