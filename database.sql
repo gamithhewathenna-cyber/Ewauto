@@ -230,15 +230,56 @@ CREATE TABLE IF NOT EXISTS bikes (
     name        VARCHAR(128) NOT NULL,
     tagline     VARCHAR(255) DEFAULT '',
     description TEXT,
-    spec1_label VARCHAR(64) DEFAULT 'Max Speed',   spec1_value VARCHAR(64) DEFAULT '',
-    spec2_label VARCHAR(64) DEFAULT 'Range',        spec2_value VARCHAR(64) DEFAULT '',
-    spec3_label VARCHAR(64) DEFAULT 'Weight allow', spec3_value VARCHAR(64) DEFAULT '',
-    spec4_label VARCHAR(64) DEFAULT 'Motor',        spec4_value VARCHAR(64) DEFAULT '',
-    spec5_label VARCHAR(64) DEFAULT 'Battery',      spec5_value VARCHAR(64) DEFAULT '',
+    -- Dimension
+    dim_length      VARCHAR(64) DEFAULT '',
+    dim_width       VARCHAR(64) DEFAULT '',
+    dim_height      VARCHAR(64) DEFAULT '',
+    dim_wheelbase   VARCHAR(64) DEFAULT '',
+    -- Motor
+    motor_type            VARCHAR(64) DEFAULT '',
+    motor_rated_power     VARCHAR(64) DEFAULT '',
+    motor_climbing_angle  VARCHAR(64) DEFAULT '',
+    -- Electricals
+    battery_type      VARCHAR(64) DEFAULT '',
+    battery_capacity  VARCHAR(64) DEFAULT '',
+    charging_time     VARCHAR(64) DEFAULT '',
+    max_range         VARCHAR(64) DEFAULT '',
+    dashboard         VARCHAR(64) DEFAULT '',
+    -- Tires & Brakes
+    tire_size         VARCHAR(64) DEFAULT '',
+    shock_absorption  VARCHAR(64) DEFAULT '',
+    brake_fr          VARCHAR(64) DEFAULT '',
     sort_order  INT NOT NULL DEFAULT 0,
     active      TINYINT(1) NOT NULL DEFAULT 1,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- If the `bikes` table already existed with the old generic spec1-5
+-- label/value columns, migrate to the fixed spec sheet fields below (safe
+-- to re-run; requires MySQL 8.0.29+ / MariaDB 10.0.2+ for "IF [NOT] EXISTS"
+-- on ADD/DROP COLUMN — if that errors on your host, run the plain versions
+-- of these statements once instead, without "IF [NOT] EXISTS").
+ALTER TABLE bikes
+    ADD COLUMN IF NOT EXISTS dim_length VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS dim_width VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS dim_height VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS dim_wheelbase VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS motor_type VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS motor_rated_power VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS motor_climbing_angle VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS battery_type VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS battery_capacity VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS charging_time VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS max_range VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS dashboard VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS tire_size VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS shock_absorption VARCHAR(64) DEFAULT '',
+    ADD COLUMN IF NOT EXISTS brake_fr VARCHAR(64) DEFAULT '',
+    DROP COLUMN IF EXISTS spec1_label, DROP COLUMN IF EXISTS spec1_value,
+    DROP COLUMN IF EXISTS spec2_label, DROP COLUMN IF EXISTS spec2_value,
+    DROP COLUMN IF EXISTS spec3_label, DROP COLUMN IF EXISTS spec3_value,
+    DROP COLUMN IF EXISTS spec4_label, DROP COLUMN IF EXISTS spec4_value,
+    DROP COLUMN IF EXISTS spec5_label, DROP COLUMN IF EXISTS spec5_value;
 
 -- ---------------------------------------------------------------------------
 -- Colour variants for each bike. The first colour (lowest sort_order) is

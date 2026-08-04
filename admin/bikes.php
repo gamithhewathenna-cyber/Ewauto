@@ -3,6 +3,7 @@ require_once __DIR__ . '/layout.php';
 
 $notice = '';
 $error  = '';
+$specColumns = bike_spec_columns();
 
 function sanitize_slug(string $s): string
 {
@@ -17,9 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $action = $_POST['action'] ?? '';
         $specs = [];
-        for ($n = 1; $n <= 5; $n++) {
-            $specs["spec{$n}_label"] = trim($_POST["spec{$n}_label"] ?? '');
-            $specs["spec{$n}_value"] = trim($_POST["spec{$n}_value"] ?? '');
+        foreach ($specColumns as $col) {
+            $specs[$col] = trim($_POST[$col] ?? '');
         }
 
         if ($action === 'add') {
@@ -30,21 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $slug = unique_bike_slug(sanitize_slug($name));
 
                 $maxOrder = (int) db()->query('SELECT COALESCE(MAX(sort_order), 0) FROM bikes')->fetchColumn();
-                db()->prepare('INSERT INTO bikes
-                    (slug, name, tagline, description, spec1_label, spec1_value, spec2_label, spec2_value,
-                     spec3_label, spec3_value, spec4_label, spec4_value, spec5_label, spec5_value, sort_order, active)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)')
-                    ->execute([
-                        $slug, $name,
-                        trim($_POST['tagline'] ?? ''),
-                        trim($_POST['description'] ?? ''),
-                        $specs['spec1_label'], $specs['spec1_value'],
-                        $specs['spec2_label'], $specs['spec2_value'],
-                        $specs['spec3_label'], $specs['spec3_value'],
-                        $specs['spec4_label'], $specs['spec4_value'],
-                        $specs['spec5_label'], $specs['spec5_value'],
-                        $maxOrder + 10,
-                    ]);
+                $cols = array_merge(['slug', 'name', 'tagline', 'description'], $specColumns, ['sort_order']);
+                $placeholders = implode(', ', array_fill(0, count($cols), '?'));
+                $values = array_merge(
+                    [$slug, $name, trim($_POST['tagline'] ?? ''), trim($_POST['description'] ?? '')],
+                    array_values($specs),
+                    [$maxOrder + 10]
+                );
+                db()->prepare('INSERT INTO bikes (' . implode(', ', $cols) . ', active) VALUES (' . $placeholders . ', 1)')
+                    ->execute($values);
                 $notice = 'Bike added. Now add colour images for it below.';
             }
         } elseif ($action === 'update') {
@@ -59,23 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($name === '') {
                 $error = 'Bike name is required.';
             } else {
-                db()->prepare('UPDATE bikes SET name=?, tagline=?, description=?,
-                    spec1_label=?, spec1_value=?, spec2_label=?, spec2_value=?,
-                    spec3_label=?, spec3_value=?, spec4_label=?, spec4_value=?,
-                    spec5_label=?, spec5_value=?, sort_order=?, active=? WHERE id=?')
-                    ->execute([
-                        $name,
-                        trim($_POST['tagline'] ?? ''),
-                        trim($_POST['description'] ?? ''),
-                        $specs['spec1_label'], $specs['spec1_value'],
-                        $specs['spec2_label'], $specs['spec2_value'],
-                        $specs['spec3_label'], $specs['spec3_value'],
-                        $specs['spec4_label'], $specs['spec4_value'],
-                        $specs['spec5_label'], $specs['spec5_value'],
-                        (int) ($_POST['sort_order'] ?? 0),
-                        isset($_POST['active']) ? 1 : 0,
-                        $id,
-                    ]);
+                $setCols = array_merge(['name', 'tagline', 'description'], $specColumns, ['sort_order', 'active']);
+                $setSql = implode(', ', array_map(static fn($c) => "$c=?", $setCols));
+                $values = array_merge(
+                    [$name, trim($_POST['tagline'] ?? ''), trim($_POST['description'] ?? '')],
+                    array_values($specs),
+                    [(int) ($_POST['sort_order'] ?? 0), isset($_POST['active']) ? 1 : 0, $id]
+                );
+                db()->prepare('UPDATE bikes SET ' . $setSql . ' WHERE id=?')->execute($values);
                 $notice = 'Bike updated.';
             }
         } elseif ($action === 'delete') {
@@ -98,6 +83,7 @@ $colorCounts = [];
 foreach (db()->query('SELECT bike_id, COUNT(*) AS n FROM bike_colors GROUP BY bike_id') as $row) {
     $colorCounts[$row['bike_id']] = (int) $row['n'];
 }
+$specGroups = bike_spec_groups();
 $token = csrf_token();
 
 admin_header('bikes', 'Bikes');
@@ -134,16 +120,16 @@ admin_header('bikes', 'Bikes');
                 <textarea name="description" rows="3"><?= e($b['description']) ?></textarea>
             </label>
 
-            <?php for ($n = 1; $n <= 5; $n++): ?>
-                <label class="field">Spec <?= $n ?> label
-                    <input type="text" name="spec<?= $n ?>_label" value="<?= e($b['spec' . $n . '_label']) ?>">
-                </label>
-                <label class="field">Spec <?= $n ?> value
-                    <input type="text" name="spec<?= $n ?>_value" value="<?= e($b['spec' . $n . '_value']) ?>">
-                </label>
-            <?php endfor; ?>
+            <?php foreach ($specGroups as $groupTitle => $fields): ?>
+                <h4 class="spec-group-title" style="grid-column:1/-1;"><?= e($groupTitle) ?></h4>
+                <?php foreach ($fields as $col => $label): ?>
+                    <label class="field"><?= e($label) ?>
+                        <input type="text" name="<?= e($col) ?>" value="<?= e($b[$col] ?? '') ?>">
+                    </label>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
 
-            <label class="toggle-row">
+            <label class="toggle-row" style="grid-column:1/-1;">
                 <input type="checkbox" name="active" value="1" <?= $b['active'] ? 'checked' : '' ?>>
                 <span>Active (visible on the site)</span>
             </label>
@@ -173,16 +159,14 @@ admin_header('bikes', 'Bikes');
             <textarea name="description" rows="3"></textarea>
         </label>
 
-        <?php
-        $defaultLabels = ['Max Speed', 'Range', 'Weight allow', 'Motor', 'Battery'];
-        for ($n = 1; $n <= 5; $n++): ?>
-            <label class="field">Spec <?= $n ?> label
-                <input type="text" name="spec<?= $n ?>_label" value="<?= e($defaultLabels[$n - 1]) ?>">
-            </label>
-            <label class="field">Spec <?= $n ?> value
-                <input type="text" name="spec<?= $n ?>_value">
-            </label>
-        <?php endfor; ?>
+        <?php foreach ($specGroups as $groupTitle => $fields): ?>
+            <h4 class="spec-group-title" style="grid-column:1/-1;"><?= e($groupTitle) ?></h4>
+            <?php foreach ($fields as $col => $label): ?>
+                <label class="field"><?= e($label) ?>
+                    <input type="text" name="<?= e($col) ?>">
+                </label>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
 
         <div class="image-actions" style="grid-column:1/-1;">
             <button type="submit" class="btn-primary">Add bike</button>

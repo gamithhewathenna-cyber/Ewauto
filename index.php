@@ -16,12 +16,19 @@ try {
 
 // Attach each bike's colours (only ones with an uploaded image) and specs,
 // so the homepage carousel can render every bike fully server-side.
+$bikeSpecGroups = bike_spec_groups();
 foreach ($bikes as &$bike) {
     $bike['colors'] = array_values(array_filter(bike_colors((int) $bike['id']), static fn($col) => !empty($col['filename'])));
-    $bike['specs'] = [];
-    for ($n = 1; $n <= 5; $n++) {
-        if (trim((string) $bike["spec{$n}_label"]) !== '' && trim((string) $bike["spec{$n}_value"]) !== '') {
-            $bike['specs'][] = ['label' => $bike["spec{$n}_label"], 'value' => $bike["spec{$n}_value"]];
+    $bike['spec_groups'] = [];
+    foreach ($bikeSpecGroups as $groupTitle => $fields) {
+        $rows = [];
+        foreach ($fields as $col => $label) {
+            if (trim((string) ($bike[$col] ?? '')) !== '') {
+                $rows[] = ['label' => $label, 'value' => $bike[$col]];
+            }
+        }
+        if (!empty($rows)) {
+            $bike['spec_groups'][$groupTitle] = $rows;
         }
     }
 }
@@ -223,10 +230,17 @@ for ($n = 1; $n <= 5; $n++) {
                                     </div>
                                 </div>
 
-                                <?php if (!empty($bike['specs'])): ?>
-                                    <div class="bike-detail-specs">
-                                        <?php foreach ($bike['specs'] as $s): ?>
-                                            <div><div class="k"><?= e($s['label']) ?></div><div class="v"><?= e($s['value']) ?></div></div>
+                                <?php if (!empty($bike['spec_groups'])): ?>
+                                    <div class="bike-spec-sheet">
+                                        <?php foreach ($bike['spec_groups'] as $groupTitle => $rows): ?>
+                                            <div class="bike-spec-group">
+                                                <h4><?= e($groupTitle) ?></h4>
+                                                <div class="bike-detail-specs">
+                                                    <?php foreach ($rows as $s): ?>
+                                                        <div><div class="k"><?= e($s['label']) ?></div><div class="v"><?= e($s['value']) ?></div></div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </div>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php endif; ?>

@@ -322,14 +322,22 @@ a { color: inherit; text-decoration: none; }
 .swatch { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
 .swatch:hover { border-color: #fff; }
 .swatch.is-active { border-color: #fff; box-shadow: 0 0 0 2px var(--red); }
+.bike-spec-sheet {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 22px 40px;
+    margin-top: 28px;
+}
+.bike-spec-group h4 {
+    font-family: var(--display); font-weight: 700;
+    font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--red); margin: 0 0 10px;
+}
 .bike-detail-specs {
     display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 22px 46px;
-    margin-top: 30px;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px 28px;
 }
-.bike-detail-specs .k { font-size: 12.5px; color: #cfcfcf; }
-.bike-detail-specs .v { font-size: 15px; font-weight: 700; }
+.bike-detail-specs .k { font-size: 12px; color: #cfcfcf; }
+.bike-detail-specs .v { font-size: 14px; font-weight: 700; }
 .bike-detail-desc { color: #cfcfcf; font-size: 14.5px; line-height: 1.7; margin: 26px 0 0; max-width: 480px; }
 .bike-detail-visual { position: relative; min-height: 340px; aspect-ratio: 4 / 3; }
 .bike-color-img {
@@ -534,7 +542,7 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 480px) {
     .footer-grid { grid-template-columns: 1fr; }
-    .bike-detail-specs { grid-template-columns: 1fr 1fr; }
+    .bike-spec-sheet { grid-template-columns: 1fr; }
     .hero-title { font-size: 52px; }
 }
 

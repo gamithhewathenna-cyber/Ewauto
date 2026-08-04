@@ -151,6 +151,52 @@ function bike_colors(int $bikeId): array
 }
 
 /**
+ * Fixed bike specification sheet, grouped by category. Column key => display
+ * label. Shared between the Bikes admin form and the homepage bike carousel.
+ */
+function bike_spec_groups(): array
+{
+    return [
+        'Dimension' => [
+            'dim_length'    => 'Length',
+            'dim_width'     => 'Width',
+            'dim_height'    => 'Height',
+            'dim_wheelbase' => 'Wheelbase',
+        ],
+        'Motor' => [
+            'motor_type'           => 'Motor Type',
+            'motor_rated_power'    => 'Rated Power',
+            'motor_climbing_angle' => 'Climbing Angle',
+        ],
+        'Electricals' => [
+            'battery_type'     => 'Battery Type',
+            'battery_capacity' => 'Battery Capacity',
+            'charging_time'    => 'Charging Time',
+            'max_range'        => 'Max Range (km)',
+            'dashboard'        => 'Dashboard',
+        ],
+        'Tires & Brakes' => [
+            'tire_size'        => 'Tire Size',
+            'shock_absorption' => 'Shock Absorption',
+            'brake_fr'         => 'Brake (F&R)',
+        ],
+    ];
+}
+
+/**
+ * Flat list of every bike spec column key (no grouping) — handy for
+ * building INSERT/UPDATE column lists.
+ */
+function bike_spec_columns(): array
+{
+    $cols = [];
+    foreach (bike_spec_groups() as $fields) {
+        $cols = array_merge($cols, array_keys($fields));
+    }
+    return $cols;
+}
+
+/**
  * Turn a bike name into a unique URL slug, avoiding collisions with
  * existing bikes (optionally excluding one id, for edits).
  */
