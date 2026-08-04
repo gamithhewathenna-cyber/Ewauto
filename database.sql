@@ -228,6 +228,7 @@ CREATE TABLE IF NOT EXISTS bikes (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     slug        VARCHAR(80) NOT NULL UNIQUE,
     name        VARCHAR(128) NOT NULL,
+    button_label VARCHAR(64) DEFAULT '',
     tagline     VARCHAR(255) DEFAULT '',
     description TEXT,
     -- Dimension
@@ -260,6 +261,7 @@ CREATE TABLE IF NOT EXISTS bikes (
 -- on ADD/DROP COLUMN — if that errors on your host, run the plain versions
 -- of these statements once instead, without "IF [NOT] EXISTS").
 ALTER TABLE bikes
+    ADD COLUMN IF NOT EXISTS button_label VARCHAR(64) DEFAULT '',
     ADD COLUMN IF NOT EXISTS dim_length VARCHAR(64) DEFAULT '',
     ADD COLUMN IF NOT EXISTS dim_width VARCHAR(64) DEFAULT '',
     ADD COLUMN IF NOT EXISTS dim_height VARCHAR(64) DEFAULT '',

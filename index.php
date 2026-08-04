@@ -217,13 +217,13 @@ for ($n = 1; $n <= 5; $n++) {
         <?php if (count($bikes) > 1): ?>
             <div class="wrap">
                 <div class="bike-selector" id="bikeSelector">
-                    <?php foreach ($bikes as $bi => $bike): ?>
+                    <?php foreach ($bikes as $bi => $bike): $btnLabel = trim((string) ($bike['button_label'] ?? '')) !== '' ? $bike['button_label'] : $bike['name']; ?>
                         <button type="button" class="bike-select-btn <?= $bi === 0 ? 'is-active' : '' ?>" data-index="<?= $bi ?>"
                                 data-preview-name="<?= e($bike['name']) ?>"
                                 data-preview-tagline="<?= e($bike['tagline']) ?>"
                                 data-preview-image="<?= $bike['cover_image'] ? e(UPLOAD_URL . '/' . rawurlencode($bike['cover_image'])) : '' ?>"
                                 data-preview-specs='<?= e(json_encode($bike['quick_specs'])) ?>'
-                        ><?= e($bike['name']) ?></button>
+                        ><?= e($btnLabel) ?></button>
                     <?php endforeach; ?>
                 </div>
             </div>

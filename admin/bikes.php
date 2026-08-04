@@ -30,10 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $slug = unique_bike_slug(sanitize_slug($name));
 
                 $maxOrder = (int) db()->query('SELECT COALESCE(MAX(sort_order), 0) FROM bikes')->fetchColumn();
-                $cols = array_merge(['slug', 'name', 'tagline', 'description'], $specColumns, ['sort_order']);
+                $cols = array_merge(['slug', 'name', 'button_label', 'tagline', 'description'], $specColumns, ['sort_order']);
                 $placeholders = implode(', ', array_fill(0, count($cols), '?'));
                 $values = array_merge(
-                    [$slug, $name, trim($_POST['tagline'] ?? ''), trim($_POST['description'] ?? '')],
+                    [$slug, $name, trim($_POST['button_label'] ?? ''), trim($_POST['tagline'] ?? ''), trim($_POST['description'] ?? '')],
                     array_values($specs),
                     [$maxOrder + 10]
                 );
@@ -53,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($name === '') {
                 $error = 'Bike name is required.';
             } else {
-                $setCols = array_merge(['name', 'tagline', 'description'], $specColumns, ['sort_order', 'active']);
+                $setCols = array_merge(['name', 'button_label', 'tagline', 'description'], $specColumns, ['sort_order', 'active']);
                 $setSql = implode(', ', array_map(static fn($c) => "$c=?", $setCols));
                 $values = array_merge(
-                    [$name, trim($_POST['tagline'] ?? ''), trim($_POST['description'] ?? '')],
+                    [$name, trim($_POST['button_label'] ?? ''), trim($_POST['tagline'] ?? ''), trim($_POST['description'] ?? '')],
                     array_values($specs),
                     [(int) ($_POST['sort_order'] ?? 0), isset($_POST['active']) ? 1 : 0, $id]
                 );
@@ -110,6 +110,9 @@ admin_header('bikes', 'Bikes');
             <label class="field">Name
                 <input type="text" name="name" value="<?= e($b['name']) ?>" required>
             </label>
+            <label class="field">Button name <span style="font-weight:400;color:#999;">(shown in the top selector; leave blank to use Name)</span>
+                <input type="text" name="button_label" value="<?= e($b['button_label']) ?>" placeholder="<?= e($b['name']) ?>">
+            </label>
             <label class="field">Tagline
                 <input type="text" name="tagline" value="<?= e($b['tagline']) ?>">
             </label>
@@ -151,6 +154,9 @@ admin_header('bikes', 'Bikes');
 
         <label class="field">Name
             <input type="text" name="name" placeholder="e.g. EV Pro TWO" required>
+        </label>
+        <label class="field">Button name <span style="font-weight:400;color:#999;">(shown in the top selector; leave blank to use Name)</span>
+            <input type="text" name="button_label" placeholder="e.g. EV Pro TWO">
         </label>
         <label class="field">Tagline
             <input type="text" name="tagline">
