@@ -635,14 +635,15 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 760px) {
     .nav-links, .nav-social { display: none; }
 
-    /* Slide-in drawer: half the screen wide, translucent maroon, slides in
-       from the right when the toggle is tapped. */
+    /* Slide-in drawer: half the screen wide, white, content pinned to the
+       top, slides in from the right when the toggle is tapped. */
     .nav {
         position: fixed; top: 0; right: 0; bottom: 0;
         width: 50%; min-width: 220px;
-        background: rgba(139, 58, 63, .6);
-        flex-direction: column; align-items: flex-start; justify-content: center;
-        gap: 40px; padding: 32px 28px;
+        background: #fff;
+        box-shadow: -8px 0 24px rgba(0,0,0,.15);
+        flex-direction: column; align-items: flex-start; justify-content: flex-start;
+        gap: 28px; padding: 100px 28px 28px;
         transform: translateX(100%);
         transition: transform .3s ease;
         z-index: 90;
@@ -650,6 +651,8 @@ a { color: inherit; text-decoration: none; }
     .nav.open { transform: translateX(0); }
     .nav.open .nav-links { display: flex; flex-direction: column; gap: 18px; }
     .nav.open .nav-social { display: flex; gap: 16px; }
+    .nav.open .nav-links a { color: var(--red); }
+    .nav.open .nav-social { color: var(--red); }
 
     .nav-toggle {
         position: relative; z-index: 95;
