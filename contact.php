@@ -44,7 +44,7 @@ $token = csrf_token();
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="<?= e(BASE_URL) ?>/assets/css/style.css">
+<link rel="stylesheet" href="<?= e(BASE_URL) ?>/assets/css/style.css?v=<?= (int) (@filemtime(__DIR__ . '/assets/css/style.css') ?: 1) ?>">
 </head>
 <body>
 
@@ -236,6 +236,6 @@ $token = csrf_token();
 
 <?php render_talk_to_team_widget($content, $token); ?>
 
-<script src="<?= e(BASE_URL) ?>/assets/js/main.js"></script>
+<script src="<?= e(BASE_URL) ?>/assets/js/main.js?v=<?= (int) (@filemtime(__DIR__ . '/assets/js/main.js') ?: 1) ?>"></script>
 </body>
 </html>
