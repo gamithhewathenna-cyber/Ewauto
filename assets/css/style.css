@@ -628,17 +628,27 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 760px) {
     .nav-links, .nav-social { display: none; }
-    .nav.open .nav-links {
-        display: flex; flex-direction: column; gap: 8px;
-        position: absolute; top: 74px; right: 24px;
-        background: var(--maroon); padding: 18px 24px; border-radius: 8px;
-        max-width: calc(100vw - 48px);
+
+    /* Slide-in drawer: half the screen wide, translucent maroon, slides in
+       from the right when the toggle is tapped. */
+    .nav {
+        position: fixed; top: 0; right: 0; bottom: 0;
+        width: 50%; min-width: 220px;
+        background: rgba(139, 58, 63, .6);
+        flex-direction: column; align-items: flex-start; justify-content: center;
+        gap: 40px; padding: 32px 28px;
+        transform: translateX(100%);
+        transition: transform .3s ease;
+        z-index: 90;
     }
-    .nav.open .nav-social {
-        display: flex; position: absolute; top: 220px; right: 24px;
-        background: var(--maroon); padding: 12px 24px; border-radius: 8px;
+    .nav.open { transform: translateX(0); }
+    .nav.open .nav-links { display: flex; flex-direction: column; gap: 18px; }
+    .nav.open .nav-social { display: flex; gap: 16px; }
+
+    .nav-toggle {
+        position: relative; z-index: 95;
+        display: grid; place-items: center;
     }
-    .nav-toggle { display: grid; place-items: center; background: var(--red); border-radius: 8px; }
     .brand img { height: 46px; }
     .site-header.is-scrolled .brand img { height: 38px; }
     .hero { padding-top: 110px; }
