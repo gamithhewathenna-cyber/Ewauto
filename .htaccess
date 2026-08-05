@@ -1,0 +1,18 @@
+# Clean URLs: hide the .php extension from visitors and search engines.
+RewriteEngine On
+
+# Canonicalize — anyone hitting the .php URL directly gets a permanent
+# redirect to the clean version, so search engines index one URL per page.
+RewriteCond %{THE_REQUEST} \s/+index\.php[\s?] [NC]
+RewriteRule ^index\.php$ /? [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+about\.php[\s?] [NC]
+RewriteRule ^about\.php$ /about [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+contact\.php[\s?] [NC]
+RewriteRule ^contact\.php$ /contact [R=301,L]
+
+# Serve the real .php files behind the clean URLs (internal rewrite — the
+# address bar keeps showing the clean URL).
+RewriteRule ^about/?$ about.php [L]
+RewriteRule ^contact/?$ contact.php [L]

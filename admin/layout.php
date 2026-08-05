@@ -31,7 +31,7 @@ function admin_header(string $active, string $title): void
             <?php endforeach; ?>
         </nav>
         <div class="admin-side-foot">
-            <a href="../index.php" target="_blank" class="link">View site &nearr;</a>
+            <a href="../" target="_blank" class="link">View site &nearr;</a>
             <span class="who">Hi, <?= e(current_admin()['username']) ?></span>
             <a href="logout.php" class="btn-ghost">Log out</a>
         </div>
