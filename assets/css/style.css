@@ -409,14 +409,22 @@ a { color: inherit; text-decoration: none; }
 
 .contact-modal {
     position: fixed; inset: 0; z-index: 300;
-    display: none; align-items: center; justify-content: center; padding: 24px;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .25s ease, visibility .25s ease;
 }
-.contact-modal.is-open { display: flex; }
+.contact-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
 .contact-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.65); }
 .contact-modal-panel {
     position: relative; z-index: 1; background: #fff; color: var(--ink);
     border-radius: 18px; max-width: 640px; width: 100%; max-height: 90vh;
     overflow-y: auto; padding: 40px 34px 34px;
+    transform: translateY(24px) scale(.96);
+    transition: transform .32s cubic-bezier(.4,0,.2,1);
+}
+.contact-modal.is-open .contact-modal-panel { transform: translateY(0) scale(1); }
+@media (prefers-reduced-motion: reduce) {
+    .contact-modal, .contact-modal-panel { transition: none; }
 }
 .contact-modal-close {
     position: absolute; top: 14px; right: 14px;
