@@ -39,12 +39,12 @@ function render_talk_to_team_widget(array $content, string $token): void
     ?>
     <button type="button" class="talk-team-btn" id="talkTeamBtn" aria-haspopup="dialog" aria-controls="talkTeamModal">
         <span class="icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v10a2 2 0 01-2 2H9l-5 4V6a2 2 0 012-2z"/></svg></span>
-        <span class="label">Talk to Our Team</span>
+        <span class="label">Book a Test Ride</span>
     </button>
 
     <div class="contact-modal" id="talkTeamModal" aria-hidden="true">
         <div class="contact-modal-backdrop" data-modal-close></div>
-        <div class="contact-modal-panel" role="dialog" aria-modal="true" aria-label="Talk to our team">
+        <div class="contact-modal-panel" role="dialog" aria-modal="true" aria-label="Book a test ride">
             <button type="button" class="contact-modal-close" data-modal-close aria-label="Close">&times;</button>
 
             <h2 class="form-heading"><?= e($c('form_heading', 'Send us a message')) ?></h2>
