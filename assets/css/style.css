@@ -628,6 +628,8 @@ a { color: inherit; text-decoration: none; }
     .bike-detail-text { display: flex; flex-direction: column; }
     .bike-detail-desc { order: 5; }
     .bike-color-img.is-active { transform: scale(1.02); }
+    .swatches { gap: 8px; padding: 8px 12px; }
+    .swatch { width: 18px; height: 18px; }
 }
 
 @media (max-width: 760px) {
