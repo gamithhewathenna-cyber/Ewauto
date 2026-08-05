@@ -637,6 +637,7 @@ a { color: inherit; text-decoration: none; }
     .nav-toggle { display: grid; place-items: center; }
     .brand img { height: 46px; }
     .site-header.is-scrolled .brand img { height: 38px; }
+    .site-header { border-radius: 0 0 14px 14px; }
     .hero { padding-top: 110px; }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
     .stats .stat { padding: 22px 14px; }
