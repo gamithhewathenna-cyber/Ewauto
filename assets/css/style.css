@@ -621,9 +621,10 @@ a { color: inherit; text-decoration: none; }
     .bike-detail-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .bike-detail-specs .v { word-break: break-word; }
     /* Mobile-only reorder: bike photo first, long description last. */
-    .bike-detail-visual { order: -1; }
+    .bike-detail-visual { order: -1; min-height: 0; max-width: 78%; margin: 0 auto; }
     .bike-detail-text { display: flex; flex-direction: column; }
     .bike-detail-desc { order: 5; }
+    .bike-color-img.is-active { transform: scale(1.02); }
 }
 
 @media (max-width: 760px) {
