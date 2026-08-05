@@ -392,6 +392,41 @@ a { color: inherit; text-decoration: none; }
 .bike-hover-specs div { display: flex; flex-direction: column; }
 .bike-hover-specs .k { font-size: 9.5px; color: #999; text-transform: uppercase; letter-spacing: .03em; }
 .bike-hover-specs .v { font-size: 12px; font-weight: 700; color: var(--ink); }
+
+/* "Talk to Our Team" floating button + popup (same form as Contact page) */
+.talk-team-btn {
+    position: fixed; z-index: 260;
+    left: 0; top: 60%; transform: translateY(-50%) rotate(-90deg); transform-origin: left top;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--red); color: #fff; border: 0; cursor: pointer;
+    padding: 12px 20px; border-radius: 0 0 10px 10px;
+    font-size: 13px; font-weight: 600; letter-spacing: .02em;
+    box-shadow: 0 10px 24px rgba(0,0,0,.2);
+    transition: background .2s;
+}
+.talk-team-btn:hover { background: var(--maroon-dk); }
+.talk-team-btn .icon svg { width: 16px; height: 16px; fill: currentColor; }
+
+.contact-modal {
+    position: fixed; inset: 0; z-index: 300;
+    display: none; align-items: center; justify-content: center; padding: 24px;
+}
+.contact-modal.is-open { display: flex; }
+.contact-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.65); }
+.contact-modal-panel {
+    position: relative; z-index: 1; background: #fff; color: var(--ink);
+    border-radius: 18px; max-width: 640px; width: 100%; max-height: 90vh;
+    overflow-y: auto; padding: 40px 34px 34px;
+}
+.contact-modal-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 36px; height: 36px; border-radius: 50%; border: 0;
+    background: rgba(0,0,0,.06); color: var(--ink); font-size: 20px; line-height: 1;
+    cursor: pointer; display: grid; place-items: center; transition: background .2s;
+}
+.contact-modal-close:hover { background: var(--red); color: #fff; }
+.contact-modal-panel .form-heading { margin-top: 0; }
+.contact-modal-panel .form-alert[hidden] { display: none; }
 .bike-detail-visual { position: relative; min-height: 340px; aspect-ratio: 4 / 3; }
 .bike-color-img {
     position: absolute; inset: 0; width: 100%; height: 100%;
@@ -602,6 +637,15 @@ a { color: inherit; text-decoration: none; }
     .spec-strip .spec { border-right: 1px solid rgba(255,255,255,.18); padding: 14px; }
     .spec-strip .spec:nth-child(2n) { border-right: 0; }
     .cta-card .cta-inner { padding: 46px 18px 40px; }
+    /* Rotated vertical strip doesn't work at thumb-reachable phone widths —
+       switch to a compact horizontal pill in the bottom-left corner. */
+    .talk-team-btn {
+        left: 12px; top: auto; bottom: 16px;
+        transform: none; transform-origin: initial;
+        border-radius: 30px; padding: 12px 16px;
+    }
+    .talk-team-btn .label { display: none; }
+    .contact-modal-panel { padding: 30px 20px 24px; }
 }
 
 @media (max-width: 480px) {

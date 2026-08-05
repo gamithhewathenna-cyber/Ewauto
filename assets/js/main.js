@@ -362,3 +362,68 @@
         });
     });
 })();
+
+// "Talk to Our Team" floating button: opens a popup with the same form as
+// the Contact Us page, submitted via fetch so the visitor never leaves
+// whatever page they're currently on.
+(function () {
+    var openBtn = document.getElementById('talkTeamBtn');
+    var modal = document.getElementById('talkTeamModal');
+    if (!openBtn || !modal) return;
+
+    var form = document.getElementById('talkTeamForm');
+    var noticeEl = modal.querySelector('[data-form-notice]');
+    var errorEl = modal.querySelector('[data-form-error]');
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    function openModal() {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    modal.querySelectorAll('[data-modal-close]').forEach(function (el) {
+        el.addEventListener('click', closeModal);
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        noticeEl.hidden = true;
+        errorEl.hidden = true;
+        submitBtn.disabled = true;
+
+        fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+                if (data.ok) {
+                    noticeEl.textContent = data.message;
+                    noticeEl.hidden = false;
+                    form.reset();
+                } else {
+                    errorEl.textContent = data.message;
+                    errorEl.hidden = false;
+                }
+            })
+            .catch(function () {
+                errorEl.textContent = 'Something went wrong. Please try again.';
+                errorEl.hidden = false;
+            })
+            .finally(function () {
+                submitBtn.disabled = false;
+            });
+    });
+})();

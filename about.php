@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/admin/auth.php';
 require_once __DIR__ . '/includes/maintenance.php';
+require_once __DIR__ . '/includes/contact_form.php';
 
 try {
     $images  = all_images();
@@ -17,6 +18,7 @@ try {
 }
 
 $c = static fn(string $key, string $fallback = '') => content($content, $key, $fallback);
+$token = csrf_token();
 
 $whatWeDoItems = [
     ['title' => $c('whatwedo_item1_title', 'Motorcycles'), 'text' => $c('whatwedo_item1_text', 'Reliable and performance-driven motorcycles designed for everyday mobility.')],
@@ -254,6 +256,8 @@ $whatWeDoItems = [
         <?= e($c('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements')) ?>
     </div>
 </footer>
+
+<?php render_talk_to_team_widget($content, $token); ?>
 
 <script src="<?= e(BASE_URL) ?>/assets/js/main.js"></script>
 </body>

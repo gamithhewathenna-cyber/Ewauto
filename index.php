@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/admin/auth.php';
 require_once __DIR__ . '/includes/maintenance.php';
+require_once __DIR__ . '/includes/contact_form.php';
 
 // Graceful DB handling — the page still renders with placeholders if the DB
 // is unreachable, so the layout can be reviewed before setup is complete.
@@ -58,6 +59,7 @@ try {
 }
 
 $c = static fn(string $key, string $fallback = '') => content($content, $key, $fallback);
+$token = csrf_token();
 
 // Only slides that actually have an image are shown; slides being drafted
 // without an image yet don't break the carousel.
@@ -421,6 +423,8 @@ foreach ($heroSpecFields as $col => $meta) {
         </div>
     </div>
 <?php endif; ?>
+
+<?php render_talk_to_team_widget($content, $token); ?>
 
 <script src="<?= e(BASE_URL) ?>/assets/js/main.js"></script>
 </body>

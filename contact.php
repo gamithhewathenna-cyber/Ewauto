@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/admin/auth.php';
 require_once __DIR__ . '/includes/maintenance.php';
+require_once __DIR__ . '/includes/contact_form.php';
 
 try {
     $images  = all_images();
@@ -22,28 +23,11 @@ $formNotice = '';
 $formError  = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!empty($_POST['website'])) {
-        // Honeypot field caught a bot — pretend success, do nothing.
-        $formNotice = $c('form_success_message', "Thanks for reaching out! We'll get back to you soon.");
-    } elseif (!check_csrf()) {
-        $formError = 'Your session expired. Please try submitting again.';
+    $result = handle_contact_submission($content);
+    if ($result['ok']) {
+        $formNotice = $result['message'];
     } else {
-        $first   = trim($_POST['first_name'] ?? '');
-        $last    = trim($_POST['last_name'] ?? '');
-        $phone   = trim($_POST['phone'] ?? '');
-        $email   = trim($_POST['email'] ?? '');
-        $message = trim($_POST['message'] ?? '');
-
-        if ($first === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $formError = 'Please fill in your name, a valid email address, and a message.';
-        } else {
-            $to      = $c('contact_email', 'companyname@gamil.com');
-            $subject = 'New website enquiry from ' . $first . ' ' . $last;
-            $body    = "Name: $first $last\nPhone: $phone\nEmail: $email\n\nMessage:\n$message";
-            $headers = 'Reply-To: ' . $email . "\r\n" . 'X-Mailer: PHP/' . phpversion();
-            @mail($to, $subject, $body, $headers);
-            $formNotice = $c('form_success_message', "Thanks for reaching out! We'll get back to you soon.");
-        }
+        $formError = $result['message'];
     }
 }
 
@@ -249,6 +233,8 @@ $token = csrf_token();
         <?= e($c('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements')) ?>
     </div>
 </footer>
+
+<?php render_talk_to_team_widget($content, $token); ?>
 
 <script src="<?= e(BASE_URL) ?>/assets/js/main.js"></script>
 </body>
