@@ -372,7 +372,7 @@ a { color: inherit; text-decoration: none; }
 
 /* Hover preview popup (bike selector buttons) */
 .bike-hover-preview {
-    position: absolute; z-index: 250; width: 240px;
+    position: absolute; top: 0; left: 0; z-index: 250; width: 240px;
     background: #fff; color: var(--ink);
     border-radius: 14px; box-shadow: 0 20px 40px rgba(0,0,0,.25);
     padding: 14px;
