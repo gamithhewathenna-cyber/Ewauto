@@ -3,6 +3,26 @@
 // the "Talk to Our Team" popup that appears on every page, so the two
 // forms behave identically and validation/mail logic lives in one place.
 
+function sl_districts(): array
+{
+    return [
+        'Colombo', 'Gampaha', 'Kalutara', 'Kandy', 'Matale', 'Nuwara Eliya',
+        'Galle', 'Matara', 'Hambantota', 'Jaffna', 'Kilinochchi', 'Mannar',
+        'Mullaitivu', 'Vavuniya', 'Trincomalee', 'Batticaloa', 'Ampara',
+        'Kurunegala', 'Puttalam', 'Anuradhapura', 'Polonnaruwa', 'Badulla',
+        'Monaragala', 'Ratnapura', 'Kegalle',
+    ];
+}
+
+function district_select_html(): string
+{
+    $out = '<select name="district"><option value="">Select your district</option>';
+    foreach (sl_districts() as $district) {
+        $out .= '<option value="' . e($district) . '">' . e($district) . '</option>';
+    }
+    return $out . '</select>';
+}
+
 function handle_contact_submission(array $content): array
 {
     if (!empty($_POST['website'])) {
@@ -14,11 +34,12 @@ function handle_contact_submission(array $content): array
         return ['ok' => false, 'message' => 'Your session expired. Please refresh the page and try again.'];
     }
 
-    $first   = trim($_POST['first_name'] ?? '');
-    $last    = trim($_POST['last_name'] ?? '');
-    $phone   = trim($_POST['phone'] ?? '');
-    $email   = trim($_POST['email'] ?? '');
-    $message = trim($_POST['message'] ?? '');
+    $first    = trim($_POST['first_name'] ?? '');
+    $last     = trim($_POST['last_name'] ?? '');
+    $phone    = trim($_POST['phone'] ?? '');
+    $email    = trim($_POST['email'] ?? '');
+    $district = trim($_POST['district'] ?? '');
+    $message  = trim($_POST['message'] ?? '');
 
     if ($first === '' || $message === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return ['ok' => false, 'message' => 'Please fill in your name, a valid email address, and a message.'];
@@ -26,7 +47,7 @@ function handle_contact_submission(array $content): array
 
     $to      = content($content, 'contact_email', 'companyname@gamil.com');
     $subject = 'New website enquiry from ' . $first . ' ' . $last;
-    $body    = "Name: $first $last\nPhone: $phone\nEmail: $email\n\nMessage:\n$message";
+    $body    = "Name: $first $last\nPhone: $phone\nEmail: $email\nDistrict: $district\n\nMessage:\n$message";
     $headers = 'Reply-To: ' . $email . "\r\n" . 'X-Mailer: PHP/' . phpversion();
     @mail($to, $subject, $body, $headers);
 
@@ -73,6 +94,9 @@ function render_talk_to_team_widget(array $content, string $token): void
                         <input type="text" name="phone" placeholder="Enter your contact number">
                     </label>
                 </div>
+                <label class="form-field form-field-full">District
+                    <?= district_select_html() ?>
+                </label>
                 <label class="form-field form-field-full">Message
                     <textarea name="message" rows="5" placeholder="Enter your message" required></textarea>
                 </label>

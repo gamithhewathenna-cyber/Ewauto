@@ -129,6 +129,9 @@ $token = csrf_token();
                             <input type="text" name="phone" placeholder="Enter your contact number">
                         </label>
                     </div>
+                    <label class="form-field form-field-full">District
+                        <?= district_select_html() ?>
+                    </label>
                     <label class="form-field form-field-full">Message
                         <textarea name="message" rows="6" placeholder="Enter your message" required></textarea>
                     </label>
