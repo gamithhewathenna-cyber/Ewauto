@@ -409,11 +409,12 @@ a { color: inherit; text-decoration: none; }
 
 .contact-modal {
     position: fixed; inset: 0; z-index: 300;
-    display: flex; align-items: center; justify-content: center; padding: 24px;
+    display: flex; align-items: center; justify-content: center;
     opacity: 0; visibility: hidden; pointer-events: none;
+    height: 0; padding: 0; overflow: hidden;
     transition: opacity .25s ease, visibility .25s ease;
 }
-.contact-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.contact-modal.is-open { opacity: 1; visibility: visible; pointer-events: auto; height: auto; padding: 24px; overflow: visible; }
 .contact-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.65); }
 .contact-modal-panel {
     position: relative; z-index: 1; background: #fff; color: var(--ink);
