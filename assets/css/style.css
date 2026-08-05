@@ -620,6 +620,10 @@ a { color: inherit; text-decoration: none; }
     /* narrower stacked layout can overflow with long spec labels */
     .bike-detail-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .bike-detail-specs .v { word-break: break-word; }
+    /* Mobile-only reorder: bike photo first, long description last. */
+    .bike-detail-visual { order: -1; }
+    .bike-detail-text { display: flex; flex-direction: column; }
+    .bike-detail-desc { order: 5; }
 }
 
 @media (max-width: 760px) {
@@ -637,7 +641,6 @@ a { color: inherit; text-decoration: none; }
     .nav-toggle { display: grid; place-items: center; }
     .brand img { height: 46px; }
     .site-header.is-scrolled .brand img { height: 38px; }
-    .site-header { border-radius: 0 0 14px 14px; }
     .hero { padding-top: 110px; }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
     .stats .stat { padding: 22px 14px; }
