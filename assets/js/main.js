@@ -271,6 +271,35 @@
     });
 })();
 
+// Bike nav (prev/next) mobile position: on the stacked mobile layout the
+// bike photo now shows first (see the CSS reorder), so track its actual
+// bottom edge instead of the desktop bottom-of-panel offset — otherwise
+// the buttons land near the description text at the very end instead of
+// next to the image.
+(function () {
+    var track = document.getElementById('bikesTrack');
+    var nav = track ? track.querySelector('.bike-nav') : null;
+    if (!track || !nav) return;
+
+    function update() {
+        if (window.innerWidth > 980) {
+            nav.style.top = '';
+            return;
+        }
+        var visual = track.querySelector('.bike-panel.is-active .bike-detail-visual');
+        if (!visual) return;
+        var trackTop = track.getBoundingClientRect().top;
+        var visualRect = visual.getBoundingClientRect();
+        nav.style.top = (visualRect.bottom - trackTop - 44) + 'px';
+    }
+
+    update();
+    window.addEventListener('resize', update);
+    document.querySelectorAll('#bikesPrev, #bikesNext, .bike-select-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () { setTimeout(update, 50); });
+    });
+})();
+
 // Bike full-spec popup: "View full specs" clones that bike's hidden
 // template (all spec groups) into a modal overlay.
 (function () {

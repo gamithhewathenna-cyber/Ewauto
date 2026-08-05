@@ -615,7 +615,10 @@ a { color: inherit; text-decoration: none; }
     .spec-strip { width: 100%; }
     .hero-blob { width: 40%; right: -18%; top: -10%; }
     .bike-spec-sheet { grid-template-columns: 1fr; }
-    .bike-nav { right: 16px; bottom: 16px; }
+    /* top is set inline by JS to track the (now-reordered) bike image, since
+       .bike-nav's containing block is .bikes-track, not the image itself.
+       200px is just a safe fallback before JS runs / if it's unavailable. */
+    .bike-nav { right: 16px; bottom: auto; top: 200px; }
     .bike-modal-panel { padding: 34px 24px 24px; max-height: 90vh; }
     /* narrower stacked layout can overflow with long spec labels */
     .bike-detail-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
