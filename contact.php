@@ -7,8 +7,9 @@ require_once __DIR__ . '/includes/contact_form.php';
 try {
     $images  = all_images();
     $content = all_content();
+    $dealers = all_dealers(true);
 } catch (Throwable $ex) {
-    $images = []; $content = [];
+    $images = []; $content = []; $dealers = [];
 }
 
 try {
@@ -180,6 +181,29 @@ $token = csrf_token();
         </div>
     </div>
 </section>
+
+<!-- ===== Dealerships ===== -->
+<?php if (!empty($dealers)): ?>
+<section class="dealers-section reveal">
+    <div class="wrap">
+        <div class="dealers-head">
+            <h2>Dealership Details</h2>
+        </div>
+        <div class="dealers-grid">
+            <?php foreach ($dealers as $d): ?>
+                <div class="dealer-card">
+                    <span class="dealer-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1114.5 9 2.5 2.5 0 0112 11.5z"/></svg></span>
+                    <div class="dealer-body">
+                        <h3><?= e($d['name']) ?></h3>
+                        <?php if ($d['address']): ?><p class="dealer-address"><?= e($d['address']) ?></p><?php endif; ?>
+                        <?php if ($d['phone']): ?><p class="dealer-phone"><?= e($d['phone']) ?></p><?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- ===== Map ===== -->
 <section class="contact-map-section reveal">
