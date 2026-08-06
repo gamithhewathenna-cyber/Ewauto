@@ -51,6 +51,13 @@ function content_field_sections(): array
                 'stat4_num' => ['label' => 'Stat 4 number', 'type' => 'text'], 'stat4_cap' => ['label' => 'Stat 4 caption', 'type' => 'text'],
             ],
         ],
+        'dealers' => [
+            'title' => 'Dealership details (home & contact page)',
+            'page'  => 'home',
+            'fields' => [
+                'dealers_subtext' => ['label' => 'Subtext under the heading', 'type' => 'textarea'],
+            ],
+        ],
         'footer' => [
             'title' => 'Footer & contact (shown on every page)',
             'page'  => 'home',

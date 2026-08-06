@@ -188,6 +188,7 @@ $token = csrf_token();
     <div class="wrap">
         <div class="dealers-head">
             <h2>Dealership Details</h2>
+            <p><?= e($c('dealers_subtext', 'Find your nearest ZXTec dealer for sales, service, and test rides.')) ?></p>
         </div>
         <div class="dealers-grid">
             <?php foreach ($dealers as $d): ?>

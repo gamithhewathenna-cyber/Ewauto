@@ -94,7 +94,7 @@ foreach ($heroSpecFields as $col => $meta) {
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<?= e(BASE_URL) ?>/assets/css/style.css?v=<?= (int) (@filemtime(__DIR__ . '/assets/css/style.css') ?: 1) ?>">
 </head>
-<body>
+<body class="home">
 
 <!-- ===== Header ===== -->
 <header class="site-header">
@@ -344,6 +344,7 @@ foreach ($heroSpecFields as $col => $meta) {
     <div class="wrap">
         <div class="dealers-head">
             <h2>Dealership Details</h2>
+            <p><?= e($c('dealers_subtext', 'Find your nearest ZXTec dealer for sales, service, and test rides.')) ?></p>
         </div>
     </div>
     <div class="dealers-marquee">
