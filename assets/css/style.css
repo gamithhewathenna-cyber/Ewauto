@@ -672,6 +672,8 @@ a { color: inherit; text-decoration: none; }
         margin: 0 0 24px;
     }
     div.contact-hero-blob { height: 220px; }
+    .contact-title { font-size: 28px; }
+    .contact-intro { max-width: 50%; }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
     .stats .stat { padding: 22px 14px; }
     .stats .num { font-size: 32px; }
