@@ -661,17 +661,26 @@ a { color: inherit; text-decoration: none; }
     .brand img { height: 46px; }
     .site-header.is-scrolled .brand img { height: 38px; }
     .hero { padding-top: 110px; }
-    /* Inner-page headers (About/Contact): single column, image on top,
-       text below — the desktop decorative "blob" becomes a plain banner
-       photo since it's no longer overlaid behind the text. */
-    .contact-hero { padding: 130px 0 40px; }
+    /* Inner-page headers (About/Contact): full-bleed photo with the
+       eyebrow/title/subtext overlaid in a light box on top of it. */
+    .contact-hero {
+        padding: 130px 0 24px;
+        min-height: 380px;
+        display: flex;
+        align-items: center;
+    }
     .contact-hero-blob {
-        position: static;
-        display: block;
-        width: 100%; height: 220px;
+        position: absolute;
+        inset: 0; top: 0; right: 0;
+        width: 100%; height: 100%;
         border-radius: 0;
-        margin: 0 0 28px;
         object-fit: cover;
+    }
+    .contact-hero-text {
+        background: rgba(255, 255, 255, .88);
+        padding: 16px 18px;
+        border-radius: 6px;
+        max-width: 90%;
     }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
     .stats .stat { padding: 22px 14px; }
