@@ -7,6 +7,7 @@ const ADMIN_NAV = [
     'content'   => ['label' => 'Page Content Change',  'href' => 'content.php'],
     'slides'    => ['label' => 'Slider Images',        'href' => 'slides.php'],
     'bikes'     => ['label' => 'Bikes',                'href' => 'bikes.php'],
+    'dealers'   => ['label' => 'Dealerships',          'href' => 'dealers.php'],
     'settings'  => ['label' => 'Settings',             'href' => 'settings.php'],
 ];
 

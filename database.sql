@@ -204,6 +204,19 @@ ALTER TABLE slides
     DROP COLUMN IF EXISTS spec5_value;
 
 -- ---------------------------------------------------------------------------
+-- Dealerships, shown as a grid on the Contact Us page.
+-- ---------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS dealers (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(128) NOT NULL,
+    address     VARCHAR(255) DEFAULT '',
+    phone       VARCHAR(64) DEFAULT '',
+    sort_order  INT NOT NULL DEFAULT 0,
+    active      TINYINT(1) NOT NULL DEFAULT 1,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ---------------------------------------------------------------------------
 -- Product catalog. If this table is empty, the front end falls back to the
 -- single 'lineup_vehicles' image slot for backward compatibility.
 -- ---------------------------------------------------------------------------

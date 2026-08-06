@@ -135,6 +135,15 @@ function all_slides(bool $onlyActive = false): array
 }
 
 /**
+ * ---- Dealerships (shown on the Contact Us page) ----
+ */
+function all_dealers(bool $onlyActive = false): array
+{
+    $sql = 'SELECT * FROM dealers' . ($onlyActive ? ' WHERE active = 1' : '') . ' ORDER BY sort_order ASC, id ASC';
+    return db()->query($sql)->fetchAll();
+}
+
+/**
  * ---- Bikes (shown in the homepage bike carousel) ----
  */
 function all_bikes(bool $onlyActive = false): array
