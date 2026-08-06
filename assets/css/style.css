@@ -661,27 +661,20 @@ a { color: inherit; text-decoration: none; }
     .brand img { height: 46px; }
     .site-header.is-scrolled .brand img { height: 38px; }
     .hero { padding-top: 110px; }
-    /* Inner-page headers (About/Contact): full-bleed photo with the
-       eyebrow/title/subtext overlaid in a light box on top of it. */
-    .contact-hero {
-        padding: 130px 0 24px;
-        min-height: 380px;
-        display: flex;
-        align-items: center;
-    }
+    /* Inner-page headers (About/Contact): plain image strip showing the
+       full photo (uncropped), text follows below, no overlay styling. */
+    .contact-hero { padding: 130px 0 32px; }
     .contact-hero-blob {
-        position: absolute;
-        inset: 0; top: 0; right: 0;
-        width: 100%; height: 100%;
+        position: static;
+        display: block;
+        width: 100%; height: auto;
         border-radius: 0;
-        object-fit: cover;
+        margin: 0 0 24px;
+        object-fit: contain;
     }
-    .contact-hero-text {
-        background: rgba(255, 255, 255, .88);
-        padding: 16px 18px;
-        border-radius: 6px;
-        max-width: 90%;
-    }
+    /* No-image fallback is a plain div with no intrinsic size — give it a
+       fixed height since it has no photo aspect ratio to size itself by. */
+    div.contact-hero-blob { height: 220px; }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
     .stats .stat { padding: 22px 14px; }
     .stats .num { font-size: 32px; }
