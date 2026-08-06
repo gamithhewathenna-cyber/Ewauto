@@ -809,12 +809,13 @@ a { color: inherit; text-decoration: none; }
     .contact-hero .wrap { position: absolute; left: 0; right: 0; bottom: 16px; }
     .contact-hero-text {
         background: rgba(255, 255, 255, .7);
-        padding: 16px 20px;
+        padding: 10px 14px;
         border-radius: 6px;
-        max-width: 80%;
+        max-width: 72%;
     }
-    .contact-title { font-size: 24px; }
-    .contact-intro { max-width: 100%; font-size: 14px; }
+    .contact-hero-text .hero-eyebrow { font-size: 11px; letter-spacing: .3em; margin-bottom: 2px; }
+    .contact-title { font-size: 19px; margin: 0 0 3px; }
+    .contact-intro { max-width: 100%; font-size: 12px; }
 }
 
 @media (max-width: 900px) {
