@@ -801,12 +801,27 @@ a { color: inherit; text-decoration: none; }
     font-weight: 800; font-size: clamp(24px, 3vw, 34px);
     margin: 0;
 }
-.dealers-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+/* Single row that scrolls continuously — the track renders the dealer list
+   twice back to back and animates exactly half its own width, so the loop
+   point is seamless. */
+.dealers-marquee { overflow: hidden; margin-top: 10px; }
+.dealers-track {
+    display: flex; width: max-content; gap: 22px;
+    animation: dealers-scroll 45s linear infinite;
+}
+.dealers-marquee:hover .dealers-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+    .dealers-track { animation: none; }
+}
+@keyframes dealers-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 .dealer-card {
+    flex: 0 0 300px;
     display: flex; align-items: flex-start; gap: 14px;
     border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px;
+    background: #fff;
 }
 .dealer-icon {
     flex: 0 0 38px; width: 38px; height: 38px; border-radius: 50%;
@@ -848,10 +863,9 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 900px) {
     .contact-form-grid { grid-template-columns: 1fr; }
-    .dealers-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 560px) {
-    .dealers-grid { grid-template-columns: 1fr; }
+    .dealer-card { flex-basis: 240px; }
 }
 @media (max-width: 600px) {
     .contact-form .form-row { grid-template-columns: 1fr; }
