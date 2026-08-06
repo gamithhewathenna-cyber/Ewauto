@@ -661,6 +661,18 @@ a { color: inherit; text-decoration: none; }
     .brand img { height: 46px; }
     .site-header.is-scrolled .brand img { height: 38px; }
     .hero { padding-top: 110px; }
+    /* Inner-page headers (About/Contact): single column, image on top,
+       text below — the desktop decorative "blob" becomes a plain banner
+       photo since it's no longer overlaid behind the text. */
+    .contact-hero { padding: 130px 0 40px; }
+    .contact-hero-blob {
+        position: static;
+        display: block;
+        width: 100%; height: 220px;
+        border-radius: 0;
+        margin: 0 0 28px;
+        object-fit: cover;
+    }
     .stats { grid-template-columns: repeat(2, 1fr); margin: -46px 16px 0; }
     .stats .stat { padding: 22px 14px; }
     .stats .num { font-size: 32px; }
@@ -691,7 +703,6 @@ a { color: inherit; text-decoration: none; }
     /* Quick specs stay a tidy 2x2 grid even on small phones. */
     .bike-quick-specs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; }
     .contact-side-card { padding: 26px 20px; }
-    .contact-hero-blob { width: 85%; right: -25%; top: -30%; }
 }
 
 /* ---------- Contact page ---------- */
