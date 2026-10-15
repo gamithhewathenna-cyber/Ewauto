@@ -221,14 +221,17 @@
         selectBtns.forEach(function (btn, i) { btn.classList.toggle('is-active', i === next); });
 
         // Text/specs appear instantly with the panel; only the bike image
-        // fades in.
+        // fades in. Clear the inline opacity afterwards (rather than setting
+        // it to 1) so the .is-active class stays in control - a leftover
+        // inline opacity:1 kept this image visible after a later colour
+        // switch, stacking the old colour under the new one.
         var img = panels[next].querySelector('.bike-color-img.is-active');
         if (img) {
             img.style.transition = 'none';
             img.style.opacity = '0';
             void img.offsetWidth; // force reflow so the reset above applies before re-enabling
             img.style.transition = '';
-            img.style.opacity = '1';
+            img.style.opacity = '';
         }
 
         current = next;
