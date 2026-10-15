@@ -1,9 +1,10 @@
 :root {
-    --maroon: #8B3A3F;
-    --red: #E11B22;
-    --ink: #161616;
-    --line: #e4e4e4;
-    --bg: #f5f5f7;
+    --green: #16A05D;
+    --green-dk: #11804A;
+    --accent: #F15A24;
+    --ink: #111315;
+    --line: #E3E7E5;
+    --bg: #F5F7F6;
 }
 * { box-sizing: border-box; }
 body {
@@ -15,7 +16,7 @@ body {
 .brand-mark {
     display: inline-grid; place-items: center;
     width: 26px; height: 26px; border-radius: 50%;
-    background: var(--red); color: #fff; font-size: 14px;
+    background: var(--accent); color: #fff; font-size: 14px;
     vertical-align: middle;
 }
 code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
@@ -48,7 +49,7 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
 
 .admin-brand { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 8px; }
 .who { color: #bbb; }
-.link { color: var(--maroon); text-decoration: none; font-weight: 600; }
+.link { color: var(--green); text-decoration: none; font-weight: 600; }
 .link:hover { text-decoration: underline; }
 
 /* ---- shell / sidebar ---- */
@@ -65,7 +66,7 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
     font-size: 14px; font-weight: 600;
 }
 .admin-nav a:hover { background: rgba(255,255,255,.06); color: #fff; }
-.admin-nav a.is-active { background: var(--maroon); color: #fff; }
+.admin-nav a.is-active { background: var(--green); color: #fff; }
 .admin-side-foot { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
 .admin-side-foot .link { color: #ddd; }
 .admin-side-foot .link:hover { color: #fff; }
@@ -84,8 +85,8 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
     background: #fff; border: 1px solid var(--line); border-radius: 12px;
     padding: 20px; text-decoration: none; color: inherit; display: grid; gap: 6px;
 }
-.stat-card:hover { border-color: var(--maroon); }
-.stat-card .num { font-size: 28px; font-weight: 800; color: var(--maroon); }
+.stat-card:hover { border-color: var(--green); }
+.stat-card .num { font-size: 28px; font-weight: 800; color: var(--green); }
 .stat-card .lbl { color: #666; font-size: 13.5px; font-weight: 600; }
 
 /* ---- generic cards / forms used in settings & content pages ---- */
@@ -102,7 +103,7 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
 .content-fields .btn-primary, .settings-form .btn-primary { grid-column: 1 / -1; justify-self: start; }
 .spec-group-title {
     margin: 10px 0 -4px; padding-top: 12px; border-top: 1px solid var(--line);
-    font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--maroon);
+    font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--green);
 }
 .spec-group-title:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
 
@@ -117,7 +118,7 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
 .bike-card-toggle .chevron { color: #999; transition: transform .2s ease; flex: 0 0 auto; }
 .bike-card.is-open .chevron { transform: rotate(180deg); }
 .bike-card-body { margin-top: 18px; }
-#addBikeCard .bike-card-toggle-title { color: var(--maroon); }
+#addBikeCard .bike-card-toggle-title { color: var(--green); }
 .field textarea {
     padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; font-size: 13.5px;
     font-family: inherit; resize: vertical;
@@ -171,8 +172,8 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
     color: #666; text-decoration: none; font-weight: 600; font-size: 13.5px;
     padding: 10px 16px; border-bottom: 2px solid transparent;
 }
-.tab-nav a:hover { color: var(--maroon); }
-.tab-nav a.is-active { color: var(--maroon); border-bottom-color: var(--maroon); }
+.tab-nav a:hover { color: var(--green); }
+.tab-nav a.is-active { color: var(--green); border-bottom-color: var(--green); }
 .image-card {
     background: #fff; border: 1px solid var(--line); border-radius: 12px;
     padding: 18px; display: flex; flex-direction: column; gap: 14px;
@@ -194,15 +195,15 @@ code { background: #eee; padding: 1px 6px; border-radius: 3px; font-size: 12px; 
 .image-actions { display: flex; gap: 10px; }
 
 .btn-primary {
-    background: var(--maroon); color: #fff; border: 0;
+    background: var(--green); color: #fff; border: 0;
     padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 13.5px; cursor: pointer;
 }
-.btn-primary:hover { background: #732f33; }
+.btn-primary:hover { background: var(--green-dk); }
 .btn-danger {
-    background: #fff; color: var(--red); border: 1px solid var(--red);
+    background: #fff; color: var(--accent); border: 1px solid var(--accent);
     padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 13.5px; cursor: pointer;
 }
-.btn-danger:hover { background: var(--red); color: #fff; }
+.btn-danger:hover { background: var(--accent); color: #fff; }
 .btn-ghost {
     border: 1px solid #555; color: #fff; padding: 7px 15px; border-radius: 8px; font-size: 13px;
 }

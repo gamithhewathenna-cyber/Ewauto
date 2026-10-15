@@ -2,25 +2,27 @@
    ZXTec — e-mobility landing page
    Palette
    --------
-   maroon    #8B3A3F   deep burgundy hero backdrop
-   maroon-dk #6E2E33
-   ink       #161616   dark feature/footer sections
-   red       #E11B22   vermilion accent
+   green     #16A05D   primary brand colour (hero, buttons, highlights)
+   orange    #F15A24   accent (active states, eyebrows, CTAs)
+   ink       #111315   dark feature/footer sections
+   mist      #F5F7F6   light section / field backgrounds
+   slate     #7C8587   muted text
    paper     #ffffff
-   mute      #8a8a8a
    ============================================================ */
 
 :root {
-    --maroon:    #8B3A3F;
-    --maroon-dk: #6E2E33;
-    --maroon-soft:#b98a8d;
-    --ink:       #161616;
-    --ink-soft:  #232323;
-    --red:       #E11B22;
-    --paper:     #ffffff;
-    --line:      #e6e6e6;
-    --mute:      #8a8a8a;
-    --text:      #222222;
+    --green:      #16A05D;
+    --green-dk:   #11804A;
+    --green-soft: #D3EEDF;
+    --accent:     #F15A24;
+    --accent-dk:  #D4481A;
+    --ink:        #111315;
+    --ink-soft:   #1E2124;
+    --mist:       #F5F7F6;
+    --paper:      #ffffff;
+    --line:       #E3E7E5;
+    --mute:       #7C8587;
+    --text:       #1E2124;
 
     --wrap: 1200px;
     --display: "Archivo", "Arial Narrow", Helvetica, sans-serif;
@@ -111,7 +113,7 @@ body.home .wrap { max-width: 1300px; }
 }
 .brand .brand-mark {
     width: 34px; height: 34px; border-radius: 50%;
-    background: var(--red); color: #fff;
+    background: var(--accent); color: #fff;
     display: grid; place-items: center; font-size: 18px;
 }
 
@@ -146,7 +148,7 @@ body.home .wrap { max-width: 1300px; }
     right: -8%;
     width: 58%;
     aspect-ratio: 1 / 1;
-    background: var(--maroon);
+    background: var(--green);
     border-radius: 50%;
     z-index: 0;
 }
@@ -189,10 +191,10 @@ body.home .wrap { max-width: 1300px; }
     border-radius: 40px;
     font-weight: 600; font-size: 14px;
     cursor: pointer; transition: all .2s;
-    border: 1px solid var(--maroon);
-    background: transparent; color: var(--maroon);
+    border: 1px solid var(--green);
+    background: transparent; color: var(--green);
 }
-.btn:hover { background: var(--maroon); color: #fff; }
+.btn:hover { background: var(--green); color: #fff; }
 .btn.btn-light { border-color: #fff; color: #fff; }
 .btn.btn-light:hover { background: #fff; color: var(--ink); }
 .btn .arrow { font-weight: 400; }
@@ -223,14 +225,14 @@ body.home .wrap { max-width: 1300px; }
 .hero-pager button {
     width: 42px; height: 42px;
     border: 0; cursor: pointer;
-    background: var(--maroon);
+    background: var(--green);
     color: #fff; font-weight: 600; font-size: 14px;
     display: grid; place-items: center;
     transition: background .2s;
 }
 .hero-pager button:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,.2); }
-.hero-pager button.is-active { background: var(--red); }
-.hero-pager button:hover { background: var(--maroon-dk); }
+.hero-pager button.is-active { background: var(--accent); }
+.hero-pager button:hover { background: var(--green-dk); }
 
 /* spec strip */
 .spec-strip {
@@ -239,7 +241,7 @@ body.home .wrap { max-width: 1300px; }
     margin-top: 8px;
     margin-left: auto;
     width: 68%;
-    background: rgba(139,58,63,.8);
+    background: rgba(22,160,93,.8);
     backdrop-filter: blur(2px);
     color: #fff;
     display: grid;
@@ -323,7 +325,7 @@ body.home .wrap { max-width: 1300px; }
 }
 .swatch { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
 .swatch:hover { border-color: #fff; }
-.swatch.is-active { border-color: #fff; box-shadow: 0 0 0 2px var(--red); }
+.swatch.is-active { border-color: #fff; box-shadow: 0 0 0 2px var(--accent); }
 .bike-spec-sheet {
     display: grid; grid-template-columns: 1fr 1fr; gap: 22px 40px;
     margin-top: 28px;
@@ -331,7 +333,7 @@ body.home .wrap { max-width: 1300px; }
 .bike-spec-group h4 {
     font-family: var(--display); font-weight: 700;
     font-size: 12px; text-transform: uppercase; letter-spacing: .06em;
-    color: var(--red); margin: 0 0 10px;
+    color: var(--accent); margin: 0 0 10px;
 }
 .bike-detail-specs {
     display: grid;
@@ -347,7 +349,7 @@ body.home .wrap { max-width: 1300px; }
     padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600;
     cursor: pointer; transition: all .2s ease;
 }
-.btn-view-more:hover { background: var(--red); border-color: var(--red); }
+.btn-view-more:hover { background: var(--accent); border-color: var(--accent); }
 .bike-detail-desc { color: #cfcfcf; font-size: 14.5px; line-height: 1.7; margin: 20px 0 0; max-width: 480px; }
 
 /* Full-spec popup */
@@ -368,7 +370,7 @@ body.home .wrap { max-width: 1300px; }
     background: rgba(255,255,255,.1); color: #fff; font-size: 20px; line-height: 1;
     cursor: pointer; display: grid; place-items: center; transition: background .2s;
 }
-.bike-modal-close:hover { background: var(--red); }
+.bike-modal-close:hover { background: var(--accent); }
 .bike-modal-body h3 { font-family: var(--display); font-weight: 800; font-size: 20px; margin: 0 0 24px; }
 .bike-modal-body .bike-spec-sheet { margin-top: 0; }
 
@@ -384,7 +386,7 @@ body.home .wrap { max-width: 1300px; }
 }
 .bike-hover-preview.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 .bike-hover-preview-image {
-    background: #f4f4f4; border-radius: 10px; min-height: 100px;
+    background: var(--mist); border-radius: 10px; min-height: 100px;
     display: grid; place-items: center; margin-bottom: 10px; overflow: hidden;
 }
 .bike-hover-preview-image img { max-height: 100px; width: auto; margin: 0 auto; display: block; }
@@ -400,13 +402,13 @@ body.home .wrap { max-width: 1300px; }
     position: fixed; z-index: 260;
     right: 0; top: 60%; transform: translateY(-50%) rotate(90deg); transform-origin: right top;
     display: flex; align-items: center; gap: 8px;
-    background: var(--red); color: #fff; border: 0; cursor: pointer;
+    background: var(--accent); color: #fff; border: 0; cursor: pointer;
     padding: 12px 20px; border-radius: 0 0 10px 10px;
     font-size: 13px; font-weight: 600; letter-spacing: .02em;
     box-shadow: 0 10px 24px rgba(0,0,0,.2);
     transition: background .2s;
 }
-.talk-team-btn:hover { background: var(--maroon-dk); }
+.talk-team-btn:hover { background: var(--accent-dk); }
 .talk-team-btn .icon svg { width: 16px; height: 16px; fill: currentColor; }
 
 .contact-modal {
@@ -435,7 +437,7 @@ body.home .wrap { max-width: 1300px; }
     background: rgba(0,0,0,.06); color: var(--ink); font-size: 20px; line-height: 1;
     cursor: pointer; display: grid; place-items: center; transition: background .2s;
 }
-.contact-modal-close:hover { background: var(--red); color: #fff; }
+.contact-modal-close:hover { background: var(--accent); color: #fff; }
 .contact-modal-panel .form-heading { margin-top: 0; }
 .contact-modal-panel .form-alert[hidden] { display: none; }
 .bike-detail-visual { position: relative; min-height: 340px; aspect-ratio: 4 / 3; }
@@ -478,7 +480,7 @@ body.home .wrap { max-width: 1300px; }
     background: #333; color: #fff; border-radius: 4px;
     display: grid; place-items: center; transition: background .2s;
 }
-.bike-nav button:hover { background: var(--red); }
+.bike-nav button:hover { background: var(--accent); }
 
 /* ---------- Worldwide ---------- */
 .world { padding: 84px 0; }
@@ -489,7 +491,7 @@ body.home .wrap { max-width: 1300px; }
     margin: 0 0 14px;
     white-space: nowrap;
 }
-.world-head h2 .hl { color: var(--red); }
+.world-head h2 .hl { color: var(--accent); }
 .world-head p { color: #666; font-size: 15px; }
 .world-grid {
     display: grid;
@@ -528,7 +530,7 @@ body.home .wrap { max-width: 1300px; }
     border-radius: 8px;
     overflow: hidden;
     color: #fff;
-    background: #111;
+    background: var(--ink);
     isolation: isolate;
 }
 .cta-card::after {
@@ -653,13 +655,13 @@ body.home .wrap { max-width: 1300px; }
     .nav.open { transform: translateX(0); }
     .nav.open .nav-links { display: flex; flex-direction: column; gap: 18px; }
     .nav.open .nav-social { display: flex; gap: 16px; }
-    .nav.open .nav-links a { color: var(--red); }
-    .nav.open .nav-social { color: var(--red); }
+    .nav.open .nav-links a { color: var(--accent); }
+    .nav.open .nav-social { color: var(--accent); }
 
     .nav-toggle {
         position: relative; z-index: 95;
         display: grid; place-items: center;
-        background: var(--maroon); border-radius: 50%;
+        background: var(--green); border-radius: 50%;
     }
     .brand img { height: 46px; }
     .site-header.is-scrolled .brand img { height: 38px; }
@@ -700,14 +702,14 @@ body.home .wrap { max-width: 1300px; }
 .contact-hero {
     position: relative;
     overflow: hidden;
-    background: var(--bg, #f5f5f7);
+    background: var(--bg, var(--mist));
     padding: 140px 0 84px;
 }
 .contact-hero-blob {
     position: absolute;
     right: -12%; top: -55%;
     width: 60%; height: 220%;
-    background: var(--maroon);
+    background: var(--green);
     border-radius: 50%;
     z-index: 0;
     object-fit: cover;
@@ -743,7 +745,7 @@ body.home .wrap { max-width: 1300px; }
 }
 .form-field-full { margin-bottom: 22px; }
 .contact-form input, .contact-form textarea, .contact-form select {
-    width: 100%; border: 1px solid var(--line); background: #f9f9f9;
+    width: 100%; border: 1px solid var(--line); background: var(--mist);
     border-radius: 10px; padding: 13px 16px; font-size: 14px;
     font-weight: 400; font-family: inherit; resize: vertical;
 }
@@ -752,11 +754,11 @@ body.home .wrap { max-width: 1300px; }
 .contact-form-actions { display: flex; justify-content: flex-end; }
 .btn-send {
     display: inline-flex; align-items: center; gap: 12px;
-    background: var(--maroon); color: #fff; border: 0;
+    background: var(--green); color: #fff; border: 0;
     padding: 15px 30px; border-radius: 40px; font-weight: 600; font-size: 14px;
     cursor: pointer;
 }
-.btn-send:hover { background: var(--maroon-dk); }
+.btn-send:hover { background: var(--green-dk); }
 
 .contact-side-card {
     background: var(--ink); color: #fff;
@@ -773,7 +775,7 @@ body.home .wrap { max-width: 1300px; }
 }
 .contact-side-item .icon {
     flex: 0 0 42px; width: 42px; height: 42px; border-radius: 50%;
-    background: var(--maroon); display: grid; place-items: center;
+    background: var(--green); display: grid; place-items: center;
 }
 .contact-side-item .icon svg { width: 18px; height: 18px; fill: #fff; }
 .contact-side-item .label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 2px; }
@@ -785,7 +787,7 @@ body.home .wrap { max-width: 1300px; }
     width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.08);
     display: grid; place-items: center; transition: background .2s;
 }
-.contact-side-social a:hover { background: var(--maroon); }
+.contact-side-social a:hover { background: var(--green); }
 .contact-side-social svg { width: 16px; height: 16px; fill: #fff; }
 
 .contact-map-section { padding: 0 0 0; }
@@ -832,9 +834,9 @@ body.home .wrap { max-width: 1300px; }
 }
 .dealer-icon {
     flex: 0 0 38px; width: 38px; height: 38px; border-radius: 50%;
-    background: var(--maroon-soft); display: grid; place-items: center; margin-top: 2px;
+    background: var(--green-soft); display: grid; place-items: center; margin-top: 2px;
 }
-.dealer-icon svg { width: 18px; height: 18px; fill: var(--maroon-dk); }
+.dealer-icon svg { width: 18px; height: 18px; fill: var(--green-dk); }
 .dealer-body h3 { font-family: var(--display); font-weight: 700; font-size: 16.5px; margin: 0 0 6px; color: var(--ink); }
 .dealer-address, .dealer-phone { margin: 0 0 3px; font-size: 13.5px; color: #666; line-height: 1.5; }
 .dealer-phone { font-weight: 600; color: var(--ink); }
@@ -931,17 +933,17 @@ body.home .wrap { max-width: 1300px; }
 .whatwedo-item-text p { margin: 0; font-size: 14.5px; color: #666; line-height: 1.6; }
 .whatwedo-icon {
     flex: 0 0 36px; width: 36px; height: 36px; border-radius: 50%;
-    background: var(--maroon-soft); display: grid; place-items: center; margin-top: 2px;
+    background: var(--green-soft); display: grid; place-items: center; margin-top: 2px;
 }
-.whatwedo-icon svg { width: 16px; height: 16px; fill: var(--maroon-dk); }
+.whatwedo-icon svg { width: 16px; height: 16px; fill: var(--green-dk); }
 
 .vision-mission-section { padding: 60px 0 120px; }
 .vision-mission {
     display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
 }
 .vm-card { border-radius: 16px; padding: 34px; }
-.vm-vision { background: #f2f2f2; }
-.vm-mission { background: var(--maroon); color: #fff; }
+.vm-vision { background: var(--mist); }
+.vm-mission { background: var(--green); color: #fff; }
 .vm-card h3 {
     font-family: var(--display); font-weight: 800; font-size: 20px; margin: 0 0 14px;
 }
