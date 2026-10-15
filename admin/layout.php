@@ -19,13 +19,13 @@ function admin_header(string $active, string $title): void
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZXTec Admin — <?= e($title) ?></title>
+<title>EW Auto Admin — <?= e($title) ?></title>
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 <div class="admin-shell">
     <aside class="admin-side">
-        <div class="admin-brand"><span class="brand-mark">&#9883;</span> ZXTec Admin</div>
+        <div class="admin-brand"><span class="brand-mark">&#9883;</span> EW Auto Admin</div>
         <nav class="admin-nav">
             <?php foreach (ADMIN_NAV as $key => $item): ?>
                 <a href="<?= e($item['href']) ?>" class="<?= $key === $active ? 'is-active' : '' ?>"><?= e($item['label']) ?></a>

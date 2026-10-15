@@ -1,4 +1,6 @@
-# EW Auto Mobile website (ZXTec e-mobility)
+# EW Auto website
+
+Brand name shown on the site is "EW Auto" (formerly "ZXTec" — the repo folder still uses `zxtec`).
 
 Production: https://ewautomobile.com/ — plain PHP + MySQL, no framework, no build step, no package manager, no tests. Deployed to shared Apache hosting (cPanel-style DB names `tcplckfa_*`).
 

@@ -19,7 +19,7 @@ function maybe_show_maintenance_page(): void
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZXTec — Under maintenance</title>
+<title>EW Auto — Under maintenance</title>
 <style>
     body { margin:0; min-height:100vh; display:grid; place-items:center; background:#111315; color:#fff;
            font-family:"Inter","Helvetica Neue",Arial,sans-serif; text-align:center; padding:24px; }

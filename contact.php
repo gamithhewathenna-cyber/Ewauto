@@ -39,8 +39,8 @@ $token = csrf_token();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZXTec — Contact Us</title>
-<meta name="description" content="Get in touch with ZXTec.">
+<title>EW Auto — Contact Us</title>
+<meta name="description" content="Get in touch with EW Auto.">
 <?php if ($url = image_url($images, 'favicon')): ?><link rel="icon" href="<?= e($url) ?>"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,12 +55,12 @@ $token = csrf_token();
         <a class="brand" href="<?= e(BASE_URL) ?>/">
             <?php $logoDefaultUrl = image_url($images, 'logo_header'); $logoScrolledUrl = image_url($images, 'logo_footer'); ?>
             <?php if ($logoDefaultUrl && $logoScrolledUrl): ?>
-                <img class="brand-logo-default" src="<?= e($logoDefaultUrl) ?>" alt="<?= e(image_alt($images, 'logo_header', 'ZXTec')) ?>">
-                <img class="brand-logo-scrolled" src="<?= e($logoScrolledUrl) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'ZXTec')) ?>">
+                <img class="brand-logo-default" src="<?= e($logoDefaultUrl) ?>" alt="<?= e(image_alt($images, 'logo_header', 'EW Auto')) ?>">
+                <img class="brand-logo-scrolled" src="<?= e($logoScrolledUrl) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
             <?php elseif ($logoDefaultUrl): ?>
-                <img src="<?= e($logoDefaultUrl) ?>" alt="<?= e(image_alt($images, 'logo_header', 'ZXTec')) ?>">
+                <img src="<?= e($logoDefaultUrl) ?>" alt="<?= e(image_alt($images, 'logo_header', 'EW Auto')) ?>">
             <?php else: ?>
-                <span class="brand-fallback"><span class="brand-mark">&#9883;</span>ZXTec</span>
+                <span class="brand-fallback"><span class="brand-mark">&#9883;</span>EW Auto</span>
             <?php endif; ?>
         </a>
         <nav class="nav" id="nav">
@@ -188,7 +188,7 @@ $token = csrf_token();
     <div class="wrap">
         <div class="dealers-head">
             <h2>Dealership Details</h2>
-            <p><?= e($c('dealers_subtext', 'Find your nearest ZXTec dealer for sales, service, and test rides.')) ?></p>
+            <p><?= e($c('dealers_subtext', 'Find your nearest EW Auto dealer for sales, service, and test rides.')) ?></p>
         </div>
         <div class="dealers-grid">
             <?php foreach ($dealers as $d): ?>
@@ -227,9 +227,9 @@ $token = csrf_token();
         <div class="footer-grid">
             <div class="footer-brand">
                 <?php if ($url = image_url($images, 'logo_footer')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'ZXTec')) ?>">
+                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
                 <?php else: ?>
-                    <span class="brand-fallback" style="color:#fff"><span class="brand-mark">&#9883;</span>ZXTec</span>
+                    <span class="brand-fallback" style="color:#fff"><span class="brand-mark">&#9883;</span>EW Auto</span>
                 <?php endif; ?>
                 <p><?= e($c('footer_about', 'Lorem ipsum dolor sit amet consectetur. Pharetra at pretium fringilla nisl feugiat. Purus vel lectus faucibus non porttitor sit magna tincidunt tellus. Ut odio in vitae mollis tortor ultrices.')) ?></p>
             </div>
@@ -258,7 +258,7 @@ $token = csrf_token();
         </div>
     </div>
     <div class="footer-bottom">
-        <?= e($c('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements')) ?>
+        <?= e($c('footer_bottom', 'EW Auto @2026, All Right reserved by Creativelements')) ?>
     </div>
 </footer>
 

@@ -1,4 +1,4 @@
--- ZXTec Website Database Schema
+-- EW Auto Website Database Schema
 -- Run this to create the tables inside your existing database.
 -- On shared hosting, create the database via your hosting control panel first
 -- (you likely already have one, e.g. tcplckfa_ewautodb), then select it in
@@ -26,15 +26,15 @@ CREATE TABLE IF NOT EXISTS admins (
 
 -- Seed the image slots the template needs. filename is NULL until an admin uploads.
 INSERT INTO images (slot, label, alt_text) VALUES
-    ('logo_header',      'Header Logo',                'ZXTec logo'),
-    ('logo_footer',      'Footer Logo',                'ZXTec logo'),
+    ('logo_header',      'Header Logo',                'EW Auto logo'),
+    ('logo_footer',      'Footer Logo',                'EW Auto logo'),
     ('hero_scooter',     'Hero Scooter (main banner)', 'White electric scooter'),
     ('lineup_vehicles',  'Product Lineup Row',         'Range of electric vehicles'),
     ('kunpeng_scooter',  'Kunpeng Feature Scooter',    'Kunpeng electric scooter'),
     ('world_map',        'World Wide Reach Map',       'World map with distribution points'),
     ('testimonial_avatar','Testimonial Avatar',        'Customer photo'),
     ('cta_rider',        'CTA Banner Rider',           'Rider on a motorcycle'),
-    ('favicon',           'Favicon',                    'ZXTec favicon')
+    ('favicon',           'Favicon',                    'EW Auto favicon')
 ON DUPLICATE KEY UPDATE label = VALUES(label);
 
 -- Seed a default admin (username: admin / password: admin123).
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS settings (
 INSERT INTO settings (setting_key, setting_value) VALUES
     ('maintenance_mode', '0'),
     ('maintenance_message', 'We''re making some improvements. Please check back soon.'),
-    ('site_title', 'ZXTec')
+    ('site_title', 'EW Auto')
 ON DUPLICATE KEY UPDATE setting_key = setting_key;
 
 -- ---------------------------------------------------------------------------
@@ -102,7 +102,7 @@ INSERT INTO content (content_key, content_value) VALUES
     ('footer_about', 'Lorem ipsum dolor sit amet consectetur. Pharetra at pretium fringilla nisl feugiat. Purus vel lectus faucibus non porttitor sit magna tincidunt tellus. Ut odio in vitae mollis tortor ultrices.'),
     ('contact_email', 'companyname@gamil.com'),
     ('contact_phone', '(+391) 1234 8492'),
-    ('footer_bottom', 'ZXTec @2026, All Right reserved by Creativelements'),
+    ('footer_bottom', 'EW Auto @2026, All Right reserved by Creativelements'),
 
     ('contact_eyebrow', 'GET IN TOUCH'),
     ('contact_title', 'CONTACT US'),
@@ -140,7 +140,7 @@ INSERT INTO content (content_key, content_value) VALUES
     ('whatwedo_item4_title', 'Three-Wheelers'),
     ('whatwedo_item4_text', 'Versatile mobility solutions engineered for both passenger and commercial transportation.'),
     ('whatwedo_item5_title', 'Global Mobility Solutions'),
-    ('whatwedo_item5_text', 'A growing international network delivering ZXTec products and mobility solutions to markets around the world.'),
+    ('whatwedo_item5_text', 'A growing international network delivering EW Auto products and mobility solutions to markets around the world.'),
 
     ('vision_heading', 'VISION'),
     ('vision_text', 'Lorem ipsum dolor sit amet consectetur. Massa donec congue vitae nulla nisi tellus gravida. Eget dolor vulputate malesuada sed morbi sed. Ipsum massa quam elit at ultricies vestibulum. Sagittis etiam risus sagittis sed morbi aliquet integer nunc nibh.'),

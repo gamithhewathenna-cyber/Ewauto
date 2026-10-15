@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZXTec Admin — Sign in</title>
+<title>EW Auto Admin — Sign in</title>
 <link rel="stylesheet" href="admin.css">
 </head>
 <body class="login-page">
     <form class="login-card" method="post" autocomplete="off">
-        <div class="login-brand"><span class="brand-mark">&#9883;</span> ZXTec Admin</div>
+        <div class="login-brand"><span class="brand-mark">&#9883;</span> EW Auto Admin</div>
         <p class="login-sub">Sign in to manage site images.</p>
         <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
         <label>Username

@@ -1,6 +1,6 @@
-# ZXTec — E-Mobility Website
+# EW Auto — E-Mobility Website
 
-A responsive landing page for ZXTec electric scooters, built with **PHP, MySQL,
+A responsive landing page for EW Auto electric scooters, built with **PHP, MySQL,
 HTML5 and CSS3**. Every image on the site is managed from a password-protected
 admin panel, so content can be updated without touching code.
 
