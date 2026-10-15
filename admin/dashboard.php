@@ -10,7 +10,7 @@ admin_header('dashboard', 'Dashboard');
 <p class="admin-lead">Quick overview of your site.</p>
 
 <div class="alert <?= $maintenance ? 'error' : 'ok' ?>">
-    Maintenance mode is currently <strong><?= $maintenance ? 'ON — visitors see the "be right back" page' : 'OFF — the site is live' ?></strong>.
+    Maintenance mode is currently <strong><?= $maintenance ? 'ON - visitors see the "be right back" page' : 'OFF - the site is live' ?></strong>.
     <a href="settings.php" class="link">Change it &rarr;</a>
 </div>
 

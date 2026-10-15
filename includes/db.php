@@ -193,7 +193,7 @@ function bike_spec_groups(): array
 }
 
 /**
- * Flat list of every bike spec column key (no grouping) — handy for
+ * Flat list of every bike spec column key (no grouping) - handy for
  * building INSERT/UPDATE column lists.
  */
 function bike_spec_columns(): array

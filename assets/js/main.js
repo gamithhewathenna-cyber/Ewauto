@@ -168,7 +168,7 @@
 
         var d = dots[current];
 
-        // Fade the text out, swap it once it's invisible, then fade back in —
+        // Fade the text out, swap it once it's invisible, then fade back in -
         // avoids the jarring instant text swap while the image cross-fades.
         textEls.forEach(function (el) { el.style.opacity = '0'; });
 
@@ -241,7 +241,7 @@
     });
 
     // Each panel's colour swatches only affect that panel's own image stack.
-    // The old colour fades out completely before the new one fades in —
+    // The old colour fades out completely before the new one fades in -
     // sequential, not simultaneous, so the two photos never blend/ghost
     // together mid-switch.
     panels.forEach(function (panel) {
@@ -273,7 +273,7 @@
 
 // Bike nav (prev/next) mobile position: on the stacked mobile layout the
 // bike photo now shows first (see the CSS reorder), so track its actual
-// bottom edge instead of the desktop bottom-of-panel offset — otherwise
+// bottom edge instead of the desktop bottom-of-panel offset - otherwise
 // the buttons land near the description text at the very end instead of
 // next to the image.
 (function () {

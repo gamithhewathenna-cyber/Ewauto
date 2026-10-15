@@ -4,7 +4,7 @@ require_once __DIR__ . '/admin/auth.php';
 require_once __DIR__ . '/includes/maintenance.php';
 require_once __DIR__ . '/includes/contact_form.php';
 
-// Graceful DB handling — the page still renders with placeholders if the DB
+// Graceful DB handling - the page still renders with placeholders if the DB
 // is unreachable, so the layout can be reviewed before setup is complete.
 try {
     $images  = all_images();
@@ -56,7 +56,7 @@ $bikes = array_values(array_filter($bikes, static fn($b) => !empty($b['colors'])
 try {
     maybe_show_maintenance_page();
 } catch (Throwable $ex) {
-    // DB unreachable — fall through and render with placeholders.
+    // DB unreachable - fall through and render with placeholders.
 }
 
 $c = static fn(string $key, string $fallback = '') => content($content, $key, $fallback);
@@ -86,7 +86,7 @@ foreach ($heroSpecFields as $col => $meta) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EW Auto — Let's Ride the Dream</title>
+<title>EW Auto - Let's Ride the Dream</title>
 <meta name="description" content="EW Auto electric scooters and e-mobility. Worldwide reach, built to ride the dream.">
 <?php if ($url = image_url($images, 'favicon')): ?><link rel="icon" href="<?= e($url) ?>"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -261,7 +261,7 @@ foreach ($heroSpecFields as $col => $meta) {
                                 <?php if (!empty($bike['spec_groups'])): ?>
                                     <button type="button" class="btn-view-more" data-view-more>View full specs <span class="arrow">&rsaquo;</span></button>
                                     <template data-spec-template>
-                                        <h3><?= e($bike['name']) ?> — Full Specifications</h3>
+                                        <h3><?= e($bike['name']) ?> - Full Specifications</h3>
                                         <div class="bike-spec-sheet">
                                             <?php foreach ($bike['spec_groups'] as $groupTitle => $rows): ?>
                                                 <div class="bike-spec-group">
@@ -295,7 +295,7 @@ foreach ($heroSpecFields as $col => $meta) {
             <?php endif; ?>
         </div>
     <?php else: ?>
-        <div class="wrap"><p class="bikes-empty">No bikes added yet — add some from the admin panel.</p></div>
+        <div class="wrap"><p class="bikes-empty">No bikes added yet - add some from the admin panel.</p></div>
     <?php endif; ?>
 </section>
 

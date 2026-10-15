@@ -99,7 +99,7 @@ $token = csrf_token();
 
 admin_header('slides', 'Slider Images');
 ?>
-<p class="admin-lead">Manage the homepage hero slider (up to 4+ slides work well). Each slide can have its own heading, subheading, and bike specs — when the image changes, the banner text and specs change with it. If no slides have an image, the homepage falls back to the single hero image.</p>
+<p class="admin-lead">Manage the homepage hero slider (up to 4+ slides work well). Each slide can have its own heading, subheading, and bike specs - when the image changes, the banner text and specs change with it. If no slides have an image, the homepage falls back to the single hero image.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>

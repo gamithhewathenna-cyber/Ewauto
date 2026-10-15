@@ -26,7 +26,7 @@ function district_select_html(): string
 function handle_contact_submission(array $content): array
 {
     if (!empty($_POST['website'])) {
-        // Honeypot field caught a bot — pretend success, do nothing.
+        // Honeypot field caught a bot - pretend success, do nothing.
         return ['ok' => true, 'message' => content($content, 'form_success_message', "Thanks for reaching out! We'll get back to you soon.")];
     }
 

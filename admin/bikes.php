@@ -88,7 +88,7 @@ $token = csrf_token();
 
 admin_header('bikes', 'Bikes');
 ?>
-<p class="admin-lead">Manage your bike models. They show on the homepage — visitors flip between bikes with the left/right arrows, and between colours by clicking a swatch. After adding a bike, click "Manage colours" to upload images for each colour option.</p>
+<p class="admin-lead">Manage your bike models. They show on the homepage - visitors flip between bikes with the left/right arrows, and between colours by clicking a swatch. After adding a bike, click "Manage colours" to upload images for each colour option.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>

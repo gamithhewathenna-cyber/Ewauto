@@ -14,7 +14,7 @@ try {
 try {
     maybe_show_maintenance_page();
 } catch (Throwable $ex) {
-    // DB unreachable — fall through and render with placeholders.
+    // DB unreachable - fall through and render with placeholders.
 }
 
 $c = static fn(string $key, string $fallback = '') => content($content, $key, $fallback);
@@ -34,8 +34,8 @@ $whatWeDoItems = [
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EW Auto — About Us</title>
-<meta name="description" content="About EW Auto — who we are, our story, and what we do.">
+<title>EW Auto - About Us</title>
+<meta name="description" content="About EW Auto - who we are, our story, and what we do.">
 <?php if ($url = image_url($images, 'favicon')): ?><link rel="icon" href="<?= e($url) ?>"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

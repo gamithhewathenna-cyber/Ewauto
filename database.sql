@@ -189,8 +189,8 @@ CREATE TABLE IF NOT EXISTS slides (
 
 -- If the `slides` table already existed before this update, migrate from the
 -- old generic spec1-5 columns to the fixed fields below (matches the Bikes
--- quick specs) — safe to re-run; requires MySQL 8.0.29+ / MariaDB 10.0.2+
--- for "IF [NOT] EXISTS" on ADD/DROP COLUMN — if that errors on your host,
+-- quick specs) - safe to re-run; requires MySQL 8.0.29+ / MariaDB 10.0.2+
+-- for "IF [NOT] EXISTS" on ADD/DROP COLUMN - if that errors on your host,
 -- run the plain versions of these statements once instead.
 ALTER TABLE slides
     ADD COLUMN IF NOT EXISTS max_range VARCHAR(64) DEFAULT '',
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS products (
 
 -- ---------------------------------------------------------------------------
 -- Bike models, shown one at a time in the homepage bike carousel. Each bike
--- can have multiple colour variants (see bike_colors below) — clicking a
+-- can have multiple colour variants (see bike_colors below) - clicking a
 -- colour swatch swaps the shown image; left/right arrows switch bikes.
 -- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS bikes (
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS bikes (
 -- If the `bikes` table already existed with the old generic spec1-5
 -- label/value columns, migrate to the fixed spec sheet fields below (safe
 -- to re-run; requires MySQL 8.0.29+ / MariaDB 10.0.2+ for "IF [NOT] EXISTS"
--- on ADD/DROP COLUMN — if that errors on your host, run the plain versions
+-- on ADD/DROP COLUMN - if that errors on your host, run the plain versions
 -- of these statements once instead, without "IF [NOT] EXISTS").
 ALTER TABLE bikes
     ADD COLUMN IF NOT EXISTS button_label VARCHAR(64) DEFAULT '',

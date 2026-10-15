@@ -1,5 +1,5 @@
 /* ============================================================
-   EW Auto — e-mobility landing page
+   EW Auto - e-mobility landing page
    Palette
    --------
    green     #16A05D   primary brand colour (hero, buttons, highlights)
@@ -294,7 +294,7 @@ body.home .wrap { max-width: 1300px; }
 .product-name { margin-top: 14px; font-weight: 700; font-size: 15px; }
 .product-desc { margin: 4px 0 0; color: #666; font-size: 13.5px; }
 
-/* ---------- Our Bikes (homepage carousel) — same dark panel style as the
+/* ---------- Our Bikes (homepage carousel) - same dark panel style as the
    original Kunpeng feature section, one bike shown at a time ---------- */
 .bikes-showcase {
     background: var(--ink); color: #fff;
@@ -674,7 +674,7 @@ body.home .wrap { max-width: 1300px; }
     .spec-strip .spec { border-right: 1px solid rgba(255,255,255,.18); padding: 14px; }
     .spec-strip .spec:nth-child(2n) { border-right: 0; }
     .cta-card .cta-inner { padding: 46px 18px 40px; }
-    /* Rotated vertical strip doesn't work at thumb-reachable phone widths —
+    /* Rotated vertical strip doesn't work at thumb-reachable phone widths -
        switch to a compact horizontal pill in the bottom-right corner. */
     .talk-team-btn {
         right: 12px; top: auto; bottom: 16px;
@@ -810,7 +810,7 @@ body.home .wrap { max-width: 1300px; }
 .dealers-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
 }
-/* Home page: single row that scrolls continuously — the track renders the
+/* Home page: single row that scrolls continuously - the track renders the
    dealer list twice back to back and animates exactly half its own width,
    so the loop point is seamless. */
 .dealers-marquee { overflow: hidden; margin-top: 10px; }
@@ -998,7 +998,7 @@ body.home .wrap { max-width: 1300px; }
 
 @media (max-width: 640px) {
     /* Stacked vision/mission cards leave less room for the overlapping
-       vehicle photos below them — drop the overlap so it never covers text. */
+       vehicle photos below them - drop the overlap so it never covers text. */
     .vm-images { margin-top: 20px; }
     .vm-image-2 { margin-left: -16px; }
     .about-banner { min-height: 300px; padding: 40px 0; }
