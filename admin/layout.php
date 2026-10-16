@@ -66,51 +66,52 @@ function admin_footer(): void
     </main>
 </div>
 <script>
-// Section links: highlight the section currently in view - the last one
-// whose top has scrolled past a line near the top of the screen.
+// Section tabs: show one section at a time. Clicking a tab swaps the
+// visible section (no scrolling). The URL hash (#tab=<section id>) remembers
+// the open tab, so after Save (forms post back to #tab=...) the same tab
+// reopens. "#tab=" deliberately matches no element, so the browser doesn't
+// jump down the page. Without JS every section stays visible.
 (function () {
-    var links = Array.prototype.slice.call(document.querySelectorAll('[data-section-nav] a'));
-    if (!links.length) return;
+    var nav = document.querySelector('[data-section-nav]');
+    if (!nav) return;
 
-    var targets = [];
-    links.forEach(function (a) {
-        var el = document.getElementById(a.getAttribute('href').slice(1));
-        if (el && targets.indexOf(el) === -1) targets.push(el);
+    var tabs = [];
+    Array.prototype.slice.call(nav.querySelectorAll('a')).forEach(function (a) {
+        var panel = document.getElementById(a.getAttribute('href').slice(1));
+        if (panel) tabs.push({ link: a, panel: panel });
     });
-    if (!targets.length) return;
+    if (!tabs.length) return;
 
-    var currentId = null;
-    function update() {
-        var line = 120; // px from the top of the viewport
-        var id = targets[0].id;
-        for (var i = 0; i < targets.length; i++) {
-            if (targets[i].getBoundingClientRect().top <= line) id = targets[i].id;
-        }
-        // At the very bottom the last sections may never reach the line.
-        if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
-            id = targets[targets.length - 1].id;
-        }
-        if (id === currentId) return;
-        currentId = id;
-        links.forEach(function (a) {
-            var on = a.getAttribute('href') === '#' + id;
-            a.classList.toggle('is-current', on);
+    nav.setAttribute('role', 'tablist');
+    tabs.forEach(function (t) {
+        t.link.setAttribute('role', 'tab');
+        t.panel.setAttribute('role', 'tabpanel');
+    });
+
+    function show(id) {
+        var match = tabs.some(function (t) { return t.panel.id === id; });
+        if (!match) id = tabs[0].panel.id;
+        tabs.forEach(function (t) {
+            var on = t.panel.id === id;
+            t.panel.hidden = !on;
+            t.link.classList.toggle('is-current', on);
+            t.link.setAttribute('aria-selected', on ? 'true' : 'false');
             // Keep the active tab visible when the tab row scrolls sideways.
-            if (on && a.parentNode.scrollWidth > a.parentNode.clientWidth) {
-                a.parentNode.scrollLeft = a.offsetLeft - 16;
+            if (on && nav.scrollWidth > nav.clientWidth) {
+                nav.scrollLeft = t.link.offsetLeft - 16;
             }
         });
     }
 
-    var ticking = false;
-    window.addEventListener('scroll', function () {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(function () { ticking = false; update(); });
-    }, { passive: true });
-    window.addEventListener('resize', update);
-    window.addEventListener('load', update);
-    update();
+    tabs.forEach(function (t) {
+        t.link.addEventListener('click', function (e) {
+            e.preventDefault();
+            show(t.panel.id);
+            if (history.replaceState) history.replaceState(null, '', '#tab=' + t.panel.id);
+        });
+    });
+
+    show(location.hash.replace(/^#(tab=)?/, ''));
 })();
 </script>
 </body>

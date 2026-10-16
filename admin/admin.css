@@ -139,9 +139,9 @@ input[type=file]::file-selector-button:hover { border-color: var(--green); }
 }
 .admin-nav a.is-sub { padding-left: 22px; }
 
-/* In-page section links (Home / About Us / Contact us content pages). */
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* Section tabs (Home / About Us / Contact us content pages): one section
+   shows at a time. [hidden] must beat the panels' own display rules. */
+[id^="sec-"][hidden] { display: none !important; }
 /* Sticky horizontal tab bar; bleeds to the edges of .admin-main's padding. */
 .section-jump {
     display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
@@ -159,7 +159,6 @@ html { scroll-behavior: smooth; }
 }
 .section-jump a:hover { color: var(--green); }
 .section-jump a.is-current { color: var(--green); border-bottom-color: var(--green); }
-[id^="sec-"] { scroll-margin-top: 64px; }
 .admin-side-foot { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
 .admin-side-foot .link { color: #ddd; }
 .admin-side-foot .link:hover { color: #fff; }

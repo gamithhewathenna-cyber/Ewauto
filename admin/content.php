@@ -169,7 +169,7 @@ admin_header('content_' . $activePage, $pageTabs[$activePage], $jumpLinks);
                             </div>
                         <?php endif; ?>
 
-                        <form method="post" action="<?= $formAction ?>#<?= e($anchor) ?>" enctype="multipart/form-data" class="content-group-body">
+                        <form method="post" action="<?= $formAction ?>#tab=<?= e($anchor) ?>" enctype="multipart/form-data" class="content-group-body">
                             <input type="hidden" name="csrf" value="<?= e($token) ?>">
                             <input type="hidden" name="action" value="save_group">
                             <input type="hidden" name="field_keys" value="<?= e($fieldKeys) ?>">
@@ -229,7 +229,7 @@ admin_header('content_' . $activePage, $pageTabs[$activePage], $jumpLinks);
                                     <div class="preview-empty">No image yet</div>
                                 <?php endif; ?>
                             </div>
-                            <form method="post" action="<?= $formAction ?>#sec-<?= e($sectionKey) ?>" enctype="multipart/form-data" class="image-form">
+                            <form method="post" action="<?= $formAction ?>#tab=sec-<?= e($sectionKey) ?>" enctype="multipart/form-data" class="image-form">
                                 <input type="hidden" name="csrf" value="<?= e($token) ?>">
                                 <input type="hidden" name="slot" value="<?= e($slot) ?>">
                                 <input type="hidden" name="action" value="save_image">
@@ -252,7 +252,7 @@ admin_header('content_' . $activePage, $pageTabs[$activePage], $jumpLinks);
                 </div>
             <?php endif; ?>
 
-            <form method="post" action="<?= $formAction ?>#sec-<?= e($sectionKey) ?>" class="content-fields">
+            <form method="post" action="<?= $formAction ?>#tab=sec-<?= e($sectionKey) ?>" class="content-fields">
                 <input type="hidden" name="csrf" value="<?= e($token) ?>">
                 <input type="hidden" name="action" value="save_text">
                 <?php foreach ($section['fields'] as $key => $meta): ?>
