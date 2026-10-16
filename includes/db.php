@@ -144,6 +144,15 @@ function all_dealers(bool $onlyActive = false): array
 }
 
 /**
+ * Whether the dealership section is shown on the website (Home + Contact).
+ * Toggled from Admin > Dealerships; on unless explicitly switched off.
+ */
+function dealers_section_enabled(): bool
+{
+    return get_setting('show_dealers', '1') === '1';
+}
+
+/**
  * ---- Bikes (shown in the homepage bike carousel) ----
  */
 function all_bikes(bool $onlyActive = false): array

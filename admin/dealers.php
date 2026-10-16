@@ -10,7 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $action = $_POST['action'] ?? '';
 
-        if ($action === 'add') {
+        if ($action === 'toggle_section') {
+            $show = isset($_POST['show_dealers']);
+            set_setting('show_dealers', $show ? '1' : '0');
+            $notice = $show
+                ? 'Dealership section is now shown on the website.'
+                : 'Dealership section is now hidden from the website.';
+        } elseif ($action === 'add') {
             $name = trim($_POST['name'] ?? '');
             if ($name === '') {
                 $error = 'Please enter a dealer name.';
@@ -46,14 +52,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $dealers = all_dealers();
+$showDealers = dealers_section_enabled();
 $token = csrf_token();
 
 admin_header('dealers', 'Dealerships');
 ?>
-<p class="admin-lead">Manage the dealership grid shown on the Contact Us page (name, address, and phone for each dealer).</p>
+<p class="admin-lead">Manage the dealerships shown on the Home and Contact Us pages (name, address, and phone for each dealer).</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
+
+<div class="card">
+    <h3>Show on website</h3>
+    <form method="post" class="section-toggle">
+        <input type="hidden" name="csrf" value="<?= e($token) ?>">
+        <input type="hidden" name="action" value="toggle_section">
+        <label class="toggle-row">
+            <input type="checkbox" name="show_dealers" value="1" <?= $showDealers ? 'checked' : '' ?>>
+            <span>Show the Dealership section on the Home and Contact Us pages</span>
+        </label>
+        <span class="status-pill <?= $showDealers ? 'is-on' : 'is-off' ?>"><?= $showDealers ? 'Visible on website' : 'Hidden from website' ?></span>
+        <button type="submit" class="btn-primary">Save</button>
+    </form>
+    <p class="size-hint section-toggle-hint">Hiding it keeps all your dealers saved here - tick it again any time to bring the section back.</p>
+</div>
 
 <div class="image-grid">
     <?php foreach ($dealers as $d): ?>

@@ -12,7 +12,7 @@ try {
     $content = all_content();
     $slides  = all_slides(true);
     $bikes   = all_bikes(true);
-    $dealers = all_dealers(true);
+    $dealers = dealers_section_enabled() ? all_dealers(true) : [];
 } catch (Throwable $ex) {
     $images = []; $content = []; $slides = []; $bikes = []; $dealers = [];
 }

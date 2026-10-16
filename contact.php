@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/social.php';
 try {
     $images  = all_images();
     $content = all_content();
-    $dealers = all_dealers(true);
+    $dealers = dealers_section_enabled() ? all_dealers(true) : [];
 } catch (Throwable $ex) {
     $images = []; $content = []; $dealers = [];
 }
