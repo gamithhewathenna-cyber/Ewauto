@@ -142,19 +142,24 @@ input[type=file]::file-selector-button:hover { border-color: var(--green); }
 /* In-page section links (Home / About Us / Contact us content pages). */
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-[id^="sec-"] { scroll-margin-top: var(--sp-6); }
-.admin-subnav {
-    display: flex; flex-direction: column; gap: 2px;
-    margin: 2px 0 var(--sp-2) 22px; padding-left: 10px;
-    border-left: 1px solid rgba(255,255,255,.14);
+/* Sticky horizontal tab bar; bleeds to the edges of .admin-main's padding. */
+.section-jump {
+    display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none;
+    position: sticky; top: 0; z-index: 5;
+    margin: var(--sp-4) calc(-1 * var(--sp-8)) var(--sp-6);
+    padding: 0 var(--sp-8);
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    box-shadow: 0 6px 12px -10px rgba(0,0,0,.25);
 }
-.admin-nav .admin-subnav a {
-    padding: 6px 10px; border-radius: 6px;
-    font-size: 12.5px; font-weight: 500; color: #a9b0ae; line-height: 1.35;
+.section-jump::-webkit-scrollbar { display: none; }
+.section-jump a {
+    flex: 0 0 auto; padding: 13px var(--sp-4) 11px;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    color: #666; font-size: 13.5px; font-weight: 600; text-decoration: none; white-space: nowrap;
 }
-.admin-nav .admin-subnav a:hover { color: #fff; background: rgba(255,255,255,.06); }
-.admin-nav .admin-subnav a.is-current { color: #fff; background: rgba(22,160,93,.25); }
-.section-jump { display: none; }
+.section-jump a:hover { color: var(--green); }
+.section-jump a.is-current { color: var(--green); border-bottom-color: var(--green); }
+[id^="sec-"] { scroll-margin-top: 64px; }
 .admin-side-foot { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
 .admin-side-foot .link { color: #ddd; }
 .admin-side-foot .link:hover { color: #fff; }
@@ -314,23 +319,8 @@ html { scroll-behavior: smooth; }
     .admin-nav { order: 3; flex: 1 1 100%; flex-direction: row; flex-wrap: wrap; gap: 6px; }
     .admin-nav a, .admin-nav a.is-sub { padding: 8px 12px; }
     .admin-nav-group { display: none; }
-    /* Sidebar is a top bar here, so section links move to a sticky
-       button row at the top of the page instead. */
-    .admin-subnav { display: none; }
-    .section-jump {
-        display: flex; gap: var(--sp-2); overflow-x: auto; scrollbar-width: none;
-        position: sticky; top: 0; z-index: 5;
-        margin: 0 calc(-1 * var(--sp-4)) var(--sp-5); padding: 10px var(--sp-4);
-        background: var(--bg); border-bottom: 1px solid var(--line);
-    }
-    .section-jump::-webkit-scrollbar { display: none; }
-    .section-jump a {
-        flex: 0 0 auto; padding: 7px 14px; border-radius: 999px;
-        border: 1px solid var(--line); background: #fff; color: #444;
-        font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap;
-    }
-    .section-jump a.is-current { background: var(--green); border-color: var(--green); color: #fff; }
-    [id^="sec-"] { scroll-margin-top: 72px; }
+    .section-jump { margin: var(--sp-3) calc(-1 * var(--sp-4)) var(--sp-5); padding: 0 var(--sp-2); }
+    .section-jump a { padding: 12px var(--sp-3) 10px; font-size: 13px; }
     .admin-side-foot { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--sp-3); margin-left: auto; }
     .admin-main { padding: var(--sp-6) var(--sp-4) 56px; }
     .card { padding: 18px; }

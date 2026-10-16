@@ -17,7 +17,7 @@ const ADMIN_NAV = [
 
 /**
  * @param array $subnav Optional in-page section links, each ['id' => anchor, 'label' => text].
- *                      Shown under the active sidebar item (and as a button row on phones).
+ *                      Shown as a sticky horizontal tab bar at the top of the page.
  */
 function admin_header(string $active, string $title, array $subnav = []): void
 {
@@ -40,13 +40,6 @@ function admin_header(string $active, string $title, array $subnav = []): void
                     <span class="admin-nav-group"><?= e($group) ?></span>
                 <?php endif; $lastGroup = $group; ?>
                 <a href="<?= e($item['href']) ?>" class="<?= trim(($key === $active ? 'is-active ' : '') . ($group !== null ? 'is-sub' : '')) ?>"><?= e($item['label']) ?></a>
-                <?php if ($key === $active && $subnav): ?>
-                    <div class="admin-subnav" data-section-nav>
-                        <?php foreach ($subnav as $link): ?>
-                            <a href="#<?= e($link['id']) ?>"><?= e($link['label']) ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
             <?php endforeach; ?>
         </nav>
         <div class="admin-side-foot">
@@ -102,8 +95,8 @@ function admin_footer(): void
         links.forEach(function (a) {
             var on = a.getAttribute('href') === '#' + id;
             a.classList.toggle('is-current', on);
-            // Keep the active button visible in the phone button row.
-            if (on && a.parentNode.classList.contains('section-jump') && a.parentNode.scrollWidth > a.parentNode.clientWidth) {
+            // Keep the active tab visible when the tab row scrolls sideways.
+            if (on && a.parentNode.scrollWidth > a.parentNode.clientWidth) {
                 a.parentNode.scrollLeft = a.offsetLeft - 16;
             }
         });
