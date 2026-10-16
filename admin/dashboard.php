@@ -31,7 +31,7 @@ admin_header('dashboard', 'Dashboard');
 
 <div class="card">
     <h3>Page content</h3>
-    <p class="admin-lead" style="margin-bottom:16px;">Jump straight to the editable text and images for each page.</p>
+    <p class="admin-lead">Jump straight to the editable text and images for each page.</p>
     <div class="tab-nav">
         <a href="content.php?page=home">Home Content</a>
         <a href="content.php?page=about">About Content</a>

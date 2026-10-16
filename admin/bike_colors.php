@@ -99,7 +99,7 @@ $token = csrf_token();
 admin_header('bikes', 'Bikes');
 ?>
 <p class="admin-lead"><a href="bikes.php" class="link">&larr; Back to Bikes</a></p>
-<h2 style="margin:0 0 4px;"><?= e($bike['name']) ?> - colour options</h2>
+<h2><?= e($bike['name']) ?> - colour options</h2>
 <p class="admin-lead">The first colour (lowest order) is used as this bike's cover image on the homepage. On the bike's page, clicking a colour swatch swaps the photo to match.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>

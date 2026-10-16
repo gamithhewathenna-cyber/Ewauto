@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EW Auto Admin - Sign in</title>
-<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="admin.css?v=<?= (int) (@filemtime(__DIR__ . '/admin.css') ?: 1) ?>">
 </head>
 <body class="login-page">
     <form class="login-card" method="post" autocomplete="off">

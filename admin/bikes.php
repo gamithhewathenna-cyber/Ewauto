@@ -106,18 +106,18 @@ admin_header('bikes', 'Bikes');
             <label class="field">Name
                 <input type="text" name="name" placeholder="e.g. EV Pro TWO" required>
             </label>
-            <label class="field">Button name <span style="font-weight:400;color:#999;">(shown in the top selector; leave blank to use Name)</span>
+            <label class="field">Button name <span class="field-hint">(shown in the top selector; leave blank to use Name)</span>
                 <input type="text" name="button_label" placeholder="e.g. EV Pro TWO">
             </label>
             <label class="field">Tagline
                 <input type="text" name="tagline">
             </label>
-            <label class="field" style="grid-column:1/-1;">Description
+            <label class="field span-all">Description
                 <textarea name="description" rows="3"></textarea>
             </label>
 
             <?php foreach ($specGroups as $groupTitle => $fields): ?>
-                <h4 class="spec-group-title" style="grid-column:1/-1;"><?= e($groupTitle) ?></h4>
+                <h4 class="spec-group-title span-all"><?= e($groupTitle) ?></h4>
                 <?php foreach ($fields as $col => $label): ?>
                     <label class="field"><?= e($label) ?>
                         <input type="text" name="<?= e($col) ?>">
@@ -125,7 +125,7 @@ admin_header('bikes', 'Bikes');
                 <?php endforeach; ?>
             <?php endforeach; ?>
 
-            <div class="image-actions" style="grid-column:1/-1;">
+            <div class="image-actions span-all">
                 <button type="submit" class="btn-primary">Add bike</button>
             </div>
         </form>
@@ -142,7 +142,7 @@ admin_header('bikes', 'Bikes');
             <span class="chevron">&#9662;</span>
         </button>
         <div class="bike-card-body" hidden>
-            <p class="admin-lead" style="margin:0 0 14px;">
+            <p class="admin-lead">
                 <a href="bike_colors.php?bike_id=<?= (int) $b['id'] ?>" class="link"><?= $colorCounts[$b['id']] ?? 0 ?> colour(s) &rarr; manage</a>
             </p>
             <form method="post" class="content-fields">
@@ -153,7 +153,7 @@ admin_header('bikes', 'Bikes');
                 <label class="field">Name
                     <input type="text" name="name" value="<?= e($b['name']) ?>" required>
                 </label>
-                <label class="field">Button name <span style="font-weight:400;color:#999;">(shown in the top selector; leave blank to use Name)</span>
+                <label class="field">Button name <span class="field-hint">(shown in the top selector; leave blank to use Name)</span>
                     <input type="text" name="button_label" value="<?= e($b['button_label']) ?>" placeholder="<?= e($b['name']) ?>">
                 </label>
                 <label class="field">Tagline
@@ -162,12 +162,12 @@ admin_header('bikes', 'Bikes');
                 <label class="field">Order
                     <input type="number" name="sort_order" value="<?= (int) $b['sort_order'] ?>">
                 </label>
-                <label class="field" style="grid-column:1/-1;">Description
+                <label class="field span-all">Description
                     <textarea name="description" rows="3"><?= e($b['description']) ?></textarea>
                 </label>
 
                 <?php foreach ($specGroups as $groupTitle => $fields): ?>
-                    <h4 class="spec-group-title" style="grid-column:1/-1;"><?= e($groupTitle) ?></h4>
+                    <h4 class="spec-group-title span-all"><?= e($groupTitle) ?></h4>
                     <?php foreach ($fields as $col => $label): ?>
                         <label class="field"><?= e($label) ?>
                             <input type="text" name="<?= e($col) ?>" value="<?= e($b[$col] ?? '') ?>">
@@ -175,12 +175,12 @@ admin_header('bikes', 'Bikes');
                     <?php endforeach; ?>
                 <?php endforeach; ?>
 
-                <label class="toggle-row" style="grid-column:1/-1;">
+                <label class="toggle-row span-all">
                     <input type="checkbox" name="active" value="1" <?= $b['active'] ? 'checked' : '' ?>>
                     <span>Active (visible on the site)</span>
                 </label>
 
-                <div class="image-actions" style="grid-column:1/-1;">
+                <div class="image-actions span-all">
                     <button type="submit" class="btn-primary">Save</button>
                     <button type="submit" name="action" value="delete" class="btn-danger"
                             onclick="return confirm('Delete this bike and all its colour images? This cannot be undone.');">Delete</button>

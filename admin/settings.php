@@ -151,7 +151,7 @@ admin_header('settings', 'Settings');
 
 <div class="card">
     <h3>Social media links</h3>
-    <p class="admin-lead" style="margin-bottom:16px;">Shown as icons in the header, the footer, and the Contact page on every page of the site. Leave a field blank to hide that icon.</p>
+    <p class="admin-lead">Shown as icons in the header, the footer, and the Contact page on every page of the site. Leave a field blank to hide that icon.</p>
     <form method="post" class="settings-form">
         <input type="hidden" name="csrf" value="<?= e($token) ?>">
         <input type="hidden" name="action" value="save_social">
@@ -170,7 +170,7 @@ admin_header('settings', 'Settings');
 
 <div class="card">
     <h3>Branding</h3>
-    <p class="admin-lead" style="margin-bottom:16px;">Upload your logo, footer logo, and browser favicon (PNG or SVG recommended, square for the favicon).</p>
+    <p class="admin-lead">Upload your logo, footer logo, and browser favicon (PNG or SVG recommended, square for the favicon).</p>
     <div class="image-grid image-grid-compact">
         <?php foreach (BRAND_IMAGE_SLOTS as $slot => $slotMeta): $img = $images[$slot] ?? null; ?>
             <div class="image-card">
@@ -207,7 +207,7 @@ admin_header('settings', 'Settings');
 
 <div class="card">
     <h3>Admin account</h3>
-    <p class="admin-lead" style="margin-bottom:16px;">Change your username and/or password. Your current password is required to confirm the change.</p>
+    <p class="admin-lead">Change your username and/or password. Your current password is required to confirm the change.</p>
     <form method="post" class="settings-form">
         <input type="hidden" name="csrf" value="<?= e($token) ?>">
         <input type="hidden" name="action" value="change_account">
@@ -218,7 +218,7 @@ admin_header('settings', 'Settings');
         <label class="field">Current password
             <input type="password" name="current_password" required>
         </label>
-        <label class="field">New password <span style="font-weight:400;color:#999;">(leave blank to keep current)</span>
+        <label class="field">New password <span class="field-hint">(leave blank to keep current)</span>
             <input type="password" name="new_password" autocomplete="new-password">
         </label>
         <label class="field">Confirm new password
