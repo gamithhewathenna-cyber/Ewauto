@@ -133,6 +133,11 @@ input[type=file]::file-selector-button:hover { border-color: var(--green); }
 }
 .admin-nav a:hover { background: rgba(255,255,255,.06); color: #fff; }
 .admin-nav a.is-active { background: var(--green); color: #fff; }
+.admin-nav-group {
+    margin: var(--sp-3) 12px var(--sp-1);
+    font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #8a9190;
+}
+.admin-nav a.is-sub { padding-left: 22px; }
 .admin-side-foot { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
 .admin-side-foot .link { color: #ddd; }
 .admin-side-foot .link:hover { color: #fff; }
@@ -290,7 +295,8 @@ input[type=file]::file-selector-button:hover { border-color: var(--green); }
         padding: var(--sp-4); gap: var(--sp-3) var(--sp-4);
     }
     .admin-nav { order: 3; flex: 1 1 100%; flex-direction: row; flex-wrap: wrap; gap: 6px; }
-    .admin-nav a { padding: 8px 12px; }
+    .admin-nav a, .admin-nav a.is-sub { padding: 8px 12px; }
+    .admin-nav-group { display: none; }
     .admin-side-foot { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--sp-3); margin-left: auto; }
     .admin-main { padding: var(--sp-6) var(--sp-4) 56px; }
     .card { padding: 18px; }

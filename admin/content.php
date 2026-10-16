@@ -107,10 +107,11 @@ $contentValues = all_content();
 $images = all_images();
 $token = csrf_token();
 
+// Each page is its own item in the sidebar (see ADMIN_NAV in layout.php).
 $pageTabs = [
-    'home'    => 'Home Content',
-    'about'   => 'About Content',
-    'contact' => 'Contact Us Content',
+    'home'    => 'Home',
+    'about'   => 'About Us',
+    'contact' => 'Contact us',
 ];
 $activePage = $_GET['page'] ?? 'home';
 if (!isset($pageTabs[$activePage])) {
@@ -119,15 +120,9 @@ if (!isset($pageTabs[$activePage])) {
 $visibleSections = array_filter($sections, static fn($s) => ($s['page'] ?? 'home') === $activePage);
 $formAction = 'content.php?page=' . e($activePage);
 
-admin_header('content', 'Page Content Change');
+admin_header('content_' . $activePage, $pageTabs[$activePage]);
 ?>
-<p class="admin-lead">Edit the text and images shown on each page. Changes appear on the live site immediately.</p>
-
-<div class="tab-nav">
-    <?php foreach ($pageTabs as $key => $label): ?>
-        <a href="content.php?page=<?= e($key) ?>" class="<?= $key === $activePage ? 'is-active' : '' ?>"><?= e($label) ?></a>
-    <?php endforeach; ?>
-</div>
+<p class="admin-lead">Edit the text and images shown on the <?= e($pageTabs[$activePage]) ?> page. Changes appear on the live site immediately.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>

@@ -21,7 +21,7 @@ Production: https://ewautomobile.com/ — plain PHP + MySQL, no framework, no bu
 - `includes/maintenance.php` — `maybe_show_maintenance_page()` returns 503 to non-admins when setting `maintenance_mode = 1`.
 
 ## Admin (`/admin`, session login, CSRF on every POST)
-`layout.php` provides `admin_header()/admin_footer()` + `ADMIN_NAV` (add new screens there). Screens: `dashboard`, `content` (page text + image slots), `slides`, `bikes` (+ `bike_colors.php` per bike), `dealers`, `settings` (maintenance, site title, favicon/logos, account). Each screen is a single file: POST handler keyed on `action` (`add`/`update`/`delete`/`save_*`) at top, HTML below.
+`layout.php` provides `admin_header()/admin_footer()` + `ADMIN_NAV` (add new screens there; an optional `group` key puts items under a small sidebar heading). Screens: `dashboard`, `content` (page text + image slots; one sidebar item per page - Home / About Us / Contact us - via `content.php?page=home|about|contact`, active key `content_<page>`), `slides`, `bikes` (+ `bike_colors.php` per bike), `dealers`, `settings` (maintenance, site title, favicon/logos, account). Each screen is a single file: POST handler keyed on `action` (`add`/`update`/`delete`/`save_*`) at top, HTML below.
 
 ## Data model (`database.sql`)
 - `content` / `settings` — key/value. **To add editable copy:** add the field to `includes/content_fields.php` (shows up in admin automatically), then read it in the page with `$c('key', 'fallback')`.
