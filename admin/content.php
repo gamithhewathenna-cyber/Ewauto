@@ -120,28 +120,42 @@ if (!isset($pageTabs[$activePage])) {
 $visibleSections = array_filter($sections, static fn($s) => ($s['page'] ?? 'home') === $activePage);
 $formAction = 'content.php?page=' . e($activePage);
 
-admin_header('content_' . $activePage, $pageTabs[$activePage]);
+// Jump links shown under this page in the sidebar: one per box on the page.
+// Forms post back to their own anchor so Save returns you to that section.
+$jumpLinks = [];
+foreach ($visibleSections as $sectionKey => $section) {
+    if (!empty($section['groups'])) {
+        foreach ($section['groups'] as $gi => $group) {
+            $jumpLinks[] = ['id' => 'sec-' . $sectionKey . '-' . $gi, 'label' => $group['title']];
+        }
+    } else {
+        $jumpLinks[] = ['id' => 'sec-' . $sectionKey, 'label' => $section['title']];
+    }
+}
+
+admin_header('content_' . $activePage, $pageTabs[$activePage], $jumpLinks);
 ?>
 <p class="admin-lead">Edit the text and images shown on the <?= e($pageTabs[$activePage]) ?> page. Changes appear on the live site immediately.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
 
-<?php foreach ($visibleSections as $section): ?>
-    <div class="card">
+<?php foreach ($visibleSections as $sectionKey => $section): ?>
+    <div class="card"<?= empty($section['groups']) ? ' id="sec-' . e($sectionKey) . '"' : '' ?>>
         <h3><?= e($section['title']) ?></h3>
 
         <?php if (!empty($section['groups'])): ?>
             <!-- Grouped layout: each card below is one image + its related text, saved together. -->
             <div class="content-groups">
-                <?php foreach ($section['groups'] as $group):
+                <?php foreach ($section['groups'] as $gi => $group):
                     $img = null;
                     if (!empty($group['image'])) {
                         $img = $images[$group['image']['slot']] ?? null;
                     }
                     $fieldKeys = implode(',', array_keys($group['fields'] ?? []));
+                    $anchor = 'sec-' . $sectionKey . '-' . $gi;
                 ?>
-                    <div class="content-group">
+                    <div class="content-group" id="<?= e($anchor) ?>">
                         <?php if (!empty($group['image'])): ?>
                             <div class="content-group-media">
                                 <div class="preview">
@@ -155,7 +169,7 @@ admin_header('content_' . $activePage, $pageTabs[$activePage]);
                             </div>
                         <?php endif; ?>
 
-                        <form method="post" action="<?= $formAction ?>" enctype="multipart/form-data" class="content-group-body">
+                        <form method="post" action="<?= $formAction ?>#<?= e($anchor) ?>" enctype="multipart/form-data" class="content-group-body">
                             <input type="hidden" name="csrf" value="<?= e($token) ?>">
                             <input type="hidden" name="action" value="save_group">
                             <input type="hidden" name="field_keys" value="<?= e($fieldKeys) ?>">
@@ -215,7 +229,7 @@ admin_header('content_' . $activePage, $pageTabs[$activePage]);
                                     <div class="preview-empty">No image yet</div>
                                 <?php endif; ?>
                             </div>
-                            <form method="post" action="<?= $formAction ?>" enctype="multipart/form-data" class="image-form">
+                            <form method="post" action="<?= $formAction ?>#sec-<?= e($sectionKey) ?>" enctype="multipart/form-data" class="image-form">
                                 <input type="hidden" name="csrf" value="<?= e($token) ?>">
                                 <input type="hidden" name="slot" value="<?= e($slot) ?>">
                                 <input type="hidden" name="action" value="save_image">
@@ -238,7 +252,7 @@ admin_header('content_' . $activePage, $pageTabs[$activePage]);
                 </div>
             <?php endif; ?>
 
-            <form method="post" action="<?= $formAction ?>" class="content-fields">
+            <form method="post" action="<?= $formAction ?>#sec-<?= e($sectionKey) ?>" class="content-fields">
                 <input type="hidden" name="csrf" value="<?= e($token) ?>">
                 <input type="hidden" name="action" value="save_text">
                 <?php foreach ($section['fields'] as $key => $meta): ?>
