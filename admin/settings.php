@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/layout.php';
 require_once __DIR__ . '/../includes/uploads.php';
+require_once __DIR__ . '/../includes/social.php';
 
 const BRAND_IMAGE_SLOTS = [
     'logo_header' => ['label' => 'Header logo', 'size' => '240 × 60px, transparent PNG/SVG recommended'],
@@ -10,6 +11,7 @@ const BRAND_IMAGE_SLOTS = [
 
 $notice = '';
 $error  = '';
+$socialInput = []; // re-filled form values when a social link fails validation
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!check_csrf()) {
@@ -22,6 +24,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             set_setting('maintenance_message', trim($_POST['maintenance_message'] ?? ''));
             set_setting('site_title', trim($_POST['site_title'] ?? ''));
             $notice = 'Settings saved.';
+        } elseif ($action === 'save_social') {
+            // Validate everything first so a single bad link saves nothing.
+            $clean  = [];
+            $errors = [];
+            foreach (array_keys(social_platforms()) as $key) {
+                $result = normalize_social_url($key, $_POST['social_' . $key] ?? '');
+                $clean[$key] = $result['url'];
+                if ($result['error']) {
+                    $errors[] = $result['error'];
+                }
+            }
+            if ($errors) {
+                $error = implode(' ', $errors) . ' Nothing was saved.';
+                $socialInput = $clean;
+            } else {
+                foreach ($clean as $key => $url) {
+                    set_setting('social_' . $key, $url);
+                }
+                $notice = 'Social media links saved.';
+            }
         } elseif ($action === 'save_image') {
             $slot = $_POST['slot'] ?? '';
             if (!isset(BRAND_IMAGE_SLOTS[$slot])) {
@@ -97,7 +119,7 @@ $token    = csrf_token();
 
 admin_header('settings', 'Settings');
 ?>
-<p class="admin-lead">Site-wide settings: maintenance mode, branding, and your admin account.</p>
+<p class="admin-lead">Site-wide settings: maintenance mode, social media links, branding, and your admin account.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
@@ -126,6 +148,25 @@ admin_header('settings', 'Settings');
 
     <button type="submit" class="btn-primary">Save settings</button>
 </form>
+
+<div class="card">
+    <h3>Social media links</h3>
+    <p class="admin-lead" style="margin-bottom:16px;">Shown as icons in the header, the footer, and the Contact page on every page of the site. Leave a field blank to hide that icon.</p>
+    <form method="post" class="settings-form">
+        <input type="hidden" name="csrf" value="<?= e($token) ?>">
+        <input type="hidden" name="action" value="save_social">
+
+        <?php foreach (social_platforms() as $key => $platform): ?>
+            <label class="field"><?= e($platform['label']) ?>
+                <input type="text" name="social_<?= e($key) ?>" inputmode="url"
+                       value="<?= e($socialInput[$key] ?? ($settings['social_' . $key] ?? '')) ?>"
+                       placeholder="<?= e($platform['placeholder']) ?>">
+            </label>
+        <?php endforeach; ?>
+
+        <button type="submit" class="btn-primary">Save social links</button>
+    </form>
+</div>
 
 <div class="card">
     <h3>Branding</h3>

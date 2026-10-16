@@ -17,6 +17,7 @@ Production: https://ewautomobile.com/ — plain PHP + MySQL, no framework, no bu
 - `about.php` — story, stats, what we do, vision/mission, banner, CTA.
 - `contact.php` — enquiry form, dealers grid, Google Maps iframe from `contact_address`.
 - `contact-submit.php` — JSON endpoint for the "Book a Test Ride" popup on every page. Both forms share `handle_contact_submission()` in `includes/contact_form.php` (honeypot `website`, CSRF, PHP `mail()` to `contact_email`, Sri Lankan districts dropdown).
+- `includes/social.php` — social media links (settings keys `social_<platform>`, edited in Admin > Settings). `social_platforms()` holds labels + SVG icons; pages call `$socials = social_links()` and `render_social_links($socials[, true])` in header, footer, and contact sidebar. Unset platforms are hidden.
 - `includes/maintenance.php` — `maybe_show_maintenance_page()` returns 503 to non-admins when setting `maintenance_mode = 1`.
 
 ## Admin (`/admin`, session login, CSRF on every POST)
