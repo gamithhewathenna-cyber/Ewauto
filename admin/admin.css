@@ -322,6 +322,9 @@ input[type=file]::file-selector-button:hover { border-color: var(--green); }
     .section-jump a { padding: 12px var(--sp-3) 10px; font-size: 13px; }
     .admin-side-foot { flex-direction: row; flex-wrap: wrap; align-items: center; gap: var(--sp-3); margin-left: auto; }
     .admin-main { padding: var(--sp-6) var(--sp-4) 56px; }
+    /* iOS Safari zooms the page into any field under 16px when it's tapped. */
+    input[type=text], input[type=email], input[type=url], input[type=tel],
+    input[type=number], input[type=password], input[type=search], select, textarea { font-size: 16px; }
     .card { padding: 18px; }
 }
 @media (max-width: 640px) {
