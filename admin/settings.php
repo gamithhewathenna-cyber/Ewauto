@@ -73,42 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
             }
-        } elseif ($action === 'change_account') {
-            $adminId = (int) current_admin()['id'];
-            $stmt = db()->prepare('SELECT * FROM admins WHERE id = ?');
-            $stmt->execute([$adminId]);
-            $adminRow = $stmt->fetch();
-
-            $currentPassword = $_POST['current_password'] ?? '';
-            $newUsername     = trim($_POST['new_username'] ?? '');
-            $newPassword     = $_POST['new_password'] ?? '';
-            $confirmPassword = $_POST['confirm_password'] ?? '';
-
-            if (!$adminRow || !password_verify($currentPassword, $adminRow['password_hash'])) {
-                $error = 'Current password is incorrect.';
-            } elseif ($newUsername === '') {
-                $error = 'Username cannot be empty.';
-            } elseif ($newPassword !== '' && strlen($newPassword) < 8) {
-                $error = 'New password must be at least 8 characters.';
-            } elseif ($newPassword !== '' && $newPassword !== $confirmPassword) {
-                $error = 'New password and confirmation do not match.';
-            } else {
-                $dupe = db()->prepare('SELECT id FROM admins WHERE username = ? AND id != ?');
-                $dupe->execute([$newUsername, $adminId]);
-                if ($dupe->fetch()) {
-                    $error = 'That username is already taken.';
-                } else {
-                    if ($newPassword !== '') {
-                        db()->prepare('UPDATE admins SET username = ?, password_hash = ? WHERE id = ?')
-                            ->execute([$newUsername, password_hash($newPassword, PASSWORD_DEFAULT), $adminId]);
-                    } else {
-                        db()->prepare('UPDATE admins SET username = ? WHERE id = ?')
-                            ->execute([$newUsername, $adminId]);
-                    }
-                    $_SESSION['admin']['username'] = $newUsername;
-                    $notice = 'Account details updated.';
-                }
-            }
         }
     }
 }
@@ -119,7 +83,7 @@ $token    = csrf_token();
 
 admin_header('settings', 'Settings');
 ?>
-<p class="admin-lead">Site-wide settings: maintenance mode, social media links, branding, and your admin account.</p>
+<p class="admin-lead">Site-wide settings: maintenance mode, social media links, and branding.</p>
 
 <?php if ($notice): ?><div class="alert ok"><?= e($notice) ?></div><?php endif; ?>
 <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
@@ -206,27 +170,8 @@ admin_header('settings', 'Settings');
 </div>
 
 <div class="card">
-    <h3>Admin account</h3>
-    <p class="admin-lead">Change your username and/or password. Your current password is required to confirm the change.</p>
-    <form method="post" class="settings-form">
-        <input type="hidden" name="csrf" value="<?= e($token) ?>">
-        <input type="hidden" name="action" value="change_account">
-
-        <label class="field">Username
-            <input type="text" name="new_username" value="<?= e(current_admin()['username']) ?>" required>
-        </label>
-        <label class="field">Current password
-            <input type="password" name="current_password" required>
-        </label>
-        <label class="field">New password <span class="field-hint">(leave blank to keep current)</span>
-            <input type="password" name="new_password" autocomplete="new-password">
-        </label>
-        <label class="field">Confirm new password
-            <input type="password" name="confirm_password" autocomplete="new-password">
-        </label>
-
-        <button type="submit" class="btn-primary">Update account</button>
-    </form>
+    <h3>Accounts</h3>
+    <p class="admin-lead">Your own username and password are under <a href="account.php" class="link">My account</a>. To add people or change what they can do, go to <a href="users.php" class="link">Users</a>.</p>
 </div>
 <?php
 admin_footer();

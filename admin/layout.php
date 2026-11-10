@@ -3,7 +3,8 @@ require_once __DIR__ . '/auth.php';
 require_login();
 
 // Items with a 'group' key get a small heading above them in the sidebar
-// (shown once, before the first item of that group).
+// (shown once, before the first item of that group). Items the current
+// user's role can't open are left out automatically.
 const ADMIN_NAV = [
     'dashboard'       => ['label' => 'Dashboard',     'href' => 'dashboard.php'],
     'content_home'    => ['label' => 'Home',          'href' => 'content.php?page=home',    'group' => 'Page content'],
@@ -12,8 +13,24 @@ const ADMIN_NAV = [
     'slides'    => ['label' => 'Slider Images',        'href' => 'slides.php'],
     'bikes'     => ['label' => 'Bikes',                'href' => 'bikes.php'],
     'dealers'   => ['label' => 'Dealerships',          'href' => 'dealers.php'],
+    'users'     => ['label' => 'Users',                'href' => 'users.php'],
     'settings'  => ['label' => 'Settings',             'href' => 'settings.php'],
 ];
+
+// Role check for whichever admin screen included this file. Screens a role
+// may not open (see ROLE_PAGES in auth.php) get a "no access" page instead.
+// Runs before the screen's own code, so its POST handlers never execute.
+// (Must come after ADMIN_NAV, which admin_header() uses.)
+if (!can_access_page(basename($_SERVER['SCRIPT_FILENAME']))) {
+    http_response_code(403);
+    admin_header('', 'No access');
+    ?>
+    <div class="alert error">Your account (<?= e(ROLES[current_admin()['role']]) ?>) doesn't have permission to open this page.</div>
+    <a href="<?= e(home_page_for_role()) ?>" class="btn-primary">Go to my pages</a>
+    <?php
+    admin_footer();
+    exit;
+}
 
 /**
  * @param array $subnav Optional in-page section links, each ['id' => anchor, 'label' => text].
@@ -35,7 +52,9 @@ function admin_header(string $active, string $title, array $subnav = []): void
     <aside class="admin-side">
         <div class="admin-brand"><span class="brand-mark">&#9883;</span> EW Auto Admin</div>
         <nav class="admin-nav">
-            <?php $lastGroup = null; foreach (ADMIN_NAV as $key => $item): $group = $item['group'] ?? null; ?>
+            <?php $lastGroup = null; foreach (ADMIN_NAV as $key => $item):
+                if (!can_access_page(strtok($item['href'], '?'))) continue;
+                $group = $item['group'] ?? null; ?>
                 <?php if ($group !== null && $group !== $lastGroup): ?>
                     <span class="admin-nav-group"><?= e($group) ?></span>
                 <?php endif; $lastGroup = $group; ?>
@@ -44,7 +63,8 @@ function admin_header(string $active, string $title, array $subnav = []): void
         </nav>
         <div class="admin-side-foot">
             <a href="../" target="_blank" class="link">View site &nearr;</a>
-            <span class="who">Hi, <?= e(current_admin()['username']) ?></span>
+            <span class="who">Hi, <?= e(current_admin()['username']) ?> <span class="role-tag"><?= e(ROLES[current_admin()['role']]) ?></span></span>
+            <a href="account.php" class="link<?= $active === 'account' ? ' is-active' : '' ?>">My account</a>
             <a href="logout.php" class="btn-ghost">Log out</a>
         </div>
     </aside>

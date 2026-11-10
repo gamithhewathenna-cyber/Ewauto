@@ -21,8 +21,14 @@ CREATE TABLE IF NOT EXISTS admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(64) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(16) NOT NULL DEFAULT 'admin', -- 'admin' or 'editor' (see ROLES in admin/auth.php)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- User roles: add the column on databases created before roles existed.
+-- Existing accounts default to 'admin'. Safe to re-run (MySQL 8.0.29+ /
+-- MariaDB 10.0.2+); on older MySQL run it once without "IF NOT EXISTS".
+ALTER TABLE admins ADD COLUMN IF NOT EXISTS role VARCHAR(16) NOT NULL DEFAULT 'admin';
 
 -- Seed the image slots the template needs. filename is NULL until an admin uploads.
 INSERT INTO images (slot, label, alt_text) VALUES
