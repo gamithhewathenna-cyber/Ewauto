@@ -40,6 +40,9 @@ RewriteRule ^contact\.php$ /contact [R=301,L]
 RewriteRule ^about/?$ about.php [L]
 RewriteRule ^contact/?$ contact.php [L]
 
+# sitemap.xml is generated live from the database by sitemap.php.
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
 # ---------------------------------------------------------------------------
 # Speed: compress text files (pages, CSS, JS) - applies only if the host
 # has mod_deflate.

@@ -123,6 +123,8 @@ function set_content(string $key, string $value): void
     db()->prepare('INSERT INTO content (content_key, content_value) VALUES (?, ?)
         ON DUPLICATE KEY UPDATE content_value = VALUES(content_value)')
         ->execute([$key, $value]);
+    // Remember when page text last changed (used for the sitemap's <lastmod>).
+    set_setting('content_updated_at', gmdate('c'));
 }
 
 /**
