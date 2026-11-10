@@ -2,6 +2,7 @@
 require_once __DIR__ . '/layout.php';
 require_once __DIR__ . '/../includes/uploads.php';
 require_once __DIR__ . '/../includes/social.php';
+require_once __DIR__ . '/../includes/seo.php';
 
 const BRAND_IMAGE_SLOTS = [
     'logo_header' => ['label' => 'Header logo', 'size' => '240 × 60px, transparent PNG/SVG recommended'],
@@ -12,6 +13,7 @@ const BRAND_IMAGE_SLOTS = [
 $notice = '';
 $error  = '';
 $socialInput = []; // re-filled form values when a social link fails validation
+$seoInput    = []; // same, for the Google & search form
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!check_csrf()) {
@@ -43,6 +45,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     set_setting('social_' . $key, $url);
                 }
                 $notice = 'Social media links saved.';
+            }
+        } elseif ($action === 'save_seo') {
+            $verifyRaw = trim($_POST['google_site_verification'] ?? '');
+            $gaRaw     = trim($_POST['ga_measurement_id'] ?? '');
+            $verify    = normalize_site_verification($verifyRaw);
+            $gaId      = normalize_ga_id($gaRaw);
+
+            if ($verifyRaw !== '' && $verify === '') {
+                $error = 'The Google Search Console code doesn\'t look right - paste the whole <meta> tag or just the code inside content="...". Nothing was saved.';
+                $seoInput = $_POST;
+            } elseif ($gaRaw !== '' && $gaId === '') {
+                $error = 'The Google Analytics ID should look like G-XXXXXXXXXX. Nothing was saved.';
+                $seoInput = $_POST;
+            } else {
+                foreach (array_keys(seo_pages()) as $pageKey) {
+                    set_setting('seo_' . $pageKey . '_title', trim($_POST['seo_' . $pageKey . '_title'] ?? ''));
+                    set_setting('seo_' . $pageKey . '_description', trim($_POST['seo_' . $pageKey . '_description'] ?? ''));
+                }
+                set_setting('google_site_verification', $verify);
+                set_setting('ga_measurement_id', $gaId);
+                $notice = 'Google & search settings saved.';
             }
         } elseif ($action === 'save_image') {
             $slot = $_POST['slot'] ?? '';
@@ -129,6 +152,42 @@ admin_header('settings', 'Settings');
         <?php endforeach; ?>
 
         <button type="submit" class="btn-primary">Save social links</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>Google &amp; search</h3>
+    <p class="admin-lead">How each page appears in Google results and when shared on Facebook / WhatsApp. Leave a field empty to use the default shown in grey. Aim for titles under 60 characters and descriptions under 160.</p>
+    <form method="post" class="settings-form">
+        <input type="hidden" name="csrf" value="<?= e($token) ?>">
+        <input type="hidden" name="action" value="save_seo">
+
+        <?php foreach (seo_pages() as $pageKey => $page): ?>
+            <h4 class="spec-group-title span-all"><?= e($page['label']) ?> page <span class="field-hint">(<?= e(SITE_URL . $page['path']) ?>)</span></h4>
+            <label class="field">Title in Google
+                <input type="text" name="seo_<?= e($pageKey) ?>_title" maxlength="70"
+                       value="<?= e($seoInput['seo_' . $pageKey . '_title'] ?? ($settings['seo_' . $pageKey . '_title'] ?? '')) ?>"
+                       placeholder="<?= e($page['title']) ?>">
+            </label>
+            <label class="field">Description in Google
+                <textarea name="seo_<?= e($pageKey) ?>_description" rows="2" maxlength="170"
+                          placeholder="<?= e($page['description']) ?>"><?= e($seoInput['seo_' . $pageKey . '_description'] ?? ($settings['seo_' . $pageKey . '_description'] ?? '')) ?></textarea>
+            </label>
+        <?php endforeach; ?>
+
+        <h4 class="spec-group-title span-all">Google tools</h4>
+        <label class="field">Google Search Console verification <span class="field-hint">(paste the &lt;meta&gt; tag Google gives you)</span>
+            <input type="text" name="google_site_verification"
+                   value="<?= e($seoInput['google_site_verification'] ?? ($settings['google_site_verification'] ?? '')) ?>"
+                   placeholder='<meta name="google-site-verification" content="...">'>
+        </label>
+        <label class="field">Google Analytics measurement ID <span class="field-hint">(optional)</span>
+            <input type="text" name="ga_measurement_id"
+                   value="<?= e($seoInput['ga_measurement_id'] ?? ($settings['ga_measurement_id'] ?? '')) ?>"
+                   placeholder="G-XXXXXXXXXX">
+        </label>
+
+        <button type="submit" class="btn-primary">Save Google settings</button>
     </form>
 </div>
 

@@ -1,0 +1,6 @@
+# EW Auto - rules for search engine crawlers
+User-agent: *
+Disallow: /admin/
+Disallow: /contact-submit.php
+
+Sitemap: https://ewautomobile.com/sitemap.xml

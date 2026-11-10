@@ -1,5 +1,28 @@
+# ---------------------------------------------------------------------------
+# Security: never serve private project files (database dump, notes, docs).
+# ---------------------------------------------------------------------------
+<FilesMatch "\.(sql|md|log|bak|ini|sh)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
 # Clean URLs: hide the .php extension from visitors and search engines.
 RewriteEngine On
+
+# Internal PHP code and config are never requested directly.
+RewriteRule ^includes/ - [F,L]
+# Uploaded files are images only - refuse to run any script placed there.
+RewriteRule ^uploads/.*\.(php\d?|phtml|phar)$ - [F,L,NC]
+
+# One address for the whole site: www.ewautomobile.com -> ewautomobile.com,
+# so Google doesn't see two copies of every page.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
 # Canonicalize — anyone hitting the .php URL directly gets a permanent
 # redirect to the clean version, so search engines index one URL per page.
@@ -16,3 +39,11 @@ RewriteRule ^contact\.php$ /contact [R=301,L]
 # address bar keeps showing the clean URL).
 RewriteRule ^about/?$ about.php [L]
 RewriteRule ^contact/?$ contact.php [L]
+
+# ---------------------------------------------------------------------------
+# Speed: compress text files (pages, CSS, JS) - applies only if the host
+# has mod_deflate.
+# ---------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript text/javascript application/json image/svg+xml
+</IfModule>

@@ -44,6 +44,7 @@ function admin_header(string $active, string $title, array $subnav = []): void
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>EW Auto Admin - <?= e($title) ?></title>
 <link rel="stylesheet" href="admin.css?v=<?= (int) (@filemtime(__DIR__ . '/admin.css') ?: 1) ?>">
 </head>

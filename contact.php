@@ -4,6 +4,7 @@ require_once __DIR__ . '/admin/auth.php';
 require_once __DIR__ . '/includes/maintenance.php';
 require_once __DIR__ . '/includes/contact_form.php';
 require_once __DIR__ . '/includes/social.php';
+require_once __DIR__ . '/includes/seo.php';
 
 try {
     $images  = all_images();
@@ -41,8 +42,7 @@ $socials = social_links();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EW Auto - Contact Us</title>
-<meta name="description" content="Get in touch with EW Auto.">
+<?php render_seo_head('contact', $images, $content, image_url($images, 'contact_hero_image')); ?>
 <?php if ($url = image_url($images, 'favicon')): ?><link rel="icon" href="<?= e($url) ?>"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -227,7 +227,7 @@ $socials = social_links();
         <div class="footer-grid">
             <div class="footer-brand">
                 <?php if ($url = image_url($images, 'logo_footer')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
+                    <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
                 <?php else: ?>
                     <span class="brand-fallback" style="color:#fff"><span class="brand-mark">&#9883;</span>EW Auto</span>
                 <?php endif; ?>

@@ -4,6 +4,7 @@ require_once __DIR__ . '/admin/auth.php';
 require_once __DIR__ . '/includes/maintenance.php';
 require_once __DIR__ . '/includes/contact_form.php';
 require_once __DIR__ . '/includes/social.php';
+require_once __DIR__ . '/includes/seo.php';
 
 try {
     $images  = all_images();
@@ -36,8 +37,7 @@ $whatWeDoItems = [
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EW Auto - About Us</title>
-<meta name="description" content="About EW Auto - who we are, our story, and what we do.">
+<?php render_seo_head('about', $images, $content, image_url($images, 'about_hero_image')); ?>
 <?php if ($url = image_url($images, 'favicon')): ?><link rel="icon" href="<?= e($url) ?>"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,7 +100,7 @@ $whatWeDoItems = [
         <div class="story-grid">
             <div class="story-image">
                 <?php if ($url = image_url($images, 'about_story_image')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_story_image', 'Our story')) ?>">
+                    <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_story_image', 'Our story')) ?>">
                 <?php else: ?>
                     <div class="placeholder">Story photo</div>
                 <?php endif; ?>
@@ -117,7 +117,7 @@ $whatWeDoItems = [
 <!-- ===== Stats band ===== -->
 <section class="about-stats-band reveal">
     <?php if ($url = image_url($images, 'about_stats_bg')): ?>
-        <img class="about-stats-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="">
+        <img loading="lazy" decoding="async" class="about-stats-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="">
     <?php endif; ?>
     <div class="wrap about-stats-row">
         <div class="about-stat"><div class="num"><?= e($c('about_stat1_num', '100+')) ?></div><div class="cap"><?= e($c('about_stat1_cap', 'Countries and regions exports')) ?></div></div>
@@ -133,7 +133,7 @@ $whatWeDoItems = [
         <div class="whatwedo-grid">
             <div class="whatwedo-image">
                 <?php if ($url = image_url($images, 'about_whatwedo_image')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_whatwedo_image', 'What we do')) ?>">
+                    <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_whatwedo_image', 'What we do')) ?>">
                 <?php else: ?>
                     <div class="placeholder">Photo</div>
                 <?php endif; ?>
@@ -173,10 +173,10 @@ $whatWeDoItems = [
         </div>
         <div class="vm-images">
             <?php if ($url = image_url($images, 'about_vision_image_1')): ?>
-                <img class="vm-image-1" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_vision_image_1', 'Vehicle')) ?>">
+                <img loading="lazy" decoding="async" class="vm-image-1" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_vision_image_1', 'Vehicle')) ?>">
             <?php endif; ?>
             <?php if ($url = image_url($images, 'about_vision_image_2')): ?>
-                <img class="vm-image-2" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_vision_image_2', 'Vehicle')) ?>">
+                <img loading="lazy" decoding="async" class="vm-image-2" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_vision_image_2', 'Vehicle')) ?>">
             <?php endif; ?>
         </div>
     </div>
@@ -185,7 +185,7 @@ $whatWeDoItems = [
 <!-- ===== Full-width banner ===== -->
 <section class="about-banner reveal">
     <?php if ($url = image_url($images, 'about_banner_image')): ?>
-        <img class="about-banner-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="">
+        <img loading="lazy" decoding="async" class="about-banner-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="">
     <?php endif; ?>
     <div class="about-banner-overlay"></div>
     <div class="wrap">
@@ -207,7 +207,7 @@ $whatWeDoItems = [
             </div>
             <div class="about-cta-map">
                 <?php if ($url = image_url($images, 'about_world_map')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_world_map', 'World map')) ?>">
+                    <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'about_world_map', 'World map')) ?>">
                 <?php else: ?>
                     <div class="placeholder">World map</div>
                 <?php endif; ?>
@@ -222,7 +222,7 @@ $whatWeDoItems = [
         <div class="footer-grid">
             <div class="footer-brand">
                 <?php if ($url = image_url($images, 'logo_footer')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
+                    <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
                 <?php else: ?>
                     <span class="brand-fallback" style="color:#fff"><span class="brand-mark">&#9883;</span>EW Auto</span>
                 <?php endif; ?>

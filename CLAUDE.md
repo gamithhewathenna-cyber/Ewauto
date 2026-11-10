@@ -19,6 +19,8 @@ Production: https://ewautomobile.com/ — plain PHP + MySQL, no framework, no bu
 - Dealership section (Home marquee + Contact grid) can be switched off as a whole: setting `show_dealers` (default on), checked via `dealers_section_enabled()`, toggled at the top of Admin > Dealerships.
 - `contact-submit.php` — JSON endpoint for the "Book a Test Ride" popup on every page. Both forms share `handle_contact_submission()` in `includes/contact_form.php` (honeypot `website`, CSRF, PHP `mail()` to `contact_email`, Sri Lankan districts dropdown).
 - `includes/social.php` — social media links (settings keys `social_<platform>`, edited in Admin > Settings). `social_platforms()` holds labels + SVG icons; pages call `$socials = social_links()` and `render_social_links($socials[, true])` in header, footer, and contact sidebar. Unset platforms are hidden.
+- `includes/seo.php` — `render_seo_head($pageKey, $images, $content, $ogImage)` prints title/description/canonical/Open Graph, Organization JSON-LD (home), Search Console verification and GA4. Defaults in `seo_pages()`; overrides in settings `seo_<page>_title|description`, `google_site_verification`, `ga_measurement_id` (Admin > Settings > Google & search). Canonical base is `SITE_URL` (config.php). New public pages: add to `seo_pages()`, `sitemap.xml` and `.htaccess`.
+- `.htaccess` also blocks `*.sql`/`*.md`, `includes/`, scripts in `uploads/`, redirects www -> non-www, and gzips text. `robots.txt` disallows `/admin/` (admin pages also send noindex). Below-the-fold images use `loading="lazy"`; keep hero/logo images eager.
 - `includes/maintenance.php` — `maybe_show_maintenance_page()` returns 503 to non-admins when setting `maintenance_mode = 1`.
 
 ## Admin (`/admin`, session login, CSRF on every POST)

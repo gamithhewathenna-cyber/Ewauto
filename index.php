@@ -4,6 +4,7 @@ require_once __DIR__ . '/admin/auth.php';
 require_once __DIR__ . '/includes/maintenance.php';
 require_once __DIR__ . '/includes/contact_form.php';
 require_once __DIR__ . '/includes/social.php';
+require_once __DIR__ . '/includes/seo.php';
 
 // Graceful DB handling - the page still renders with placeholders if the DB
 // is unreachable, so the layout can be reviewed before setup is complete.
@@ -76,7 +77,7 @@ $heroSpecFields = [
 ];
 $firstSlide = $slides[0] ?? null;
 $initialTitle = ($firstSlide && $firstSlide['heading'] !== '') ? $firstSlide['heading'] : $c('hero_title', 'DREAM');
-$initialCopy  = ($firstSlide && $firstSlide['subheading'] !== '') ? $firstSlide['subheading'] : $c('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.');
+$initialCopy  = ($firstSlide && $firstSlide['subheading'] !== '') ? $firstSlide['subheading'] : $c('hero_copy', 'Electric scooters and e-bikes built for everyday riding - efficient, economical and ready for the road.');
 $initialHref  = ($firstSlide && $firstSlide['link_url'] !== '') ? $firstSlide['link_url'] : '#feature';
 $initialSpecs = [];
 foreach ($heroSpecFields as $col => $meta) {
@@ -88,8 +89,7 @@ foreach ($heroSpecFields as $col => $meta) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EW Auto - Let's Ride the Dream</title>
-<meta name="description" content="EW Auto electric scooters and e-mobility. Worldwide reach, built to ride the dream.">
+<?php render_seo_head('home', $images, $content, !empty($slides[0]['filename']) ? UPLOAD_URL . '/' . rawurlencode($slides[0]['filename']) : image_url($images, 'hero_scooter')); ?>
 <?php if ($url = image_url($images, 'favicon')): ?><link rel="icon" href="<?= e($url) ?>"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,7 +160,7 @@ foreach ($heroSpecFields as $col => $meta) {
                 <p class="hero-eyebrow"><?= e($c('hero_eyebrow', "LET'S RIDE THE")) ?></p>
                 <h1 class="hero-title" data-default="<?= e($c('hero_title', 'DREAM')) ?>"><?= e($initialTitle) ?></h1>
                 <div class="hero-rule"><span class="dot"></span><span class="bar"></span></div>
-                <p class="hero-copy" data-default="<?= e($c('hero_copy', 'Lorem ipsum dolor sit amet consectetur. Erat dui rhoncus consectetur tincidunt. Mi felis odio consectetur est.')) ?>"><?= e($initialCopy) ?></p>
+                <p class="hero-copy" data-default="<?= e($c('hero_copy', 'Electric scooters and e-bikes built for everyday riding - efficient, economical and ready for the road.')) ?>"><?= e($initialCopy) ?></p>
                 <div class="hero-cta">
                     <a href="<?= e($initialHref) ?>" class="btn" id="heroCta" data-default-href="#feature"><?= e($c('hero_cta_label', 'Learn more')) ?> <span class="arrow">&rsaquo;</span></a>
                 </div>
@@ -202,7 +202,7 @@ foreach ($heroSpecFields as $col => $meta) {
 <section class="lineup reveal">
     <div class="wrap">
         <?php if ($url = image_url($images, 'lineup_vehicles')): ?>
-            <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'lineup_vehicles', 'Vehicle lineup')) ?>">
+            <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'lineup_vehicles', 'Vehicle lineup')) ?>">
         <?php else: ?>
             <div class="placeholder">Product lineup row</div>
         <?php endif; ?>
@@ -279,7 +279,7 @@ foreach ($heroSpecFields as $col => $meta) {
                             </div>
                             <div class="bike-detail-visual" data-tilt>
                                 <?php foreach ($bike['colors'] as $ci => $col): ?>
-                                    <img class="bike-color-img <?= $ci === 0 ? 'is-active' : '' ?>" data-index="<?= $ci ?>"
+                                    <img loading="lazy" decoding="async" class="bike-color-img <?= $ci === 0 ? 'is-active' : '' ?>" data-index="<?= $ci ?>"
                                          src="<?= e(UPLOAD_URL . '/' . rawurlencode($col['filename'])) ?>" alt="<?= e($col['alt_text'] ?: $bike['name']) ?>">
                                 <?php endforeach; ?>
                             </div>
@@ -311,7 +311,7 @@ foreach ($heroSpecFields as $col => $meta) {
                 <div class="testimonial">
                     <div class="testimonial-head">
                         <?php if ($url = image_url($images, 'testimonial_avatar')): ?>
-                            <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'testimonial_avatar', 'Customer')) ?>">
+                            <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'testimonial_avatar', 'Customer')) ?>">
                         <?php else: ?>
                             <div class="placeholder"></div>
                         <?php endif; ?>
@@ -329,7 +329,7 @@ foreach ($heroSpecFields as $col => $meta) {
             </div>
             <div class="world-map">
                 <?php if ($url = image_url($images, 'world_map')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'world_map', 'World map')) ?>">
+                    <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'world_map', 'World map')) ?>">
                 <?php else: ?>
                     <div class="placeholder">World map</div>
                 <?php endif; ?>
@@ -371,7 +371,7 @@ foreach ($heroSpecFields as $col => $meta) {
     <div class="wrap">
         <div class="cta-card">
             <?php if ($url = image_url($images, 'cta_rider')): ?>
-                <img class="cta-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'cta_rider', 'Rider')) ?>">
+                <img loading="lazy" decoding="async" class="cta-bg" data-parallax="0.15" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'cta_rider', 'Rider')) ?>">
             <?php endif; ?>
             <div class="cta-inner">
                 <h2><?= e($c('cta_heading', 'LOREM IPSUM DOLOR SITUR.')) ?></h2>
@@ -394,7 +394,7 @@ foreach ($heroSpecFields as $col => $meta) {
         <div class="footer-grid">
             <div class="footer-brand">
                 <?php if ($url = image_url($images, 'logo_footer')): ?>
-                    <img src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
+                    <img loading="lazy" decoding="async" src="<?= e($url) ?>" alt="<?= e(image_alt($images, 'logo_footer', 'EW Auto')) ?>">
                 <?php else: ?>
                     <span class="brand-fallback" style="color:#fff"><span class="brand-mark">&#9883;</span>EW Auto</span>
                 <?php endif; ?>

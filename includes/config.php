@@ -14,6 +14,10 @@ define('DB_PORT', getenv('DB_PORT') ?: '3306');
 // Absolute URL/path base. Leave '' if the site is at the web root.
 define('BASE_URL', getenv('BASE_URL') ?: '');
 
+// Public address of the live site (no trailing slash). Used for canonical
+// URLs, the sitemap and social-sharing previews.
+define('SITE_URL', rtrim(getenv('SITE_URL') ?: 'https://ewautomobile.com', '/'));
+
 // Where uploaded images are stored (relative to project root).
 define('UPLOAD_DIR', __DIR__ . '/../uploads');
 define('UPLOAD_URL', BASE_URL . '/uploads');
