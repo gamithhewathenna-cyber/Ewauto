@@ -6,9 +6,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 /**
- * User roles. Administrators can do everything; content editors can only
- * edit page text and images (Admin > Home / About Us / Contact us) and
- * their own account.
+ * User roles. Administrators can do everything; content editors can edit
+ * website content - page text and images (Home / About Us / Contact us),
+ * the hero slider, bikes and their colours, and dealerships - plus their
+ * own account. Users, Settings and the Dashboard stay administrator-only.
  */
 const ROLES = [
     'admin'  => 'Administrator',
@@ -20,7 +21,10 @@ const ROLES = [
  * listed is administrator-only, so new screens are locked down by default.
  */
 const ROLE_PAGES = [
-    'editor' => ['content.php', 'account.php', 'index.php', 'logout.php'],
+    'editor' => [
+        'content.php', 'slides.php', 'bikes.php', 'bike_colors.php', 'dealers.php',
+        'account.php', 'index.php', 'logout.php',
+    ],
 ];
 
 /**

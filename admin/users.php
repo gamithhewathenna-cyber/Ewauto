@@ -4,7 +4,7 @@ require_once __DIR__ . '/layout.php';
 
 const ROLE_DESCRIPTIONS = [
     'admin'  => 'Full access to everything, including users and settings.',
-    'editor' => 'Can only edit page text and upload images on the Home, About Us and Contact us pages.',
+    'editor' => 'Can edit page text and images (Home, About Us, Contact us), Slider Images, Bikes and Dealerships. Cannot open Users or Settings.',
 ];
 
 $notice = '';
