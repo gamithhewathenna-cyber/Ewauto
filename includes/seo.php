@@ -7,6 +7,13 @@
  * codes are editable in Admin > Settings (setting keys seo_*).
  */
 
+/**
+ * Google Search Console ownership code for ewautomobile.com. Used when the
+ * "Google Search Console verification" field in Admin > Settings is empty.
+ * Keep it in place after verifying - Google re-checks it periodically.
+ */
+const DEFAULT_GOOGLE_SITE_VERIFICATION = 'tr8XlEJn61aLPoimxBdZs4lVKl5tMULF-hv_N8-y0Fc';
+
 /** The indexable public pages, with default titles/descriptions. */
 function seo_pages(): array
 {
@@ -68,10 +75,11 @@ function render_seo_head(string $pageKey, array $images, array $content, string 
     try {
         $title       = get_setting('seo_' . $pageKey . '_title') ?: $page['title'];
         $description = get_setting('seo_' . $pageKey . '_description') ?: $page['description'];
-        $verify      = get_setting('google_site_verification');
+        $verify      = get_setting('google_site_verification') ?: DEFAULT_GOOGLE_SITE_VERIFICATION;
         $gaId        = get_setting('ga_measurement_id');
     } catch (Throwable $ex) { // DB unreachable - fall back to defaults
-        $title = $page['title']; $description = $page['description']; $verify = ''; $gaId = '';
+        $title = $page['title']; $description = $page['description'];
+        $verify = DEFAULT_GOOGLE_SITE_VERIFICATION; $gaId = '';
     }
     $canonical = SITE_URL . $page['path'];
     $logo      = absolute_url(image_url($images, 'logo_header'));
