@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="login-page">
     <form class="login-card" method="post" autocomplete="off">
         <div class="login-brand"><span class="brand-mark">&#9883;</span> EW Auto Admin</div>
-        <p class="login-sub">Sign in to manage site images.</p>
+        <p class="login-sub">Sign in to manage the website.</p>
         <?php if ($error): ?><div class="alert error"><?= e($error) ?></div><?php endif; ?>
         <label>Username
             <input type="text" name="username" required autofocus>
@@ -44,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" name="password" required>
         </label>
         <button type="submit" class="btn-primary">Sign in</button>
-        <p class="login-hint">Default: <code>admin</code> / <code>admin123</code></p>
     </form>
 </body>
 </html>
